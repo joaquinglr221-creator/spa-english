@@ -212,13 +212,25 @@ function menu() {
     .join("");
 }
 
+// Logotipos del hotel: solo cuando la app se abre desde el servidor del hotel (/apps/spa/, el mismo
+// caso en que USO registra la actividad). La versión de internet no los muestra ni los incluye
+// (scripts/publicar.py deja fuera images/logos/).
+const BRANDS = USO.active
+  ? `
+    <header class="brands">
+      <img src="images/logos/secrets-riviera-cancun.png" alt="Secrets Riviera Cancún Resort & Spa">
+      <img src="images/logos/breathless-riviera-cancun.png" alt="Breathless Riviera Cancún Resort & Spa">
+      <img src="images/logos/world-of-hyatt-inclusive-collection.svg" alt="World of Hyatt Inclusive Collection">
+    </header>`
+  : "";
+
 function view(catId) {
   const cat = VOCAB.find((c) => c.id === catId);
   currentWords = cat ? cat.words : [];
   const search = `<input id="search" class="search" type="search" placeholder="Buscar en inglés o español…" autocomplete="off">`;
   if (cat) {
     const learned = cat.words.filter((w) => known.has(w.en)).length;
-    return `
+    return `${BRANDS}
     <a class="back" href="#/">← Todas las categorías</a>
     ${search}
     <h2 class="section-title cat-head">${catIcon(cat, "md")}<span>${esc(cat.title)} <span class="muted">· ${learned} de ${cat.words.length}</span></span></h2>
@@ -227,7 +239,7 @@ function view(catId) {
     <a class="float-back" href="#/" aria-label="Volver a las categorías">← Categorías</a>`;
   }
   const pct = Math.round((known.size / ALL_WORDS.length) * 100);
-  return `
+  return `${BRANDS}
     ${USO.badge()}
     <section class="hero">
       ${catIcon({ id: "spa", icon: "🪷" }, "hero-icon")}

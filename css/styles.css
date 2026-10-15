@@ -321,6 +321,15 @@ mark { background: #ffd966; color: #1d2422; font-weight: 700; border-radius: 4px
 .cat-head { display: flex; align-items: center; gap: 10px; }
 .back { display: inline-block; margin: 6px 0 12px; color: var(--accent); font-weight: 600; }
 
+/* Logotipos del hotel (solo en la app del hotel): siempre sobre blanco para que se lean también en modo oscuro */
+.brands {
+  display: flex; align-items: center; justify-content: space-around; gap: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px 14px; margin: 4px 0 10px;
+}
+.brands img { min-width: 0; flex: 1 1 0; height: 46px; object-fit: contain; }
+@media (min-width: 600px) { .brands img { height: 58px; } }
+
 /* Ficha técnica completa (Tipos de masaje) */
 .sheet-btn { margin-top: 2px; }
 .sheet-view { position: fixed; inset: 0; z-index: 10; background: rgba(0, 0, 0, 0.92); overflow: auto; -webkit-overflow-scrolling: touch; }
