@@ -46,3 +46,26 @@ const ICONS = {
   // guion: hoja con diálogo (Script de servicio AAA, no es categoría)
   script: '<path d="M6 3h9l4 4v14H6zM15 3v4h4M9 11h7M9 14.5h7M9 18h4"/>',
 };
+
+// Íconos de las 11 etapas del Script de servicio AAA (js/service-script.js): "st-<id de la etapa>".
+// Varias reutilizan el dibujo de una categoría con el mismo tema.
+Object.assign(ICONS, {
+  // mano saludando
+  "st-welcome": ICONS.tecnicas + '<path d="M18.5 3.5c1.2.9 1.9 2.2 2 3.7M20.5 2c1.5 1.3 2.4 3 2.5 5"/>',
+  "st-confirm": ICONS.recepcion,
+  "st-consultation": ICONS.salud,
+  // globo de diálogo
+  "st-explain": '<path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3.5V17H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM7 9h10M7 12.5h7"/>',
+  "st-personalize": ICONS.aromas,
+  "st-prepare": ICONS.posiciones,
+  "st-during": ICONS.tratamientos,
+  // corazón
+  "st-concern": '<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/>',
+  // taza de té con vapor
+  "st-followup": '<path d="M5 9.5h11v4.5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 11h1.5a2.5 2.5 0 0 1 0 5H16M8.5 3.5c-.6.8.6 1.6 0 2.5M12 3.5c-.6.8.6 1.6 0 2.5M4 21.5h13"/>',
+  // estrella
+  "st-recommend": '<path d="M12 3.5l2.4 5.1 5.6.7-4.1 3.9 1 5.5L12 16l-4.9 2.7 1-5.5L4 9.3l5.6-.7z"/>',
+  // hoja
+  "st-farewell": '<path d="M5 19.5C5 10.5 11 5 20 4c-1 9-6.5 15.5-15 15.5zM5 19.5l8.5-8.5"/>',
+});
+

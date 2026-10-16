@@ -229,10 +229,24 @@ const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
 let practiceScript = false;
 const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped" };
 
+const stageIcon = (st, size) => catIcon({ id: `st-${st.id}`, icon: st.icon }, size);
+
+// Sin etapa: las 11 etapas en recuadros, como el menú de categorías.
+function viewScriptMenu() {
+  return `${BRANDS}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <h2 class="section-title cat-head">${catIcon({ id: "script", icon: "📜" }, "md")}<span>Script de servicio AAA</span></h2>
+    <p class="muted">Guion de la terapeuta, de la bienvenida a la despedida. Elige un paso; cada uno tiene los estándares AAA y el diálogo con audio.</p>
+    <div class="grid menu">${STAGES.map(
+      (st, n) => `<a class="tile" href="#/script/${st.id}">${stageIcon(st)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
+    ).join("")}</div>
+    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+}
+
 function viewScript(stageId) {
+  if (!stageId) return viewScriptMenu();
   const i = Math.max(0, STAGES.findIndex((st) => st.id === stageId));
   const st = STAGES[i];
-  const nav = STAGES.map((x, n) => `<a class="chip small ${x === st ? "active" : ""}" href="#/script/${x.id}">${n + 1}. ${x.icon} ${esc(x.titleEs)}</a>`).join("");
   const lines = st.lines
     .map(
       (l) => `
@@ -247,14 +261,13 @@ function viewScript(stageId) {
     .join("");
   const prev = STAGES[i - 1], next = STAGES[i + 1];
   return `${BRANDS}
-    <a class="back" href="#/">← Todas las categorías</a>
-    <h2 class="section-title cat-head">${catIcon({ id: "script", icon: "📜" }, "md")}<span>Script de servicio AAA</span></h2>
-    <p class="muted">Guion de la terapeuta, de la bienvenida a la despedida, con los estándares AAA de cada etapa.</p>
-    <div class="chips script-nav">${nav}</div>
+    <a class="back" href="#/script">← Los 11 pasos del script</a>
     <section class="card">
-      <p class="label">Etapa ${i + 1} de ${STAGES.length}</p>
-      <h2 class="stage-title">${st.icon} ${esc(st.title)}</h2>
-      <p class="muted">${esc(st.titleEs)}</p>
+      <div class="cat-head">${stageIcon(st, "md")}<div>
+        <p class="label">Paso ${i + 1} de ${STAGES.length}</p>
+        <h2 class="stage-title">${esc(st.title)}</h2>
+        <p class="muted">${esc(st.titleEs)}</p>
+      </div></div>
       <div class="standards">
         <p class="label">⭐ Estándares AAA</p>
         <ul>${st.standards.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
@@ -267,7 +280,7 @@ function viewScript(stageId) {
     <div class="dialogue ${practiceScript ? "practice" : ""}">${lines}</div>
     <div class="row between stage-nav">
       ${prev ? `<a class="btn ghost small" href="#/script/${prev.id}">← ${esc(prev.titleEs)}</a>` : "<span></span>"}
-      ${next ? `<a class="btn small" href="#/script/${next.id}">${esc(next.titleEs)} →</a>` : `<a class="btn small" href="#/">Terminar ✓</a>`}
+      ${next ? `<a class="btn small" href="#/script/${next.id}">${esc(next.titleEs)} →</a>` : `<a class="btn small" href="#/script">Terminar ✓</a>`}
     </div>`;
 }
 
@@ -347,7 +360,8 @@ function render() {
   if (viewed) USO.track("category", { category: viewed.title });
   window.scrollTo(0, 0);
   if (id === "script" || id.startsWith("script/")) {
-    const st = STAGES.find((x) => x.id === id.split("/")[1]) || STAGES[0];
+    const st = STAGES.find((x) => x.id === id.split("/")[1]);
+    if (!st) return; // menú de los 11 pasos
     USO.track("script", { category: `Script de servicio: ${st.titleEs}` });
     $("#play-stage").onclick = () => speakAll(st.lines.map((l) => l.en));
     $("#practice-toggle").onchange = (e) => {
