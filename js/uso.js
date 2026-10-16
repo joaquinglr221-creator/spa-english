@@ -150,18 +150,21 @@ const USO = (() => {
     document.addEventListener("visibilitychange", () => document.visibilityState === "hidden" && flush());
   }
 
-  // Nombre del colega en pantalla, con opción de cambiar de usuario (celular compartido).
+  // Nombre del colega en pantalla y botón para salir (cerrar su sesión; sirve también en celulares compartidos).
   function badge() {
     if (!ACTIVE || !user) return "";
     const who = user.full_name || `Colaborador ${user.employee_no}`;
-    return `<p class="uso-badge">👤 ${escape(who)} · <button type="button" data-uso-logout>No soy yo</button></p>`;
+    return `<div class="uso-badge"><span>👤 ${escape(who)}</span><button type="button" class="uso-exit" data-uso-logout>🚪 Salir</button></div>`;
   }
 
-  document.addEventListener("click", (e) => {
+  // Salir: manda lo pendiente y vuelve a la pantalla de bienvenida (pide el número otra vez).
+  document.addEventListener("click", async (e) => {
     if (!e.target.closest("[data-uso-logout]")) return;
-    flush();
+    if (!confirm("¿Quieres salir de la app?\n\nTu avance queda guardado. La próxima vez escribe tu número de colaborador para entrar.")) return;
+    await flush();
     user = null;
     save(KEY_USER, null);
+    location.hash = "#/";
     askEmployeeNumber();
   });
 

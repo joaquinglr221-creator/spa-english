@@ -365,8 +365,9 @@ a.btn.center { text-align: center; }
   color: var(--text); font: inherit; font-size: 1.1rem; }
 .uso-error { color: var(--bad); font-size: 0.9rem; }
 .uso-note { color: var(--muted); font-size: 0.78rem; }
-.uso-badge { font-size: 0.85rem; color: var(--muted); margin: 0 0 8px; }
-.uso-badge button { border: none; background: none; color: var(--accent); text-decoration: underline; padding: 0; font: inherit; cursor: pointer; }
+.uso-badge { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.9rem; color: var(--muted); margin: 0 0 10px; }
+.uso-badge span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.uso-exit { flex-shrink: 0; border: 1.5px solid var(--accent); background: var(--surface); color: var(--accent); border-radius: 99px; padding: 6px 14px; font: inherit; font-weight: 600; cursor: pointer; }
 
 /* Script de servicio AAA */
 .script-cta { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1.5px solid var(--accent); border-radius: var(--radius); padding: 14px 16px; margin: 4px 0 6px; }

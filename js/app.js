@@ -234,6 +234,7 @@ const stageIcon = (st, size) => catIcon({ id: `st-${st.id}`, icon: st.icon }, si
 // Sin etapa: las 11 etapas en recuadros, como el menú de categorías.
 function viewScriptMenu() {
   return `${BRANDS}
+    ${USO.badge()}
     <a class="back" href="#/">← Todas las categorías</a>
     <h2 class="section-title cat-head">${catIcon({ id: "script", icon: "📜" }, "md")}<span>Script de servicio AAA</span></h2>
     <p class="muted">Guion de la terapeuta, de la bienvenida a la despedida. Elige un paso; cada uno tiene los estándares AAA y el diálogo con audio.</p>
@@ -261,6 +262,7 @@ function viewScript(stageId) {
     .join("");
   const prev = STAGES[i - 1], next = STAGES[i + 1];
   return `${BRANDS}
+    ${USO.badge()}
     <a class="back" href="#/script">← Los 11 pasos del script</a>
     <section class="card">
       <div class="cat-head">${stageIcon(st, "md")}<div>
@@ -320,6 +322,7 @@ function view(catId) {
   if (cat) {
     const learned = cat.words.filter((w) => known.has(w.en)).length;
     return `${BRANDS}
+    ${USO.badge()}
     <a class="back" href="#/">← Todas las categorías</a>
     ${search}
     <h2 class="section-title cat-head">${catIcon(cat, "md")}<span>${esc(cat.title)} <span class="muted">· ${learned} de ${cat.words.length}</span></span></h2>
