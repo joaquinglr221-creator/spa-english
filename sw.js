@@ -3,7 +3,7 @@
 //   actualizaciones lleguen en cuanto haya señal.
 // - Imágenes y audios se guardan la primera vez que se usan y desde ahí salen del celular.
 // scripts/publicar.py cambia VERSION en cada publicación para renovar lo guardado.
-const VERSION = "20261016-0659-a0eb363";
+const VERSION = "20261016-1142-090ebc5";
 const SHELL_CACHE = `app-${VERSION}`;
 const MEDIA_CACHE = `media-${VERSION}`;
 const SHELL = [
@@ -14,6 +14,7 @@ const SHELL = [
   "js/data.js",
   "js/images.js",
   "js/icons.js",
+  "js/service-script.js",
   "js/audio-base.js",
   "js/uso.js",
   "js/app.js",

@@ -224,7 +224,82 @@ const BRANDS = USO.hotel
     </header>`
   : "";
 
+// ---------- Script de servicio (js/service-script.js) ----------
+const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
+let practiceScript = false;
+const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped" };
+
+function viewScript(stageId) {
+  const i = Math.max(0, STAGES.findIndex((st) => st.id === stageId));
+  const st = STAGES[i];
+  const nav = STAGES.map((x, n) => `<a class="chip small ${x === st ? "active" : ""}" href="#/script/${x.id}">${n + 1}. ${x.icon} ${esc(x.titleEs)}</a>`).join("");
+  const lines = st.lines
+    .map(
+      (l) => `
+      <div class="line ${l.who}">
+        <p class="who">${WHO[l.who]}</p>
+        ${l.avoid ? `<p class="avoid">✗ ${esc(l.avoid)}</p>` : ""}
+        <p class="en reveal">${l.avoid ? "✓ " : ""}${esc(l.en)}</p>
+        <p class="es">${esc(l.es)}</p>
+        <div class="row">${speakButtons(l.en)}</div>
+      </div>`
+    )
+    .join("");
+  const prev = STAGES[i - 1], next = STAGES[i + 1];
+  return `${BRANDS}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <h2 class="section-title cat-head">${catIcon({ id: "script", icon: "📜" }, "md")}<span>Script de servicio AAA</span></h2>
+    <p class="muted">Guion de la terapeuta, de la bienvenida a la despedida, con los estándares AAA de cada etapa.</p>
+    <div class="chips script-nav">${nav}</div>
+    <section class="card">
+      <p class="label">Etapa ${i + 1} de ${STAGES.length}</p>
+      <h2 class="stage-title">${st.icon} ${esc(st.title)}</h2>
+      <p class="muted">${esc(st.titleEs)}</p>
+      <div class="standards">
+        <p class="label">⭐ Estándares AAA</p>
+        <ul>${st.standards.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      </div>
+    </section>
+    <div class="row between">
+      <button class="btn small" id="play-stage">▶ Escuchar todo el diálogo</button>
+      <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>
+    </div>
+    <div class="dialogue ${practiceScript ? "practice" : ""}">${lines}</div>
+    <div class="row between stage-nav">
+      ${prev ? `<a class="btn ghost small" href="#/script/${prev.id}">← ${esc(prev.titleEs)}</a>` : "<span></span>"}
+      ${next ? `<a class="btn small" href="#/script/${next.id}">${esc(next.titleEs)} →</a>` : `<a class="btn small" href="#/">Terminar ✓</a>`}
+    </div>`;
+}
+
+// Reproduce varias frases seguidas (el diálogo completo de una etapa).
+let playQueue = null;
+function speakAll(texts) {
+  const run = { stop: false };
+  if (playQueue) playQueue.stop = true;
+  playQueue = run;
+  const next = (n) => {
+    if (run.stop || n >= texts.length) return;
+    const clean = spokenText(texts[n]);
+    const key = audioKey(clean);
+    if (currentAudio) currentAudio.pause();
+    if (useRecorded && RECORDED[key]) {
+      currentAudio = new Audio(`audio/${RECORDED[key]}/${key}.m4a`);
+      currentAudio.onended = () => setTimeout(() => next(n + 1), 350);
+      currentAudio.play().catch(() => next(n + 1));
+    } else if ("speechSynthesis" in window) {
+      const u = new SpeechSynthesisUtterance(clean);
+      u.lang = "en-US";
+      if (englishVoice) u.voice = englishVoice;
+      u.rate = 0.95;
+      u.onend = () => setTimeout(() => next(n + 1), 350);
+      speechSynthesis.speak(u);
+    }
+  };
+  next(0);
+}
+
 function view(catId) {
+  if (catId === "script" || catId.startsWith("script/")) return viewScript(catId.split("/")[1]);
   const cat = VOCAB.find((c) => c.id === catId);
   currentWords = cat ? cat.words : [];
   const search = `<input id="search" class="search" type="search" placeholder="Buscar en inglés o español…" autocomplete="off">`;
@@ -259,6 +334,7 @@ function view(catId) {
     </section>
 
     ${search}
+    ${STAGES.length ? `<a class="script-cta" href="#/script">${catIcon({ id: "script", icon: "📜" })}<span><b>Script de servicio AAA</b><small>Guion de la bienvenida a la despedida, con audio y modo práctica</small></span><span class="script-cta-go">→</span></a>` : ""}
     <h2 class="section-title">Categorías</h2>
     <div id="word-list">${menu()}</div>`;
 }
@@ -270,6 +346,16 @@ function render() {
   const viewed = VOCAB.find((c) => c.id === id);
   if (viewed) USO.track("category", { category: viewed.title });
   window.scrollTo(0, 0);
+  if (id === "script" || id.startsWith("script/")) {
+    const st = STAGES.find((x) => x.id === id.split("/")[1]) || STAGES[0];
+    USO.track("script", { category: `Script de servicio: ${st.titleEs}` });
+    $("#play-stage").onclick = () => speakAll(st.lines.map((l) => l.en));
+    $("#practice-toggle").onchange = (e) => {
+      practiceScript = e.target.checked;
+      $(".dialogue").classList.toggle("practice", practiceScript);
+    };
+    return;
+  }
   const onMenu = !VOCAB.some((c) => c.id === id);
   $("#search").oninput = (e) => {
     const q = e.target.value.trim().toLowerCase();
@@ -282,7 +368,13 @@ function render() {
 // Clics delegados para los botones que se repiten en toda la página
 document.addEventListener("click", (e) => {
   const speakBtn = e.target.closest("[data-speak]");
-  if (speakBtn) return speak(speakBtn.dataset.speak, speakBtn.hasAttribute("data-slow"));
+  if (speakBtn) {
+    if (playQueue) playQueue.stop = true;
+    return speak(speakBtn.dataset.speak, speakBtn.hasAttribute("data-slow"));
+  }
+
+  const hidden = e.target.closest(".practice .line");
+  if (hidden && !e.target.closest("button")) hidden.classList.toggle("revealed");
 
   const zoom = e.target.closest("[data-zoom]");
   if (zoom) {

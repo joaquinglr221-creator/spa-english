@@ -43,4 +43,6 @@ const ICONS = {
   verbos: '<path d="M4 4h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3.5V14H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM20 9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-1v3l-3.5-3H11M6 8h7M6 11h4"/>',
   // piedras calientes apiladas con vapor
   masajes: '<ellipse cx="12" cy="18" rx="7" ry="2.5"/><ellipse cx="12" cy="13.2" rx="5" ry="2"/><ellipse cx="12" cy="9.2" rx="3.3" ry="1.6"/><path d="M10 5.8c-.6-.8.6-1.5 0-2.4M14 5.8c-.6-.8.6-1.5 0-2.4"/>',
+  // guion: hoja con diálogo (Script de servicio AAA, no es categoría)
+  script: '<path d="M6 3h9l4 4v14H6zM15 3v4h4M9 11h7M9 14.5h7M9 18h4"/>',
 };
