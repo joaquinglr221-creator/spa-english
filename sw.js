@@ -1,9 +1,9 @@
 // Modo sin internet de la app publicada (solo funciona en https o en localhost).
 // - La app (html, css, js) se guarda al instalar y se pide primero a internet, para que las
 //   actualizaciones lleguen en cuanto haya señal.
-// - Imágenes y audios se guardan la primera vez que se usan y desde ahí salen del celular.
+// - Imágenes, audios y videos se guardan la primera vez que se usan y desde ahí salen del celular.
 // scripts/publicar.py cambia VERSION en cada publicación para renovar lo guardado.
-const VERSION = "20261016-1156-bfe1091";
+const VERSION = "20261016-1240-aea858e";
 const SHELL_CACHE = `app-${VERSION}`;
 const MEDIA_CACHE = `media-${VERSION}`;
 const SHELL = [
@@ -38,7 +38,7 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   const url = new URL(req.url);
   if (req.method !== "GET" || url.origin !== location.origin || url.pathname.includes("/api/")) return;
-  if (/\/(audio|images)\//.test(url.pathname)) e.respondWith(media(req));
+  if (/\/(audio|images|videos)\//.test(url.pathname)) e.respondWith(media(req));
   else e.respondWith(shell(req));
 });
 

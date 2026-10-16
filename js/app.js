@@ -273,6 +273,7 @@ function viewScript(stageId) {
         <ul>${st.standards.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
       </div>
     </section>
+    ${st.video ? `<video class="stage-video" controls playsinline preload="metadata" src="${esc(st.video)}#t=0.5"></video>` : ""}
     <div class="row between">
       <button class="btn small" id="play-stage">▶ Escuchar todo el diálogo</button>
       <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>
