@@ -32,7 +32,10 @@ const USO = (() => {
   };
   const escape = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+  // v: 2 = sesión iniciada con número + PIN. Las sesiones de antes del PIN lo piden una vez.
   let user = load(KEY_USER, null);
+  if (user && user.v !== 2) user = null;
+  let fallos = 0;
   let queue = load(KEY_QUEUE, []);
   let lastInteraction = Date.now();
   let sending = false;
@@ -75,17 +78,28 @@ const USO = (() => {
     sending = false;
   }
 
+  // Huella PBKDF2 de "número:PIN", igual que scripts/generar_acceso.py.
+  async function accesoValido(numero, pin) {
+    if (typeof ACCESO === "undefined" || !(crypto && crypto.subtle)) return false;
+    const enc = new TextEncoder();
+    const clave = await crypto.subtle.importKey("raw", enc.encode(`${numero}:${pin}`), "PBKDF2", false, ["deriveBits"]);
+    const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: enc.encode(ACCESO.sal), iterations: ACCESO.iteraciones }, clave, 256);
+    const hex = [...new Uint8Array(bits)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, ACCESO.largo);
+    return ACCESO.huellas.includes(hex);
+  }
+
   function askEmployeeNumber() {
     const box = document.createElement("div");
     box.className = "uso-overlay";
     box.innerHTML = `
       <form class="uso-card">
         <h2>¡Bienvenido!</h2>
-        <p>Escribe tu <b>número de colaborador</b> para guardar tu avance.</p>
+        <p>Escribe tu <b>número de colaborador</b> y tu <b>PIN</b> para entrar.</p>
         <input name="employee_no" inputmode="numeric" autocomplete="off" placeholder="Número de colaborador" required>
+        <input name="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="PIN (4 dígitos)" required>
         <p class="uso-error" hidden></p>
         <button class="btn full" type="submit">Entrar</button>
-        <p class="uso-note">Tu avance (palabras aprendidas, tiempo de estudio y resultados de práctica) se registra para el seguimiento de tu capacitación de inglés.</p>
+        <p class="uso-note">¿No tienes tu PIN? Pídelo a tu instructor de inglés. Tu avance (palabras aprendidas, tiempo de estudio y resultados de práctica) se registra para el seguimiento de tu capacitación de inglés.</p>
       </form>`;
     document.body.appendChild(box);
     const form = box.querySelector("form");
@@ -94,15 +108,21 @@ const USO = (() => {
     form.onsubmit = async (e) => {
       e.preventDefault();
       error.hidden = true;
+      const fallar = (msg) => {
+        error.textContent = msg;
+        error.hidden = false;
+      };
+      const employeeNo = form.employee_no.value.trim();
+      const pin = form.pin.value.trim();
+      if (!/^[0-9A-Za-z-]{1,15}$/.test(employeeNo) || !/^\d{4}$/.test(pin)) return fallar("Escribe tu número de colaborador y tu PIN de 4 dígitos.");
+      if (fallos >= 5) return fallar("Demasiados intentos. Cierra la app y vuelve a intentarlo más tarde.");
       if (REMOTE) {
-        // Desde internet no se puede consultar el sistema del hotel: se acepta el número tal cual.
-        const employeeNo = form.employee_no.value.trim();
-        if (!/^[0-9A-Za-z-]{1,15}$/.test(employeeNo)) {
-          error.textContent = "Escribe solo tu número de colaborador.";
-          error.hidden = false;
-          return;
+        // Desde internet se compara con la lista cifrada de colaboradores activos (js/acceso.js).
+        if (!(await accesoValido(employeeNo, pin))) {
+          fallos++;
+          return fallar("El número o el PIN no son correctos.");
         }
-        user = { employee_no: employeeNo, full_name: null };
+        user = { employee_no: employeeNo, full_name: null, v: 2 };
         save(KEY_USER, user);
         box.remove();
         track("open");
@@ -114,11 +134,11 @@ const USO = (() => {
         const res = await fetch("/api/app-usage/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ employee_no: form.employee_no.value.trim() }),
+          body: JSON.stringify({ app: APP, employee_no: employeeNo, pin }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "No se pudo validar el número.");
-        user = { employee_no: data.employee_no, full_name: data.full_name };
+        user = { employee_no: data.employee_no, full_name: data.full_name, v: 2 };
         save(KEY_USER, user);
         box.remove();
         track("open");
