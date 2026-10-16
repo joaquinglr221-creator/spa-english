@@ -226,6 +226,7 @@ const BRANDS = USO.hotel
 
 // ---------- Script de servicio (js/service-script.js) ----------
 const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
+const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/videos.js
 let practiceScript = false;
 const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped" };
 
@@ -275,7 +276,7 @@ function viewScript(stageId) {
         <ul>${st.standards.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
       </div>
     </section>
-    ${st.video ? `<video class="stage-video" controls playsinline preload="metadata" src="${esc(st.video)}#t=0.5"></video>` : ""}
+    ${VIDEOS[st.id] ? `<video class="stage-video" controls playsinline preload="metadata" src="${esc(VIDEOS[st.id])}#t=0.5"></video>` : ""}
     <div class="row between">
       <button class="btn small" id="play-stage">▶ Escuchar todo el diálogo</button>
       <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>

@@ -2,13 +2,12 @@
 // Basado en "English for Spa Therapists – AAA Guest Service" (filosofía AAA: Welcome → Recognize →
 // Discover → Anticipate → Personalize → Deliver → Follow up → Farewell; las 4 C: Cleanliness,
 // Comfort, Cuisine, Consistency). who: "therapist" (terapeuta) o "guest" (huésped);
-// avoid: la frase que NO se debe decir, en lugar de la correcta; video: su video corto
-// (scripts/generar_videos.py).
+// avoid: la frase que NO se debe decir, en lugar de la correcta. Los videos de cada paso están en
+// js/videos.js (scripts/generar_videos.py).
 
 const SERVICE_SCRIPT = [
   {
     id: "welcome", icon: "👋", title: "Welcome & Introduction", titleEs: "Bienvenida y presentación",
-    video: "videos/script/welcome.mp4",
     standards: [
       "Recibir al huésped de pie, con contacto visual, una sonrisa y voz tranquila.",
       "Saludar según la hora del día y presentarse con su nombre y función.",
@@ -26,7 +25,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "confirm", icon: "📋", title: "Confirming the Reservation", titleEs: "Confirmar la reservación",
-    video: "videos/script/confirm.mp4",
     standards: [
       "Confirmar nombre, tratamiento, duración y hora antes de pasar a la cabina.",
       "Si hay un error en la reservación, resolverlo con calma y sin culpar al huésped.",
@@ -43,7 +41,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "consultation", icon: "🩺", title: "Health & Wellness Consultation", titleEs: "Consulta de salud y bienestar",
-    video: "videos/script/consultation.mp4",
     standards: [
       "Hacer siempre las preguntas de salud antes de comenzar (alergias, lesiones, embarazo, presión arterial, medicamentos).",
       "Preguntar en qué zonas quiere enfocarse y cuáles prefiere evitar.",
@@ -65,7 +62,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "explain", icon: "💬", title: "Explaining the Treatment", titleEs: "Explicar el tratamiento",
-    video: "videos/script/explain.mp4",
     standards: [
       "Explicar en orden: nombre del tratamiento → duración → procedimiento → beneficios → qué esperar.",
       "Presentar los productos que se usarán y para qué sirven.",
@@ -82,7 +78,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "personalize", icon: "🌸", title: "Personalizing the Experience", titleEs: "Personalizar la experiencia",
-    video: "videos/script/personalize.mp4",
     standards: [
       "Ofrecer opciones en lugar de decidir por el huésped: presión, aroma, temperatura, música.",
       "Recomendar con base en lo que el huésped dijo en la consulta.",
@@ -99,7 +94,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "prepare", icon: "🛏️", title: "Preparing the Guest", titleEs: "Preparación y privacidad",
-    video: "videos/script/prepare.mp4",
     standards: [
       "Dar instrucciones claras y amables, siempre con \"please\".",
       "Explicar dónde dejar sus pertenencias y cómo colocarse en la camilla.",
@@ -117,7 +111,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "during", icon: "💆", title: "During the Treatment", titleEs: "Durante el tratamiento",
-    video: "videos/script/during.mp4",
     standards: [
       "Preguntar por la presión y la comodidad al inicio y en cada zona nueva, sin interrumpir la relajación.",
       "Hablar en voz baja y solo lo necesario; dejar que el huésped decida si quiere conversar.",
@@ -136,7 +129,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "concern", icon: "🙏", title: "Handling a Concern", titleEs: "Atender una molestia",
-    video: "videos/script/concern.mp4",
     standards: [
       "Método: escuchar → reconocer → disculparse → resolver → dar seguimiento.",
       "Nunca responder solo \"No\": ofrecer una alternativa o consultar al Spa Manager.",
@@ -155,7 +147,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "followup", icon: "🍵", title: "After the Treatment", titleEs: "Seguimiento después del tratamiento",
-    video: "videos/script/followup.mp4",
     standards: [
       "Avisar que el tratamiento terminó y pedir que se incorpore despacio.",
       "Preguntar cómo se siente y si la presión fue adecuada.",
@@ -174,7 +165,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "recommend", icon: "✨", title: "Recommending Other Services", titleEs: "Recomendar otros servicios",
-    video: "videos/script/recommend.mp4",
     standards: [
       "Recomendar con elegancia y solo lo que complementa la experiencia del huésped; nunca presionar.",
       "Conocer los servicios del spa (faciales, tratamientos corporales, hidroterapia) y del hotel.",
@@ -190,7 +180,6 @@ const SERVICE_SCRIPT = [
   },
   {
     id: "farewell", icon: "🌿", title: "Farewell", titleEs: "Despedida",
-    video: "videos/script/farewell.mp4",
     standards: [
       "Despedirse usando el nombre del huésped.",
       "Agradecer la visita y expresar que fue un placer atenderle.",
