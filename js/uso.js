@@ -1,12 +1,20 @@
 // Registro de uso para el reporte del sistema de evaluación de inglés.
-// Solo se activa cuando la app se abre desde ese servidor (http://…/apps/<app>/); abierta como
-// archivo, o en cualquier otra dirección, no registra nada. La primera vez pide el número de
-// colaborador y a partir de ahí guarda la actividad en el celular y la envía en bloques
+// - En el hotel (la app servida por el sistema de evaluación, http://…/apps/<app>/) valida el número
+//   de colaborador con ese servidor y le manda la actividad directamente.
+// - En la versión de internet (https, GitHub Pages) manda la actividad a la hoja de Google del
+//   instructor (REMOTE_URL; código en scripts/google-apps-script/registro-uso.gs) y el sistema de
+//   evaluación la importa al abrir el reporte. Ahí no se puede validar el número: el reporte señala
+//   los que no corresponden a un colaborador activo.
+// Abierta como archivo, o en cualquier otra dirección, no registra nada. La primera vez pide el
+// número de colaborador y a partir de ahí guarda la actividad en el celular y la envía en bloques
 // (si no hay señal, la conserva y la reintenta después).
 const USO = (() => {
+  const REMOTE_URL = "https://script.google.com/macros/s/AKfycbzlnwb8IPofNlymf5PvnaugWCvb9aPAe4-TITl8CQgaHPXrNnKpxeSg1pmprbtHMNxIVA/exec";
   const match = location.pathname.match(/\/apps\/([a-z]+)\//);
-  const APP = match ? match[1] : null;
-  const ACTIVE = location.protocol.startsWith("http") && !!APP;
+  const HOTEL = location.protocol.startsWith("http") && !!match;
+  const REMOTE = !HOTEL && location.protocol === "https:" && !!REMOTE_URL;
+  const APP = HOTEL ? match[1] : REMOTE ? "spa" : null;
+  const ACTIVE = HOTEL || REMOTE;
   const KEY_USER = "uso-colaborador";
   const KEY_QUEUE = "uso-pendientes";
   const load = (k, d) => {
@@ -44,17 +52,18 @@ const USO = (() => {
     // se envía el bloque de eventos seguidos del mismo colaborador.
     const owner = queue.length ? queue[0].u : user.employee_no;
     let n = 0;
-    while (n < queue.length && n < 400 && queue[n].u === owner) n++;
+    const max = REMOTE ? 150 : 400; // cada envío a la hoja de Google cabe en una celda (50 mil caracteres)
+    while (n < queue.length && n < max && queue[n].u === owner) n++;
     const batch = queue.slice(0, n);
     const sendKnown = withKnown && user && user.employee_no === owner;
     try {
-      const res = await fetch("/api/app-usage/events", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        keepalive: true,
-        body: JSON.stringify({ app: APP, employee_no: owner, events: batch, known: sendKnown ? knownWords() : undefined }),
-      });
-      if (res.ok) {
+      const body = JSON.stringify({ app: APP, employee_no: owner, events: batch, known: sendKnown ? knownWords() : undefined });
+      // A Google se manda como texto simple (sin encabezados propios) para que no haga falta permiso CORS previo.
+      const res = REMOTE
+        ? await fetch(REMOTE_URL, { method: "POST", body })
+        : await fetch("/api/app-usage/events", { method: "POST", headers: { "Content-Type": "application/json" }, keepalive: true, body });
+      const ok = res.ok && (!REMOTE || (await res.json()).ok === true);
+      if (ok) {
         queue = queue.slice(batch.length);
         save(KEY_QUEUE, queue);
         // Si había pendientes de otro colega, las palabras del actual se mandan en el siguiente envío.
@@ -85,6 +94,22 @@ const USO = (() => {
     form.onsubmit = async (e) => {
       e.preventDefault();
       error.hidden = true;
+      if (REMOTE) {
+        // Desde internet no se puede consultar el sistema del hotel: se acepta el número tal cual.
+        const employeeNo = form.employee_no.value.trim();
+        if (!/^[0-9A-Za-z-]{1,15}$/.test(employeeNo)) {
+          error.textContent = "Escribe solo tu número de colaborador.";
+          error.hidden = false;
+          return;
+        }
+        user = { employee_no: employeeNo, full_name: null };
+        save(KEY_USER, user);
+        box.remove();
+        track("open");
+        flush(true);
+        window.dispatchEvent(new Event("uso-login"));
+        return;
+      }
       try {
         const res = await fetch("/api/app-usage/login", {
           method: "POST",
@@ -128,7 +153,8 @@ const USO = (() => {
   // Nombre del colega en pantalla, con opción de cambiar de usuario (celular compartido).
   function badge() {
     if (!ACTIVE || !user) return "";
-    return `<p class="uso-badge">👤 ${escape(user.full_name)} · <button type="button" data-uso-logout>No soy yo</button></p>`;
+    const who = user.full_name || `Colaborador ${user.employee_no}`;
+    return `<p class="uso-badge">👤 ${escape(who)} · <button type="button" data-uso-logout>No soy yo</button></p>`;
   }
 
   document.addEventListener("click", (e) => {
@@ -139,5 +165,5 @@ const USO = (() => {
     askEmployeeNumber();
   });
 
-  return { active: ACTIVE, track, start, badge };
+  return { active: ACTIVE, hotel: HOTEL, track, start, badge };
 })();

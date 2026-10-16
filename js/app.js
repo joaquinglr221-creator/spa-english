@@ -212,10 +212,10 @@ function menu() {
     .join("");
 }
 
-// Logotipos del hotel: solo cuando la app se abre desde el servidor del hotel (/apps/spa/, el mismo
-// caso en que USO registra la actividad). La versión de internet no los muestra ni los incluye
+// Logotipos del hotel: solo cuando la app se abre desde el servidor del hotel (/apps/spa/).
+// La versión de internet no los muestra ni los incluye
 // (scripts/publicar.py deja fuera images/logos/).
-const BRANDS = USO.active
+const BRANDS = USO.hotel
   ? `
     <header class="brands">
       <img src="images/logos/secrets-riviera-cancun.png" alt="Secrets Riviera Cancún Resort & Spa">
