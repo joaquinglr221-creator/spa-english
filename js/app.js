@@ -182,10 +182,15 @@ function wordList(words) {
 
 // Ícono dibujado de la categoría (js/icons.js); si no tiene, su emoji.
 const CAT_ICONS = typeof ICONS !== "undefined" ? ICONS : {};
-const catIcon = (c, size = "") =>
-  `<span class="cat-icon ${size}" aria-hidden="true">${
+const catIcon = (c, size = "", color = "") =>
+  `<span class="cat-icon ${size} ${color ? "colored" : ""}" ${color ? `style="--c:${color}"` : ""} aria-hidden="true">${
     CAT_ICONS[c.id] ? `<svg viewBox="0 0 24 24">${CAT_ICONS[c.id]}</svg>` : c.icon
   }</span>`;
+
+// Colores del menú: cada categoría (y cada paso del script) toma uno de la paleta, en el orden en que
+// aparece, para que los recuadros vecinos sean de distinto color.
+const PALETA = ["#7b4fa0", "#c2185b", "#d9622b", "#b7791f", "#2e7d4f", "#1f8a82", "#2f6db5", "#4b54b8"];
+const colorPorIndice = (i) => PALETA[i % PALETA.length];
 
 // Secciones del menú de inicio; una categoría nueva que no esté aquí aparece en "Otras".
 const MENU_GROUPS = [
@@ -195,10 +200,18 @@ const MENU_GROUPS = [
   { title: "Recepción y hotel", ids: ["recepcion", "hotel"] },
 ];
 
+// Orden en que se ven las categorías en el menú (por secciones): de ahí sale su color.
+function ordenMenu() {
+  const ids = MENU_GROUPS.flatMap((g) => g.ids);
+  return [...ids, ...VOCAB.map((c) => c.id).filter((id) => !ids.includes(id))];
+}
+const colorCategoria = (id) => colorPorIndice(Math.max(0, ordenMenu().indexOf(id)));
+
 function menuTile(c) {
   const learned = c.words.filter((w) => known.has(w.en)).length;
   const pct = Math.round((learned / c.words.length) * 100);
-  return `<a class="tile ${pct === 100 ? "is-done" : ""}" href="#/${c.id}">${catIcon(c)}<span class="tile-title">${esc(c.title)}</span><small class="muted">${learned} de ${c.words.length}</small><span class="cat-bar"><span style="width:${pct}%"></span></span></a>`;
+  const color = colorCategoria(c.id);
+  return `<a class="tile colored ${pct === 100 ? "is-done" : ""}" style="--c:${color}" href="#/${c.id}">${catIcon(c, "", color)}<span class="tile-title">${esc(c.title)}</span><small class="muted">${learned} de ${c.words.length}</small><span class="cat-bar"><span style="width:${pct}%"></span></span></a>`;
 }
 
 function menu() {
@@ -230,17 +243,17 @@ const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/
 let practiceScript = false;
 const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped" };
 
-const stageIcon = (st, size) => catIcon({ id: `st-${st.id}`, icon: st.icon }, size);
+const stageIcon = (st, size) => catIcon({ id: `st-${st.id}`, icon: st.icon }, size, colorPorIndice(STAGES.indexOf(st)));
 
 // Sin etapa: las 11 etapas en recuadros, como el menú de categorías.
 function viewScriptMenu() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Todas las categorías</a>
-    <h2 class="section-title cat-head">${catIcon({ id: "script", icon: "📜" }, "md")}<span>Script de servicio AAA</span></h2>
+    <h2 class="section-title cat-head">${catIcon({ id: "script", icon: "📜" }, "md", "#7b4fa0")}<span>Script de servicio AAA</span></h2>
     <p class="muted">Guion de la terapeuta, de la bienvenida a la despedida. Elige un paso; cada uno tiene los estándares AAA y el diálogo con audio.</p>
     <div class="grid menu">${STAGES.map(
-      (st, n) => `<a class="tile" href="#/script/${st.id}">${stageIcon(st)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
+      (st, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/script/${st.id}">${stageIcon(st)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
     ).join("")}</div>
     <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
 }
@@ -326,7 +339,7 @@ function view(catId) {
     ${USO.badge()}
     <a class="back" href="#/">← Todas las categorías</a>
     ${search}
-    <h2 class="section-title cat-head">${catIcon(cat, "md")}<span>${esc(cat.title)} <span class="muted">· ${learned} de ${cat.words.length}</span></span></h2>
+    <h2 class="section-title cat-head" style="color:${colorCategoria(cat.id)}">${catIcon(cat, "md", colorCategoria(cat.id))}<span>${esc(cat.title)} <span class="muted">· ${learned} de ${cat.words.length}</span></span></h2>
     <div id="word-list">${wordList(cat.words)}</div>
     <a class="btn ghost full center" href="#/">← Volver a las categorías</a>
     <a class="float-back" href="#/" aria-label="Volver a las categorías">← Categorías</a>`;
@@ -352,7 +365,7 @@ function view(catId) {
     </section>
 
     ${search}
-    ${STAGES.length ? `<a class="script-cta" href="#/script">${catIcon({ id: "script", icon: "📜" })}<span><b>Script de servicio AAA</b><small>Guion de la bienvenida a la despedida, con audio y modo práctica</small></span><span class="script-cta-go">→</span></a>` : ""}
+    ${STAGES.length ? `<a class="script-cta" href="#/script">${catIcon({ id: "script", icon: "📜" }, "", "#7b4fa0")}<span><b>Script de servicio AAA</b><small>Guion de la bienvenida a la despedida, con audio y modo práctica</small></span><span class="script-cta-go">→</span></a>` : ""}
     <h2 class="section-title">Categorías</h2>
     <div id="word-list">${menu()}</div>`;
 }

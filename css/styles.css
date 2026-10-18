@@ -378,3 +378,16 @@ a.btn.center { text-align: center; }
 .tile .step-num { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); }
 .line.therapist { align-self: flex-start; border-left: 4px solid var(--accent); }
 .stage-video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); margin: 0 0 12px; }
+
+/* Menú a color: cada recuadro trae su color en --c (js/app.js, PALETA) */
+.tile.colored { border-top: 4px solid var(--c); background: color-mix(in srgb, var(--c) 6%, var(--surface)); }
+.tile.colored .tile-title { color: color-mix(in srgb, var(--c) 70%, var(--text)); }
+.tile.colored .cat-bar span { background: var(--c); }
+.tile.colored .step-num { color: var(--c); }
+.cat-icon.colored { background: color-mix(in srgb, var(--c) 16%, var(--surface)); color: var(--c); }
+.menu .tile.colored.is-done { border-color: var(--ok); border-top-color: var(--c); }
+@media (prefers-color-scheme: dark) {
+  .tile.colored .tile-title { color: color-mix(in srgb, var(--c) 45%, white); }
+  .cat-icon.colored { background: color-mix(in srgb, var(--c) 28%, var(--surface)); color: color-mix(in srgb, var(--c) 55%, white); }
+  .tile.colored .step-num { color: color-mix(in srgb, var(--c) 55%, white); }
+}
