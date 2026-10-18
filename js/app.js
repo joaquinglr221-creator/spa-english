@@ -51,20 +51,18 @@ function loadVoices() {
     .getVoices()
     .filter((v) => v.lang.toLowerCase().startsWith("en"))
     .sort((a, b) => voiceScore(b) - voiceScore(a));
-  const saved = store.get("voice", null);
-  englishVoice = englishVoices.find((v) => v.voiceURI === saved) || englishVoices[0] || null;
-  const picker = $("#voice");
-  if (picker) picker.outerHTML = voicePicker();
+  englishVoice = englishVoices[0] || null; // solo si falta algún audio grabado
 }
 if ("speechSynthesis" in window) {
   loadVoices();
   speechSynthesis.onvoiceschanged = loadVoices;
 }
 
-// Audios pregrabados con la voz Ava (Premium); los genera scripts/generar_audios.py.
+// Audios pregrabados con la voz Ava (Premium); los genera scripts/generar_audios.py. La app siempre
+// usa esta voz; la del celular solo suena si a una frase le faltara su audio grabado.
 const RECORDED = typeof AUDIO_FILES !== "undefined" ? AUDIO_FILES : {};
 const HAS_RECORDED = Object.keys(RECORDED).length > 0;
-let useRecorded = HAS_RECORDED && store.get("voice", "recorded") === "recorded";
+const useRecorded = HAS_RECORDED;
 let currentAudio = null;
 
 // Hash FNV-1a del texto: es el nombre del archivo de audio (scripts/generar_audios.py usa esta misma función).
@@ -77,19 +75,6 @@ function audioKey(text) {
   return h.toString(16).padStart(8, "0");
 }
 const spokenText = (text) => text.replace(/\s*\/\s*/g, ", ");
-
-function voicePicker() {
-  const usable = englishVoices.filter((v) => voiceScore(v) > -1000);
-  const list = usable.length ? usable : englishVoices;
-  if (!list.length && !HAS_RECORDED) return `<p class="muted" id="voice">No se encontraron voces en inglés en este dispositivo.</p>`;
-  return `
-    <select id="voice">
-      ${HAS_RECORDED ? `<option value="recorded" ${useRecorded ? "selected" : ""}>Ava · voz grabada (recomendada)</option>` : ""}
-      ${list
-        .map((v) => `<option value="${esc(v.voiceURI)}" ${!useRecorded && v === englishVoice ? "selected" : ""}>${esc(v.name)} (${esc(v.lang)})</option>`)
-        .join("")}
-    </select>`;
-}
 
 function speak(text, slow = false) {
   if (text) USO.track("audio", { item: text.slice(0, 120) });
@@ -358,10 +343,6 @@ function view(catId) {
     <section class="card">
       <div class="progress"><div style="width:${pct}%"></div></div>
       <p class="muted">${known.size} de ${ALL_WORDS.length} palabras marcadas como aprendidas</p>
-      <details class="settings">
-        <summary>🔊 Voz de los audios</summary>
-        <div class="field">${voicePicker()}</div>
-      </details>
     </section>
 
     ${search}
@@ -441,14 +422,6 @@ document.addEventListener("click", (e) => {
     knownBtn.textContent = isKnown ? "✅" : "⬜";
     knownBtn.closest(".word").classList.toggle("is-known", isKnown);
   }
-});
-
-document.addEventListener("change", (e) => {
-  if (e.target.id !== "voice") return;
-  useRecorded = e.target.value === "recorded";
-  englishVoice = englishVoices.find((v) => v.voiceURI === e.target.value) || englishVoice;
-  store.set("voice", e.target.value);
-  speak("Welcome to our spa.");
 });
 
 // El botón flotante para volver a las categorías aparece al bajar por la lista de palabras.

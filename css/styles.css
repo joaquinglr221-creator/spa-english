@@ -302,9 +302,6 @@ mark { background: #ffd966; color: #1d2422; font-weight: 700; border-radius: 4px
 
 /* App de spa: una sola pantalla de vocabulario */
 .container { padding-bottom: 40px; }
-.settings { margin-bottom: 12px; }
-.settings summary { cursor: pointer; font-weight: 600; color: var(--muted); }
-.settings .field { margin: 10px 0 0; }
 
 /* Menú de categorías con íconos */
 .menu { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
