@@ -42,7 +42,7 @@ const USO = (() => {
   let knownWords = () => [];
 
   function track(event, data = {}) {
-    if (!ACTIVE || !user) return;
+    if (!ACTIVE || !user || user.instructor) return; // la actividad del instructor no va al reporte
     queue.push({ event, t: new Date().toISOString(), u: user.employee_no, ...data });
     if (queue.length > 3000) queue = queue.slice(-3000);
     save(KEY_QUEUE, queue);
@@ -79,13 +79,28 @@ const USO = (() => {
   }
 
   // Huella PBKDF2 de "número:PIN", igual que scripts/generar_acceso.py.
-  async function accesoValido(numero, pin) {
-    if (typeof ACCESO === "undefined" || !(crypto && crypto.subtle)) return false;
+  async function huella(numero, pin) {
     const enc = new TextEncoder();
     const clave = await crypto.subtle.importKey("raw", enc.encode(`${numero}:${pin}`), "PBKDF2", false, ["deriveBits"]);
     const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: enc.encode(ACCESO.sal), iterations: ACCESO.iteraciones }, clave, 256);
-    const hex = [...new Uint8Array(bits)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, ACCESO.largo);
-    return ACCESO.huellas.includes(hex);
+    return [...new Uint8Array(bits)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, ACCESO.largo);
+  }
+
+  async function accesoValido(numero, pin) {
+    if (typeof ACCESO === "undefined" || !(crypto && crypto.subtle)) return false;
+    return ACCESO.huellas.includes(await huella(numero, pin));
+  }
+
+  // Enlace de instructor (?instructor=<clave>, ver scripts/qr_instructor.py): entra sin número ni PIN.
+  async function entrarComoInstructor() {
+    const clave = new URLSearchParams(location.search).get("instructor");
+    if (!clave || typeof ACCESO === "undefined" || !ACCESO.instructor || !(crypto && crypto.subtle)) return false;
+    history.replaceState(null, "", location.pathname + location.hash); // que la clave no quede a la vista
+    if ((await huella("instructor", clave)) !== ACCESO.instructor) return false;
+    user = { employee_no: "instructor", full_name: "Instructor", v: 2, instructor: true };
+    save(KEY_USER, user);
+    window.dispatchEvent(new Event("uso-login"));
+    return true;
   }
 
   function askEmployeeNumber() {
@@ -151,9 +166,10 @@ const USO = (() => {
     };
   }
 
-  function start(options = {}) {
+  async function start(options = {}) {
     if (!ACTIVE) return;
     if (options.knownWords) knownWords = options.knownWords;
+    if (!user && (await entrarComoInstructor())) return;
     if (!user) askEmployeeNumber();
     else {
       track("open");
