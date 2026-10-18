@@ -388,3 +388,26 @@ a.btn.center { text-align: center; }
   .cat-icon.colored { background: color-mix(in srgb, var(--c) 28%, var(--surface)); color: color-mix(in srgb, var(--c) 55%, white); }
   .tile.colored .step-num { color: color-mix(in srgb, var(--c) 55%, white); }
 }
+
+/* Script de servicio: portada con imagen (images/script/portada.jpg, cuadro de un clip del Paso 1) */
+.script-banner { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+  min-height: 150px; padding: 18px; margin: 4px 0 6px; border-radius: var(--radius); overflow: hidden;
+  background: center 30% / cover no-repeat; color: #fff; box-shadow: 0 6px 18px rgba(40, 25, 50, 0.18); }
+.script-banner::before, .script-hero::before { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(30, 18, 40, 0.05) 20%, rgba(43, 26, 56, 0.88) 100%); }
+.script-banner > *, .script-hero > * { position: relative; }
+.script-banner-text small, .script-kicker { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #f3e3c3; margin: 0 0 2px; }
+.script-banner-text b { display: block; font-size: 1.35rem; line-height: 1.2; }
+.script-banner-text > span { display: block; font-size: 0.88rem; opacity: 0.92; margin-top: 2px; }
+.script-banner-go { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.92); color: var(--accent); font-size: 1.2rem; font-weight: 700; }
+.script-hero { position: relative; display: flex; align-items: flex-end; min-height: 240px; padding: 22px 20px;
+  border-radius: var(--radius); overflow: hidden; background: center 30% / cover no-repeat; color: #fff; margin: 4px 0 12px;
+  box-shadow: 0 8px 22px rgba(40, 25, 50, 0.2); }
+.script-hero h1 { margin: 0 0 4px; font-size: 1.8rem; }
+.script-hero p { margin: 0; max-width: 34em; }
+.script-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+.script-facts span { background: var(--surface); border: 1px solid var(--border); border-radius: 99px; padding: 6px 12px; font-size: 0.85rem; color: var(--muted); }
+.script-facts b { color: var(--accent); font-size: 1rem; }
+.script-flow { font-size: 0.78rem; letter-spacing: 0.02em; color: var(--muted); text-align: center; margin: 4px 0 12px; }

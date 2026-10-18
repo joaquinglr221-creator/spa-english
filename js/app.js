@@ -235,8 +235,22 @@ function viewScriptMenu() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Todas las categorías</a>
-    <h2 class="section-title cat-head">${catIcon({ id: "script", icon: "📜" }, "md", "#7b4fa0")}<span>Script de servicio AAA</span></h2>
-    <p class="muted">Guion de la terapeuta, de la bienvenida a la despedida. Elige un paso; cada uno tiene los estándares AAA y el diálogo con audio.</p>
+    <section class="script-hero" style="background-image:url('images/script/portada.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">Programa de servicio · Estándares AAA</p>
+        <h1>Script de servicio</h1>
+        <p>La experiencia completa de la terapeuta con el huésped, de la bienvenida a la despedida.</p>
+      </div>
+    </section>
+    <div class="script-facts">
+      <span><b>${STAGES.length}</b> pasos</span>
+      <span><b>${STAGES.reduce((n, st) => n + st.lines.length, 0)}</b> frases con audio</span>
+      <span><b>${STAGES.reduce((n, st) => n + st.standards.length, 0)}</b> estándares AAA</span>
+      ${Object.keys(VIDEOS).length ? `<span><b>${Object.keys(VIDEOS).length}</b> ${Object.keys(VIDEOS).length === 1 ? "video" : "videos"}</span>` : ""}
+    </div>
+    <p class="script-flow">Welcome → Recognize → Discover → Anticipate → Personalize → Deliver → Follow up → Farewell</p>
+    <a class="btn full center" href="#/script/${STAGES[0].id}">▶ Comenzar con el Paso 1</a>
+    <h2 class="section-title">Los ${STAGES.length} pasos</h2>
     <div class="grid menu">${STAGES.map(
       (st, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/script/${st.id}">${stageIcon(st)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
     ).join("")}</div>
@@ -346,7 +360,10 @@ function view(catId) {
     </section>
 
     ${search}
-    ${STAGES.length ? `<a class="script-cta" href="#/script">${catIcon({ id: "script", icon: "📜" }, "", "#7b4fa0")}<span><b>Script de servicio AAA</b><small>Guion de la bienvenida a la despedida, con audio y modo práctica</small></span><span class="script-cta-go">→</span></a>` : ""}
+    ${STAGES.length ? `<a class="script-banner" href="#/script" style="background-image:url('images/script/portada.jpg')">
+      <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     <h2 class="section-title">Categorías</h2>
     <div id="word-list">${menu()}</div>`;
 }
