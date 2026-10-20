@@ -85,7 +85,15 @@ function speak(text, slow = false) {
   if (useRecorded && RECORDED[key]) {
     currentAudio = new Audio(`audio/${RECORDED[key]}/${key}.m4a`);
     currentAudio.playbackRate = slow ? 0.7 : 1;
-    currentAudio.play().catch(() => speakWithDevice(clean, slow));
+    // Si falla (mala señal), se reintenta la grabación antes de recurrir a la voz del celular.
+    const audio = currentAudio;
+    audio.play().catch(() =>
+      setTimeout(() => {
+        if (currentAudio !== audio) return;
+        audio.load();
+        audio.play().catch(() => speakWithDevice(clean, slow));
+      }, 400)
+    );
     return;
   }
   speakWithDevice(clean, slow);
