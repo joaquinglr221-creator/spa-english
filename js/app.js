@@ -485,6 +485,9 @@ function nbLista(products) {
     .join("");
 }
 
+// Texto bilingüe con botones para escuchar el inglés (🔊 y 🐢).
+const bilingueAudio = (es, en, hablar = en) => `<div class="bi-audio">${bilingue(es, en)}<div class="row">${speakButtons(hablar)}</div></div>`;
+
 function viewNaturaProducto(id) {
   const i = NB.products.findIndex((p) => p.id === id);
   if (i < 0) return viewNatura();
@@ -492,7 +495,7 @@ function viewNaturaProducto(id) {
   const c = nbCat(p.cat);
   const color = colorPorIndice(NB.categories.indexOf(c));
   const prev = NB.products[i - 1], next = NB.products[i + 1];
-  const lista = (items) => `<ul class="amp-list">${items.map((x) => `<li>${bilingue(x.es, x.en)}</li>`).join("")}</ul>`;
+  const lista = (items) => `<ul class="amp-list">${items.map((x) => `<li>${bilingueAudio(x.es, x.en)}</li>`).join("")}</ul>`;
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/natura">← Guía Natura Bissé</a>
@@ -501,7 +504,7 @@ function viewNaturaProducto(id) {
       <div>
         <p class="label">${esc(c.es)} · ${esc(c.en)}</p>
         <h2 class="stage-title">${esc(titulo(p.name))}</h2>
-        ${p.tagline ? `<p class="muted">${bilingue(p.tagline.es, p.tagline.en)}</p>` : ""}
+        ${p.tagline ? `<div class="muted">${bilingueAudio(p.tagline.es, p.tagline.en)}</div>` : ""}
         <div class="row">${speakButtons(titulo(p.name))}</div>
       </div>
     </section>
@@ -510,10 +513,10 @@ function viewNaturaProducto(id) {
       ${lista(p.benefits)}
     </section>
     ${p.howTo.length ? `<section class="card"><p class="label">🧴 Cómo se usa · How to use</p>${lista(p.howTo)}</section>` : ""}
-    ${p.tip ? `<section class="card tip"><p class="label">💡 Pro tip</p>${bilingue(p.tip.es, p.tip.en)}</section>` : ""}
+    ${p.tip ? `<section class="card tip"><p class="label">💡 Pro tip</p>${bilingueAudio(p.tip.es, p.tip.en)}</section>` : ""}
     <section class="card">
       <p class="label">🔬 ¿Cómo actúa? · How it works</p>
-      <table class="amp-table">${p.ingredients.map((g) => `<tr><th>${bilingue(g.es, g.en)}</th><td>${bilingue(g.descEs, g.descEn)}</td></tr>`).join("")}</table>
+      <table class="amp-table">${p.ingredients.map((g) => `<tr><th>${bilingue(g.es, g.en)}</th><td>${bilingueAudio(g.descEs, g.descEn, `${g.en}. ${g.descEn}.`)}</td></tr>`).join("")}</table>
     </section>
     <a class="btn ghost small" href="#/material/natura-bisse">📄 Ver en la guía original · página ${p.page}</a>
     <div class="row between stage-nav">

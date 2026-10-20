@@ -444,3 +444,5 @@ a.btn.center { text-align: center; }
 .nb-thumb { width: 92px; height: 92px; object-fit: contain; background: #fff; border-radius: 12px; }
 .nb-photo { object-fit: contain; background: #fff; }
 .chips-label em { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.bi-audio .row { margin-top: 4px; }
+.bi-audio .icon-btn { width: 34px; height: 34px; font-size: 0.9rem; }
