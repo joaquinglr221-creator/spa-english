@@ -327,8 +327,146 @@ function speakAll(texts) {
   next(0);
 }
 
+// ---------- Venta de ampolletas BABOR (js/ampolletas.js) y material original ----------
+const AMPS = typeof AMPOLLETAS !== "undefined" ? AMPOLLETAS : [];
+
+// Material original: páginas de los PDF convertidas en imágenes (images/material/).
+const MATERIAL = {
+  "ampoule-bar": { title: "BABOR Ampoule Bar 2026", subtitle: "Presentación de ampolletas para terapeutas", pages: 7 },
+  "natura-bisse": { title: "Natura Bissé · Guía de producto", subtitle: "Retail México (en español)", pages: 26 },
+};
+
+const VENTA_ESTANDARES = [
+  ["Recomienda después de escuchar: usa lo que el huésped te contó en la consulta.", "Recommend after listening: use what the guest told you in the consultation."],
+  ["Recomienda uno o dos productos como máximo, los que de verdad necesita su piel.", "Recommend one or two products at most, the ones the guest's skin really needs."],
+  ["Explica el beneficio, cómo se usa y un ingrediente clave; no recites toda la ficha.", "Explain the benefit, how to use it and one key ingredient; don't recite the whole sheet."],
+  ["Ofrece apartarlo en la recepción del spa; nunca presiones.", "Offer to set it aside at Spa Reception; never pressure the guest."],
+  ["Si el huésped dice que no, agradece con la misma amabilidad.", "If the guest says no, thank them with the same kindness."],
+];
+const VENTA_NO = ["No problem at all. If you change your mind, Spa Reception will be happy to help you.",
+  "No hay ningún problema. Si cambia de opinión, la recepción del spa con gusto le ayudará."];
+
+const BABOR_LIMPIO = [
+  ["Libre de silicona", "Silicone-free"], ["Libre de parabenos", "Paraben-free"], ["Libre de PEGs", "PEG-free"],
+  ["Libre de microplásticos", "Microplastic-free"], ["Libre de lactosa", "Lactose-free"], ["Libre de gluten", "Gluten-free"],
+  ["Libre de aceite mineral", "Mineral oil-free"], ["Libre de tintes sintéticos", "Synthetic dye-free"],
+  ["Probado dermatológicamente", "Dermatologically tested"], ["Vegano", "Vegan"],
+];
+
+const bilingue = (es, en) => `<span class="bi"><span>${esc(es)}</span><span class="bi-en">🇺🇸 ${esc(en)}</span></span>`;
+
+function dialogueHtml(lines) {
+  return lines
+    .map(
+      (l) => `
+      <div class="line ${l.who}">
+        <p class="who">${WHO[l.who]}</p>
+        <p class="en reveal">${esc(l.en)}</p>
+        <p class="es">${esc(l.es)}</p>
+        <div class="row">${speakButtons(l.en)}</div>
+      </div>`
+    )
+    .join("");
+}
+
+function viewAmpolletas() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <section class="script-hero" style="background-image:url('images/ampolletas/portada.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">BABOR Ampoule Bar 2026 · Español / English</p>
+        <h1>Venta de ampolletas</h1>
+        <p>La ficha de cada ampolleta en español e inglés, y su script para recomendarla al huésped.</p>
+      </div>
+    </section>
+    <div class="script-facts">
+      <span><b>${AMPS.length}</b> productos</span>
+      <span><b>${AMPS.reduce((n, a) => n + a.script.length, 0)}</b> frases de venta con audio</span>
+    </div>
+    <section class="card">
+      <p class="label">⭐ Cómo recomendar · How to recommend (AAA)</p>
+      <ul class="amp-list">${VENTA_ESTANDARES.map(([es, en]) => `<li>${bilingue(es, en)}</li>`).join("")}</ul>
+      <div class="line therapist amp-no">
+        <p class="who">Si el huésped dice que no · If the guest says no</p>
+        <p class="en">${esc(VENTA_NO[0])}</p><p class="es">${esc(VENTA_NO[1])}</p>
+        <div class="row">${speakButtons(VENTA_NO[0])}</div>
+      </div>
+    </section>
+    <h2 class="section-title">Las ${AMPS.length} ampolletas</h2>
+    <div class="grid menu amp-grid">${AMPS.map(
+      (a, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/ampolletas/${a.id}">
+        <img class="amp-thumb" src="${esc(a.img)}" alt="" loading="lazy">
+        <span class="tile-title">${esc(a.name)}</span>
+        <small class="muted">${esc(a.use.es)} · ${esc(a.instant.es)}</small></a>`
+    ).join("")}</div>
+    <section class="card">
+      <p class="label">🌿 Fórmulas BABOR · BABOR formulas</p>
+      <div class="amp-clean">${BABOR_LIMPIO.map(([es, en]) => `<span>✓ ${esc(es)} <em>${esc(en)}</em></span>`).join("")}</div>
+    </section>
+    <h2 class="section-title">Material original</h2>
+    <div class="amp-docs">${Object.entries(MATERIAL).map(
+      ([id, m]) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
+        <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`
+    ).join("")}</div>
+    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+}
+
+function viewAmpolleta(id) {
+  const i = AMPS.findIndex((a) => a.id === id);
+  if (i < 0) return viewAmpolletas();
+  const a = AMPS[i];
+  const fila = (es, en, valor) => `<tr><th>${bilingue(es, en)}</th><td>${valor}</td></tr>`;
+  const prev = AMPS[i - 1], next = AMPS[i + 1];
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/ampolletas">← Todas las ampolletas</a>
+    <section class="card amp-card" style="--c:${colorPorIndice(i)}">
+      <img class="amp-photo" src="${esc(a.img)}" alt="${esc(a.name)}">
+      <div>
+        <p class="label">${esc(a.line)}</p>
+        <h2 class="stage-title">${esc(a.name)}</h2>
+        <p class="muted">${bilingue(a.concern.es, a.concern.en)}</p>
+      </div>
+    </section>
+    <section class="card">
+      <table class="amp-table">
+        ${fila("Beneficio instantáneo", "Instant benefit", bilingue(a.instant.es, a.instant.en))}
+        ${fila("Beneficio en 7 días", "7-day benefit", bilingue(a.days7.es, a.days7.en))}
+        ${fila("Uso", "Use", bilingue(a.use.es, a.use.en))}
+        ${fila("Efecto", "Effect", bilingue(a.effect.es, a.effect.en))}
+        ${fila("Activos", "Key ingredients", `<ul class="amp-list">${a.actives.es.map((x, k) => `<li>${bilingue(x, a.actives.en[k])}</li>`).join("")}</ul>`)}
+      </table>
+    </section>
+    <h2 class="section-title">💬 Script de venta · Sales script</h2>
+    <div class="row between">
+      <button class="btn small" id="play-stage">▶ Escuchar todo el diálogo</button>
+      <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>
+    </div>
+    <div class="dialogue ${practiceScript ? "practice" : ""}">${dialogueHtml(a.script)}</div>
+    <div class="row between stage-nav">
+      ${prev ? `<a class="btn ghost small" href="#/ampolletas/${prev.id}">← ${esc(prev.name)}</a>` : "<span></span>"}
+      ${next ? `<a class="btn small" href="#/ampolletas/${next.id}">${esc(next.name)} →</a>` : `<a class="btn small" href="#/ampolletas">Terminar ✓</a>`}
+    </div>`;
+}
+
+function viewMaterial(id) {
+  const m = MATERIAL[id];
+  if (!m) return viewAmpolletas();
+  const pages = Array.from({ length: m.pages }, (_, k) => `images/material/${id}/p${String(k + 1).padStart(2, "0")}.jpg`);
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/ampolletas">← Venta de ampolletas</a>
+    <h2 class="section-title">${esc(m.title)}</h2>
+    <p class="muted">${esc(m.subtitle)} · ${m.pages} páginas. Toca una página para verla en grande.</p>
+    <div class="material-pages">${pages.map((src, k) => `<img src="${src}" alt="Página ${k + 1}" loading="lazy" data-sheet="${src}" data-title="${esc(m.title)} · página ${k + 1}">`).join("")}</div>`;
+}
+
 function view(catId) {
   if (catId === "script" || catId.startsWith("script/")) return viewScript(catId.split("/")[1]);
+  if (catId === "ampolletas") return viewAmpolletas();
+  if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
+  if (catId.startsWith("material/")) return viewMaterial(catId.split("/")[1]);
   const cat = VOCAB.find((c) => c.id === catId);
   currentWords = cat ? cat.words : [];
   const search = `<input id="search" class="search" type="search" placeholder="Buscar en inglés o español…" autocomplete="off">`;
@@ -364,6 +502,10 @@ function view(catId) {
       <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${AMPS.length ? `<a class="script-banner" href="#/ampolletas" style="background-image:url('images/ampolletas/portada.jpg')">
+      <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     <h2 class="section-title">Categorías</h2>
     <div id="word-list">${menu()}</div>`;
 }
@@ -384,6 +526,21 @@ function render() {
       practiceScript = e.target.checked;
       $(".dialogue").classList.toggle("practice", practiceScript);
     };
+    return;
+  }
+  if (id === "ampolletas" || id.startsWith("ampolletas/") || id.startsWith("material/")) {
+    const [ruta, clave] = id.split("/");
+    const a = ruta === "ampolletas" ? AMPS.find((x) => x.id === clave) : null;
+    USO.track("category", {
+      category: ruta === "material" ? `Material: ${(MATERIAL[clave] || {}).title || clave}` : a ? `Venta de ampolletas: ${a.name}` : "Venta de ampolletas",
+    });
+    if (a) {
+      $("#play-stage").onclick = () => speakAll(a.script.map((l) => l.en));
+      $("#practice-toggle").onchange = (e) => {
+        practiceScript = e.target.checked;
+        $(".dialogue").classList.toggle("practice", practiceScript);
+      };
+    }
     return;
   }
   const onMenu = !VOCAB.some((c) => c.id === id);

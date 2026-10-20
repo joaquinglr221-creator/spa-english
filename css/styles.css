@@ -411,3 +411,30 @@ a.btn.center { text-align: center; }
 .script-facts span { background: var(--surface); border: 1px solid var(--border); border-radius: 99px; padding: 6px 12px; font-size: 0.85rem; color: var(--muted); }
 .script-facts b { color: var(--accent); font-size: 1rem; }
 .script-flow { font-size: 0.78rem; letter-spacing: 0.02em; color: var(--muted); text-align: center; margin: 4px 0 12px; }
+
+/* Venta de ampolletas (js/ampolletas.js) */
+.bi { display: flex; flex-direction: column; }
+.bi-en { color: var(--muted); font-size: 0.88em; font-style: italic; }
+.amp-list { margin: 6px 0 0; padding-left: 18px; }
+.amp-list li { margin: 6px 0; }
+.amp-no { max-width: none; margin-top: 12px; }
+.amp-grid .tile { padding-top: 12px; }
+.amp-thumb { width: 84px; height: 84px; object-fit: cover; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--c) 35%, transparent); }
+.amp-card { display: flex; gap: 16px; align-items: center; border-top: 4px solid var(--c); }
+.amp-photo { width: 120px; height: 120px; object-fit: cover; border-radius: 16px; flex-shrink: 0; }
+.amp-table { width: 100%; border-collapse: collapse; }
+.amp-table th, .amp-table td { text-align: left; vertical-align: top; padding: 10px 6px; border-bottom: 1px solid var(--border); font-size: 0.93rem; }
+.amp-table th { width: 38%; color: var(--accent); font-weight: 700; }
+.amp-table tr:last-child th, .amp-table tr:last-child td { border-bottom: none; }
+.amp-clean { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.amp-clean span { background: var(--ok-soft); color: var(--text); border-radius: 99px; padding: 5px 12px; font-size: 0.85rem; }
+.amp-clean em { color: var(--muted); font-size: 0.8rem; }
+.amp-docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.amp-doc { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.amp-doc img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.amp-doc span { padding: 10px 12px; }
+.amp-doc b, .amp-doc small { display: block; }
+.amp-doc small { color: var(--muted); font-size: 0.82rem; }
+.material-pages { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.material-pages img { width: 100%; border-radius: 10px; border: 1px solid var(--border); cursor: zoom-in; background: #fff; }
+@media (max-width: 480px) { .amp-card { flex-direction: column; text-align: center; } .amp-table th { width: 42%; } }
