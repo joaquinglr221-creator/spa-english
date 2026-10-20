@@ -1440,5 +1440,119 @@ const ANATOMIA = [
     "es": "Uretra"
    }
   ]
+ },
+ {
+  "id": "piel",
+  "titulo": "La piel: capas y estructura",
+  "title": "Skin: layers and structure",
+  "icon": "🖐️",
+  "credito": "Ilustración: Tomáš Kebert (Nefronus) y umimeto.org, Wikimedia Commons · CC BY-SA 4.0",
+  "img": "images/anatomia/piel.jpg",
+  "w": 1100,
+  "h": 1091,
+  "partes": [
+   {
+    "x": 24.7,
+    "y": 6.7,
+    "en": "Sweat pore",
+    "es": "Poro sudoríparo"
+   },
+   {
+    "x": 6.6,
+    "y": 41.7,
+    "en": "Arrector pili muscle",
+    "es": "Músculo erector del vello"
+   },
+   {
+    "x": 7.9,
+    "y": 49.7,
+    "en": "Sebaceous gland",
+    "es": "Glándula sebácea"
+   },
+   {
+    "x": 10.8,
+    "y": 56.4,
+    "en": "Pacinian corpuscle (pressure receptor)",
+    "es": "Corpúsculo de Pacini (receptor de presión)"
+   },
+   {
+    "x": 7.2,
+    "y": 64.3,
+    "en": "Hair follicle",
+    "es": "Folículo piloso"
+   },
+   {
+    "x": 14.5,
+    "y": 79.7,
+    "en": "Nerve fiber",
+    "es": "Fibra nerviosa"
+   },
+   {
+    "x": 25.5,
+    "y": 84.5,
+    "en": "Artery",
+    "es": "Arteria"
+   },
+   {
+    "x": 39.3,
+    "y": 93.2,
+    "en": "Vein",
+    "es": "Vena"
+   },
+   {
+    "x": 47.1,
+    "y": 87.1,
+    "en": "Lymph vessel",
+    "es": "Vaso linfático"
+   },
+   {
+    "x": 58.7,
+    "y": 90.6,
+    "en": "Hair papilla",
+    "es": "Papila del pelo"
+   },
+   {
+    "x": 73.9,
+    "y": 88.5,
+    "en": "Ruffini corpuscle (stretch receptor)",
+    "es": "Corpúsculo de Ruffini (receptor de estiramiento)"
+   },
+   {
+    "x": 85.2,
+    "y": 81.7,
+    "en": "Sweat gland",
+    "es": "Glándula sudorípara"
+   },
+   {
+    "x": 83,
+    "y": 16.1,
+    "en": "Meissner's corpuscle (touch receptor)",
+    "es": "Corpúsculo de Meissner (receptor del tacto)"
+   },
+   {
+    "x": 93.2,
+    "y": 25.1,
+    "en": "Epidermis",
+    "es": "Epidermis"
+   },
+   {
+    "x": 93.2,
+    "y": 43.4,
+    "en": "Dermis",
+    "es": "Dermis"
+   },
+   {
+    "x": 93.2,
+    "y": 64.3,
+    "en": "Hypodermis (subcutaneous fat)",
+    "es": "Hipodermis (grasa subcutánea)"
+   },
+   {
+    "x": 93.2,
+    "y": 71.2,
+    "en": "Fascia",
+    "es": "Fascia"
+   }
+  ]
  }
 ];

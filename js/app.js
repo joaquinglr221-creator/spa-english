@@ -664,7 +664,11 @@ function viewAnatomia() {
         <img class="anat-thumb" src="${esc(l.img)}" alt="" loading="lazy">
         <span class="tile-title">${esc(l.titulo)}</span>
         <small class="muted">${esc(l.title)} · ${l.partes.length} partes</small></a>`
-    ).join("")}</div>
+    ).join("")}
+    ${PIEL_D ? `<a class="tile colored anat-tile" style="--c:${colorPorIndice(ANAT.length)}" href="#/la-piel">
+        <img class="anat-thumb" src="images/anatomia/piel.jpg" alt="" loading="lazy">
+        <span class="tile-title">La piel: tipos, colores y afecciones</span>
+        <small class="muted">Skin types, tones and conditions</small></a>` : ""}</div>
     <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
 }
 
@@ -692,6 +696,96 @@ function viewLamina(id) {
       ${prev ? `<a class="btn ghost small" href="#/anatomia/${prev.id}">← ${esc(prev.titulo)}</a>` : "<span></span>"}
       ${next ? `<a class="btn small" href="#/anatomia/${next.id}">${esc(next.titulo)} →</a>` : `<a class="btn small" href="#/anatomia">Terminar ✓</a>`}
     </div>`;
+}
+
+// ---------- La piel: tipos, colores y afecciones (js/piel.js) ----------
+const PIEL_D = typeof PIEL !== "undefined" ? PIEL : null;
+const NIVELES = {
+  ok: { icono: "✅", texto: "Se puede tratar", en: "Can be treated" },
+  precaucion: { icono: "⚠️", texto: "Con precaución", en: "With caution" },
+  evitar: { icono: "⛔", texto: "Evitar o no tratar", en: "Avoid / do not treat" },
+};
+
+function afeccionesLista(lista) {
+  if (!lista.length) return `<p class="muted">No se encontraron afecciones.</p>`;
+  return lista
+    .map((a) => {
+      const foto = PHOTOS[a.en.toLowerCase()];
+      return `<div class="piel-af nivel-${a.nivel}">
+        ${foto ? `<img class="piel-af-img" src="${esc(foto.src)}" alt="" loading="lazy" data-sheet="${esc(foto.src)}" data-title="${esc(a.en)} · ${esc(a.es)}">` : `<span class="piel-af-img vacia">${NIVELES[a.nivel].icono}</span>`}
+        <div class="piel-af-txt">
+          <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(a.en)}</b><span>🇲🇽 ${esc(a.es)}</span></span><div class="row">${speakButtons(a.en)}</div></div>
+          <span class="piel-nivel">${NIVELES[a.nivel].icono} ${NIVELES[a.nivel].texto} · <em>${NIVELES[a.nivel].en}</em></span>
+          ${bilingueAudio(a.nota.es, a.nota.en)}
+        </div>
+      </div>`;
+    })
+    .join("");
+}
+
+function viewPiel() {
+  const P = PIEL_D;
+  const capas = ANAT.find((l) => l.id === "piel");
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/anatomia">← Anatomía</a>
+    <section class="script-hero anat-hero" style="background-image:url('images/anatomia/piel.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">Skin · Inglés / Español</p>
+        <h1>La piel</h1>
+        <p>Capas de la piel, tipos de piel, colores y ${P.afecciones.length} afecciones, con lo que debe hacer la terapeuta en cada caso.</p>
+      </div>
+    </section>
+    <div class="piel-nav">
+      <button data-ir="piel-capas">🖐️ Capas</button><button data-ir="piel-tipos">🧴 Tipos</button>
+      <button data-ir="piel-colores">🎨 Colores</button><button data-ir="piel-afecciones">🩹 Afecciones</button><button data-ir="piel-frases">💬 Frases</button>
+    </div>
+
+    <h2 class="section-title" id="piel-capas">🖐️ Capas y estructura de la piel</h2>
+    ${capas ? `<a class="script-banner piel-banner" href="#/anatomia/piel" style="background-image:url('${capas.img}')">
+      <span class="script-banner-text"><small>Skin: layers and structure</small><b>Lámina de la piel</b><span>${capas.partes.length} partes: epidermis, dermis, hipodermis, glándulas y receptores</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
+
+    <h2 class="section-title" id="piel-tipos">🧴 Tipos de piel · Skin types</h2>
+    <div class="piel-tipos">${P.tipos.map(
+      (t, n) => `<section class="card piel-tipo" style="--c:${colorPorIndice(n)}">
+        <div class="bi-audio"><span class="bi"><b>${t.icon} 🇺🇸 ${esc(t.en)}</b><span>🇲🇽 ${esc(t.es)}</span></span><div class="row">${speakButtons(t.en)}</div></div>
+        ${bilingueAudio(t.desc.es, t.desc.en)}
+        <p class="label">💡 En el spa · At the spa</p>
+        ${bilingueAudio(t.tip.es, t.tip.en)}
+      </section>`
+    ).join("")}</div>
+
+    <h2 class="section-title" id="piel-colores">🎨 Colores de piel (fototipos) · Skin tones</h2>
+    <p class="muted">Escala de Fitzpatrick: cómo reacciona cada color de piel al sol.</p>
+    <div class="piel-colores">${P.fototipos.map(
+      (f) => `<div class="piel-color"><span class="piel-muestra" style="background:${f.color}">${f.tipo}</span>
+        <div class="piel-af-txt">
+          <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(f.en)}</b><span>🇲🇽 ${esc(f.es)}</span></span><div class="row">${speakButtons(f.en)}</div></div>
+          ${bilingueAudio(f.desc.es, f.desc.en)}
+        </div></div>`
+    ).join("")}</div>
+    <h3 class="piel-sub">Subtonos y otras palabras para describir el color</h3>
+    <div class="piel-colores">${P.tonos.map(
+      (f) => `<div class="piel-color"><span class="piel-muestra" style="background:${f.color}"></span>
+        <div class="piel-af-txt">
+          <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(f.en)}</b><span>🇲🇽 ${esc(f.es)}</span></span><div class="row">${speakButtons(f.en)}</div></div>
+          ${bilingueAudio(f.desc.es, f.desc.en)}
+        </div></div>`
+    ).join("")}</div>
+
+    <h2 class="section-title" id="piel-afecciones">🩹 Afecciones de la piel · Skin conditions</h2>
+    <div class="piel-filtros">
+      <button class="on" data-nivel="">Todas (${P.afecciones.length})</button>
+      ${Object.entries(NIVELES).map(([k, v]) => `<button data-nivel="${k}">${v.icono} ${v.texto} (${P.afecciones.filter((a) => a.nivel === k).length})</button>`).join("")}
+    </div>
+    <input id="piel-buscar" class="search" type="search" placeholder="Buscar afección en inglés o español…" autocomplete="off">
+    <div id="piel-af-lista">${afeccionesLista(P.afecciones)}</div>
+    <p class="anat-credito">Orientación general para el spa; ante cualquier duda, seguir el protocolo del spa y consultar a la supervisora o al médico.</p>
+
+    <h2 class="section-title" id="piel-frases">💬 Frases para la consulta · Useful phrases</h2>
+    <section class="card">${P.frases.map((f) => bilingueAudio(f.es, f.en)).join("")}</section>
+    <a class="btn ghost full center" href="#/anatomia">← Volver a Anatomía</a>`;
 }
 
 // Marca una parte de la lámina: su número en la imagen, su fila en la lista y el recuadro de abajo.
@@ -728,6 +822,7 @@ function view(catId) {
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
   if (catId === "anatomia") return viewAnatomia();
+  if (catId === "la-piel" && PIEL_D) return viewPiel();
   if (catId.startsWith("anatomia/")) return viewLamina(catId.split("/")[1]);
   if (catId === "ampolletas") return viewAmpolletas();
   if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
@@ -777,6 +872,10 @@ function view(catId) {
       <span class="script-banner-text"><small>Human anatomy · Español / English</small><b>Anatomía del cuerpo humano</b><span>${ANAT.length} láminas: partes del cuerpo, músculos, huesos, órganos y sistemas</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${PIEL_D ? `<a class="script-banner piel-banner" href="#/la-piel" style="background-image:url('images/anatomia/piel.jpg')">
+      <span class="script-banner-text"><small>Skin · Español / English</small><b>La piel</b><span>Capas, tipos de piel, colores y ${PIEL_D.afecciones.length} afecciones</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
       <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -814,6 +913,27 @@ function render() {
       practiceScript = e.target.checked;
       $(".dialogue").classList.toggle("practice", practiceScript);
     };
+    return;
+  }
+  if (id === "la-piel") {
+    USO.track("category", { category: "La piel: tipos, colores y afecciones" });
+    let nivel = "";
+    const pintar = () => {
+      const q = $("#piel-buscar").value.trim().toLowerCase();
+      $("#piel-af-lista").innerHTML = afeccionesLista(
+        PIEL_D.afecciones.filter((a) => (!nivel || a.nivel === nivel) && (!q || `${a.en} ${a.es}`.toLowerCase().includes(q)))
+      );
+    };
+    $("#piel-buscar").oninput = pintar;
+    document.querySelectorAll(".piel-filtros button").forEach(
+      (b) =>
+        (b.onclick = () => {
+          nivel = b.dataset.nivel;
+          document.querySelectorAll(".piel-filtros button").forEach((x) => x.classList.toggle("on", x === b));
+          pintar();
+        })
+    );
+    document.querySelectorAll("[data-ir]").forEach((b) => (b.onclick = () => document.getElementById(b.dataset.ir).scrollIntoView({ behavior: "smooth" })));
     return;
   }
   if (id === "anatomia" || id.startsWith("anatomia/")) {

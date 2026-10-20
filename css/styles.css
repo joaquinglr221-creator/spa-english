@@ -497,3 +497,33 @@ a.btn.center { text-align: center; }
 .vocab-ex-en { font-style: italic; }
 .vocab-ex-play { display: inline-flex; gap: 4px; vertical-align: middle; font-style: normal; }
 .vocab-ex-play .icon-btn { width: 30px; height: 30px; font-size: 0.85rem; }
+
+/* La piel: tipos, colores y afecciones */
+.piel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.piel-nav button, .piel-filtros button {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px;
+  padding: 6px 12px; font: inherit; font-size: 0.85rem; cursor: pointer;
+}
+.piel-filtros { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.piel-filtros button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.piel-tipos { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.piel-tipo { border-top: 4px solid var(--c); display: grid; gap: 8px; }
+.piel-tipo .label { margin: 4px 0 0; }
+.piel-colores { display: grid; gap: 8px; }
+.piel-color, .piel-af {
+  display: flex; gap: 12px; align-items: flex-start; padding: 10px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.piel-muestra {
+  flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); border: 2px solid rgba(0, 0, 0, 0.08);
+}
+.piel-af-txt { display: grid; gap: 6px; flex: 1; min-width: 0; }
+.piel-sub { font-size: 1rem; margin: 18px 0 8px; }
+.piel-af { border-left: 5px solid var(--ok); margin-bottom: 8px; }
+.piel-af.nivel-precaucion { border-left-color: #d9962b; }
+.piel-af.nivel-evitar { border-left-color: var(--bad); }
+.piel-af-img { flex-shrink: 0; width: 64px; height: 64px; border-radius: 10px; object-fit: cover; cursor: zoom-in; }
+.piel-af-img.vacia { display: grid; place-items: center; font-size: 1.6rem; background: var(--accent-soft); cursor: default; }
+.piel-nivel { font-size: 0.8rem; font-weight: 600; color: var(--muted); }
+.piel-banner { background-color: #fff; }
