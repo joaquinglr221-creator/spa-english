@@ -759,7 +759,7 @@ function viewPiel() {
     <h2 class="section-title" id="piel-colores">🎨 Colores de piel (fototipos) · Skin tones</h2>
     <p class="muted">De la piel más clara a la más oscura, y cómo reacciona cada una al sol.</p>
     <div class="piel-colores">${P.fototipos.map(
-      (f) => `<div class="piel-color"><span class="piel-muestra" style="background:${f.color}"></span>
+      (f) => `<div class="piel-color"><span class="piel-foto"><img src="${f.img}" alt="${esc(f.es)}" loading="lazy"><span class="piel-muestra" style="background:${f.color}"></span></span>
         <div class="piel-af-txt">
           <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(f.en)}</b><span>🇲🇽 ${esc(f.es)}</span></span><div class="row">${speakButtons(f.en)}</div></div>
           ${bilingueAudio(f.desc.es, f.desc.en)}
@@ -767,7 +767,7 @@ function viewPiel() {
     ).join("")}</div>
     <h3 class="piel-sub">Subtonos y otras palabras para describir el color</h3>
     <div class="piel-colores">${P.tonos.map(
-      (f) => `<div class="piel-color"><span class="piel-muestra" style="background:${f.color}"></span>
+      (f) => `<div class="piel-color"><span class="piel-foto"><img src="${f.img}" alt="${esc(f.es)}" loading="lazy"><span class="piel-muestra" style="background:${f.color}"></span></span>
         <div class="piel-af-txt">
           <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(f.en)}</b><span>🇲🇽 ${esc(f.es)}</span></span><div class="row">${speakButtons(f.en)}</div></div>
           ${bilingueAudio(f.desc.es, f.desc.en)}

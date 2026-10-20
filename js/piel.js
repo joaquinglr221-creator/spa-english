@@ -32,31 +32,31 @@ const PIEL = {
 
   // Escala de Fitzpatrick: cómo reacciona cada color de piel al sol.
   fototipos: [
-    { color: "#f6e0d2", en: "Very fair skin", es: "Piel muy clara",
+    { color: "#f6e0d2", img: "images/piel/muy-clara.svg", en: "Very fair skin", es: "Piel muy clara",
       desc: { en: "Always burns and never tans. Often has freckles, red or blond hair and light eyes.", es: "Siempre se quema y nunca se broncea. Suele tener pecas, cabello pelirrojo o rubio y ojos claros." } },
-    { color: "#eccaae", en: "Fair skin", es: "Piel clara",
+    { color: "#eccaae", img: "images/piel/clara.svg", en: "Fair skin", es: "Piel clara",
       desc: { en: "Burns easily and tans very little.", es: "Se quema con facilidad y se broncea muy poco." } },
-    { color: "#d9aa82", en: "Medium skin", es: "Piel intermedia",
+    { color: "#d9aa82", img: "images/piel/intermedia.svg", en: "Medium skin", es: "Piel intermedia",
       desc: { en: "Sometimes burns and tans gradually.", es: "A veces se quema y se broncea poco a poco." } },
-    { color: "#b98258", en: "Olive skin", es: "Piel morena clara (oliva)",
+    { color: "#b98258", img: "images/piel/oliva.svg", en: "Olive skin", es: "Piel morena clara (oliva)",
       desc: { en: "Rarely burns and tans easily.", es: "Rara vez se quema y se broncea con facilidad." } },
-    { color: "#8b5737", en: "Brown skin", es: "Piel morena",
+    { color: "#8b5737", img: "images/piel/morena.svg", en: "Brown skin", es: "Piel morena",
       desc: { en: "Very rarely burns and tans very easily.", es: "Muy rara vez se quema y se broncea muy fácilmente." } },
-    { color: "#4c2e20", en: "Dark brown or black skin", es: "Piel morena oscura o negra",
+    { color: "#4c2e20", img: "images/piel/oscura.svg", en: "Dark brown or black skin", es: "Piel morena oscura o negra",
       desc: { en: "Never burns. It still needs sun protection.", es: "Nunca se quema. Aun así necesita protección solar." } },
   ],
 
   // Subtonos y palabras para describir el color de la piel.
   tonos: [
-    { color: "linear-gradient(135deg,#f3d3a4,#e7b77a)", en: "Warm undertone", es: "Subtono cálido", desc: { en: "Golden, yellow or peach undertone.", es: "Matiz dorado, amarillo o durazno." } },
-    { color: "linear-gradient(135deg,#f3cdd2,#d9a3b4)", en: "Cool undertone", es: "Subtono frío", desc: { en: "Pink, red or bluish undertone.", es: "Matiz rosado, rojizo o azulado." } },
-    { color: "linear-gradient(135deg,#f3d3a4,#f3cdd2)", en: "Neutral undertone", es: "Subtono neutro", desc: { en: "A mix of warm and cool undertones.", es: "Una mezcla de matices cálidos y fríos." } },
-    { color: "#f4ddd0", en: "Fair skin", es: "Piel blanca", desc: { en: "A very light skin tone.", es: "Un tono de piel muy claro." } },
-    { color: "#c99a6e", en: "Tanned skin", es: "Piel bronceada", desc: { en: "Skin that is darker after sun exposure.", es: "Piel más oscura después de exponerse al sol." } },
-    { color: "#a8794f", en: "Olive skin", es: "Piel aceitunada (trigueña)", desc: { en: "A medium tone with a green or golden undertone.", es: "Un tono medio con matiz verdoso o dorado." } },
-    { color: "#6e4430", en: "Dark skin", es: "Piel oscura", desc: { en: "A deep skin tone with more melanin.", es: "Un tono de piel profundo, con más melanina." } },
-    { color: "#f2e6c9", en: "Even skin tone", es: "Tono de piel uniforme", desc: { en: "The same color all over, without spots.", es: "El mismo color en toda la piel, sin manchas." } },
-    { color: "linear-gradient(90deg,#d9aa82 0 40%,#9a6544 40% 60%,#d9aa82 60%)", en: "Uneven skin tone", es: "Tono de piel disparejo", desc: { en: "Skin with darker or lighter areas.", es: "Piel con zonas más oscuras o más claras." } },
+    { color: "linear-gradient(135deg,#f3d3a4,#e7b77a)", img: "images/piel/subtono-calido.svg", en: "Warm undertone", es: "Subtono cálido", desc: { en: "Golden, yellow or peach undertone.", es: "Matiz dorado, amarillo o durazno." } },
+    { color: "linear-gradient(135deg,#f3cdd2,#d9a3b4)", img: "images/piel/subtono-frio.svg", en: "Cool undertone", es: "Subtono frío", desc: { en: "Pink, red or bluish undertone.", es: "Matiz rosado, rojizo o azulado." } },
+    { color: "linear-gradient(135deg,#f3d3a4,#f3cdd2)", img: "images/piel/subtono-neutro.svg", en: "Neutral undertone", es: "Subtono neutro", desc: { en: "A mix of warm and cool undertones.", es: "Una mezcla de matices cálidos y fríos." } },
+    { color: "#f4ddd0", img: "images/piel/blanca.svg", en: "Fair skin", es: "Piel blanca", desc: { en: "A very light skin tone.", es: "Un tono de piel muy claro." } },
+    { color: "#c99a6e", img: "images/piel/bronceada.svg", en: "Tanned skin", es: "Piel bronceada", desc: { en: "Skin that is darker after sun exposure.", es: "Piel más oscura después de exponerse al sol." } },
+    { color: "#a8794f", img: "images/piel/aceitunada.svg", en: "Olive skin", es: "Piel aceitunada (trigueña)", desc: { en: "A medium tone with a green or golden undertone.", es: "Un tono medio con matiz verdoso o dorado." } },
+    { color: "#6e4430", img: "images/piel/oscura-tono.svg", en: "Dark skin", es: "Piel oscura", desc: { en: "A deep skin tone with more melanin.", es: "Un tono de piel profundo, con más melanina." } },
+    { color: "#f2e6c9", img: "images/piel/uniforme.svg", en: "Even skin tone", es: "Tono de piel uniforme", desc: { en: "The same color all over, without spots.", es: "El mismo color en toda la piel, sin manchas." } },
+    { color: "linear-gradient(90deg,#d9aa82 0 40%,#9a6544 40% 60%,#d9aa82 60%)", img: "images/piel/dispareja.svg", en: "Uneven skin tone", es: "Tono de piel disparejo", desc: { en: "Skin with darker or lighter areas.", es: "Piel con zonas más oscuras o más claras." } },
   ],
 
   afecciones: [

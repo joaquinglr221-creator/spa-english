@@ -527,3 +527,6 @@ a.btn.center { text-align: center; }
 .piel-af-img.vacia { display: grid; place-items: center; font-size: 1.6rem; background: var(--accent-soft); cursor: default; }
 .piel-nivel { font-size: 0.8rem; font-weight: 600; color: var(--muted); }
 .piel-banner { background-color: #fff; }
+.piel-foto { position: relative; flex-shrink: 0; width: 84px; height: 84px; }
+.piel-foto img { width: 84px; height: 84px; border-radius: 14px; display: block; }
+.piel-foto .piel-muestra { position: absolute; right: -6px; bottom: -6px; width: 28px; height: 28px; border: 3px solid var(--surface); }
