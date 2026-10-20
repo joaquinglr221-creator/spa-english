@@ -452,3 +452,48 @@ a.btn.center { text-align: center; }
 .valet-word { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.55rem 0; border-bottom: 1px solid var(--line, #e5e5e5); }
 .valet-word:last-child { border-bottom: 0; }
 .valet-word .row { flex-shrink: 0; }
+
+/* Anatomía: láminas con números que se pueden tocar */
+.anat-thumb { width: 100%; height: 110px; object-fit: contain; background: #fff; border-radius: 10px; }
+.anat-title { display: flex; align-items: center; gap: 8px; }
+.anat-tools { display: flex; justify-content: flex-end; margin: 6px 0; }
+.anat-tools .btn { padding: 6px 12px; font-size: 0.85rem; }
+.anat-scroll { overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); background: #fff; -webkit-overflow-scrolling: touch; }
+.anat { position: relative; width: 100%; max-width: 620px; margin: 0 auto; }
+.anat.alta { max-width: 420px; }
+.anat-scroll.zoom { max-height: 78vh; }
+.anat-scroll.zoom .anat { width: 220%; max-width: none; }
+.anat img { display: block; width: 100%; height: 100%; }
+.anat-pin {
+  position: absolute; transform: translate(-50%, -50%); width: 22px; height: 22px; padding: 0; border-radius: 50%;
+  border: 2px solid #fff; background: var(--c); color: #fff; font: 700 11px/1 system-ui, sans-serif;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); cursor: pointer; display: grid; place-items: center;
+}
+.anat-scroll.zoom .anat-pin { width: 26px; height: 26px; font-size: 12px; }
+.anat-pin.on { background: #111; transform: translate(-50%, -50%) scale(1.35); z-index: 2; }
+.anat-sel {
+  position: sticky; bottom: 8px; z-index: 3; display: flex; align-items: center; gap: 10px; margin: 10px 0;
+  padding: 10px 12px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12); min-height: 52px;
+}
+.anat-sel .row { margin-left: auto; flex-shrink: 0; }
+.anat-num {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--c, var(--accent)); color: #fff; font-weight: 700; font-size: 0.8rem;
+}
+.anat-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.anat-txt span { color: var(--muted); }
+.anat-lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.anat-lista li {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.anat-lista li .row { margin-left: auto; flex-shrink: 0; }
+.anat-lista li.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 10%, var(--surface)); }
+.anat-credito { font-size: 0.72rem; color: var(--muted); margin: 12px 0; }
+
+/* Ejemplos de uso en el vocabulario del Spa Concierge */
+.vocab-ex { margin: 6px 0 2px; padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 8px; font-size: 0.9rem; display: grid; gap: 3px; }
+.vocab-ex-en { font-style: italic; }
+.vocab-ex-play { display: inline-flex; gap: 4px; vertical-align: middle; font-style: normal; }
+.vocab-ex-play .icon-btn { width: 30px; height: 30px; font-size: 0.85rem; }

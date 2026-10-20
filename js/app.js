@@ -577,7 +577,9 @@ const VALET_VOC = typeof VALET_VOCAB !== "undefined" ? VALET_VOCAB : [];
 
 // Lista de vocabulario con pronunciación, traducción y audio (valet y concierge).
 const vocabFilas = (words) => `<section class="card valet-vocab">${words.map(
-  (w) => `<div class="valet-word"><div><b>${esc(w.en)}</b>${w.pron ? ` <small class="muted">${esc(w.pron)}</small>` : ""}<br><span>🇲🇽 ${esc(w.es)}</span></div><div class="row">${speakButtons(w.en)}</div></div>`
+  (w) => `<div class="valet-word"><div><b>${esc(w.en)}</b>${w.pron ? ` <small class="muted">${esc(w.pron)}</small>` : ""}<br><span>🇲🇽 ${esc(w.es)}</span>${
+    w.ex ? `<p class="vocab-ex"><span class="vocab-ex-en">💬 ${esc(w.ex)} <span class="vocab-ex-play">${speakButtons(w.ex)}</span></span><span class="muted">🇲🇽 ${esc(w.exEs)}</span></p>` : ""
+  }</div><div class="row">${speakButtons(w.en)}</div></div>`
 ).join("")}</section>`;
 
 function viewValet() {
@@ -643,6 +645,70 @@ function viewConcierge() {
     <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
 }
 
+// ---------- Anatomía del cuerpo humano (js/anatomia.js) ----------
+const ANAT = typeof ANATOMIA !== "undefined" ? ANATOMIA : [];
+
+function viewAnatomia() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <section class="script-hero anat-hero" style="background-image:url('images/anatomia/musculos.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">Human anatomy · Inglés / Español</p>
+        <h1>Anatomía del cuerpo humano</h1>
+        <p>Las partes del cuerpo y todos sus sistemas en ${ANAT.length} láminas. Toca un número para ver y escuchar su nombre en inglés.</p>
+      </div>
+    </section>
+    <div class="grid menu">${ANAT.map(
+      (l, n) => `<a class="tile colored anat-tile" style="--c:${colorPorIndice(n)}" href="#/anatomia/${l.id}">
+        <img class="anat-thumb" src="${esc(l.img)}" alt="" loading="lazy">
+        <span class="tile-title">${esc(l.titulo)}</span>
+        <small class="muted">${esc(l.title)} · ${l.partes.length} partes</small></a>`
+    ).join("")}</div>
+    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+}
+
+function viewLamina(id) {
+  const i = ANAT.findIndex((l) => l.id === id);
+  if (i < 0) return viewAnatomia();
+  const l = ANAT[i], prev = ANAT[i - 1], next = ANAT[i + 1];
+  const c = colorPorIndice(i);
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/anatomia">← Anatomía</a>
+    <h2 class="section-title anat-title" style="color:${c}"><span>${l.icon}</span> ${esc(l.titulo)}</h2>
+    <p class="muted">🇺🇸 ${esc(l.title)} · ${l.partes.length} partes. Toca un número para escuchar su nombre.</p>
+    <div class="anat-tools"><button id="anat-zoom" class="btn ghost">🔍 Ampliar la imagen</button></div>
+    <div class="anat-scroll"><div class="anat${l.h > l.w * 1.6 ? " alta" : ""}" style="aspect-ratio:${l.w} / ${l.h};--c:${c}">
+      <img src="${esc(l.img)}" alt="${esc(l.titulo)}">
+      ${l.partes.map((p, n) => `<button class="anat-pin" data-pin="${n}" data-speak="${esc(p.en)}" style="left:${p.x}%;top:${p.y}%" aria-label="${esc(p.en)}">${n + 1}</button>`).join("")}
+    </div></div>
+    <div id="anat-sel" class="anat-sel muted">👆 Toca un número de la imagen</div>
+    <ol class="anat-lista" style="--c:${c}">${l.partes.map(
+      (p, n) => `<li data-fila="${n}"><span class="anat-num">${n + 1}</span><div class="anat-txt"><b>🇺🇸 ${esc(p.en)}</b><span>🇲🇽 ${esc(p.es)}</span></div><div class="row">${speakButtons(p.en)}</div></li>`
+    ).join("")}</ol>
+    <p class="anat-credito">${esc(l.credito)}</p>
+    <div class="row between stage-nav">
+      ${prev ? `<a class="btn ghost small" href="#/anatomia/${prev.id}">← ${esc(prev.titulo)}</a>` : "<span></span>"}
+      ${next ? `<a class="btn small" href="#/anatomia/${next.id}">${esc(next.titulo)} →</a>` : `<a class="btn small" href="#/anatomia">Terminar ✓</a>`}
+    </div>`;
+}
+
+// Marca una parte de la lámina: su número en la imagen, su fila en la lista y el recuadro de abajo.
+function marcarParte(n, desdeLista) {
+  const l = ANAT.find((x) => x.id === location.hash.split("/")[2]);
+  if (!l) return;
+  const p = l.partes[n];
+  document.querySelectorAll(".anat-pin.on, .anat-lista li.on").forEach((e) => e.classList.remove("on"));
+  const pin = document.querySelector(`.anat-pin[data-pin="${n}"]`);
+  const fila = document.querySelector(`.anat-lista li[data-fila="${n}"]`);
+  pin && pin.classList.add("on");
+  fila && fila.classList.add("on");
+  $("#anat-sel").classList.remove("muted");
+  $("#anat-sel").innerHTML = `<span class="anat-num">${n + 1}</span><span class="anat-txt"><b>🇺🇸 ${esc(p.en)}</b><span>🇲🇽 ${esc(p.es)}</span></span><span class="row">${speakButtons(p.en)}</span>`;
+  if (desdeLista && pin) pin.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+}
+
 function viewMaterial(id) {
   const m = MATERIAL[id];
   if (!m) return viewAmpolletas();
@@ -661,6 +727,8 @@ function view(catId) {
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
+  if (catId === "anatomia") return viewAnatomia();
+  if (catId.startsWith("anatomia/")) return viewLamina(catId.split("/")[1]);
   if (catId === "ampolletas") return viewAmpolletas();
   if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
   if (catId.startsWith("material/")) return viewMaterial(catId.split("/")[1]);
@@ -705,6 +773,10 @@ function view(catId) {
       <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${ANAT.length ? `<a class="script-banner" href="#/anatomia" style="background-image:url('images/anatomia/musculos.jpg')">
+      <span class="script-banner-text"><small>Human anatomy · Español / English</small><b>Anatomía del cuerpo humano</b><span>${ANAT.length} láminas: partes del cuerpo, músculos, huesos, órganos y sistemas</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
       <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -742,6 +814,19 @@ function render() {
       practiceScript = e.target.checked;
       $(".dialogue").classList.toggle("practice", practiceScript);
     };
+    return;
+  }
+  if (id === "anatomia" || id.startsWith("anatomia/")) {
+    const l = ANAT.find((x) => x.id === id.split("/")[1]);
+    USO.track("category", { category: l ? `Anatomía: ${l.titulo}` : "Anatomía del cuerpo humano" });
+    const z = $("#anat-zoom");
+    if (z)
+      z.onclick = () => {
+        const on = $(".anat-scroll").classList.toggle("zoom");
+        z.textContent = on ? "↩︎ Ver la imagen completa" : "🔍 Ampliar la imagen";
+      };
+    document.querySelectorAll(".anat-pin").forEach((b) => (b.onclick = () => marcarParte(+b.dataset.pin)));
+    document.querySelectorAll(".anat-lista li").forEach((li) => (li.onclick = (e) => !e.target.closest("button") && marcarParte(+li.dataset.fila, true)));
     return;
   }
   if (id === "valet" || id === "concierge") {
