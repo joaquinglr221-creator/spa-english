@@ -222,45 +222,73 @@ const BRANDS = USO.hotel
     </header>`
   : "";
 
-// ---------- Script de servicio (js/service-script.js) ----------
+// ---------- Scripts de servicio por etapas ----------
+// Script de servicio AAA (js/service-script.js), hidroterapia (js/hydro-script.js) y valet de spa
+// (js/valet-script.js): mismas vistas, cada uno con su ruta, portada y textos.
 const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
-const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/videos.js
+const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/videos.js (solo el script de servicio)
 let practiceScript = false;
-const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped" };
+const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", valet: "Spa Valet · Valet de spa" };
 
-const stageIcon = (st, size) => catIcon({ id: `st-${st.id}`, icon: st.icon }, size, colorPorIndice(STAGES.indexOf(st)));
+const PROGRAMAS = {
+  script: {
+    stages: STAGES, icono: "script", portada: "images/script/portada.jpg", titulo: "Script de servicio",
+    kicker: "Programa de servicio · Estándares AAA", standardsLabel: "⭐ Estándares AAA",
+    desc: "La experiencia completa de la terapeuta con el huésped, de la bienvenida a la despedida.",
+    flow: "Welcome → Recognize → Discover → Anticipate → Personalize → Deliver → Follow up → Farewell",
+  },
+  hidroterapia: {
+    stages: typeof HYDRO_SCRIPT !== "undefined" ? HYDRO_SCRIPT : [], icono: "instalaciones", portada: "images/script/hidroterapia.jpg",
+    titulo: "Script de hidroterapia", kicker: "Circuito de hidroterapia · Seguridad y servicio", standardsLabel: "⭐ Pautas y seguridad",
+    desc: "Cómo recibir, orientar y cuidar al huésped en cada estación del circuito de hidroterapia.",
+    flow: "Warm shower → Sauna → Cold shower → Steam room → Cold plunge → Vitality pool → Whirlpool → Relaxation lounge",
+  },
+  "valet-script": {
+    stages: typeof VALET_SCRIPT !== "undefined" ? VALET_SCRIPT : [], icono: "amenidades", portada: "images/script/valet.jpg",
+    titulo: "Script del valet de spa", kicker: "Spa Valet · Estándares AAA", standardsLabel: "⭐ Estándares AAA",
+    desc: "El servicio del valet de spa: bienvenida, lockers, amenidades, áreas del spa y despedida.",
+    flow: "Welcome → Recognize → Anticipate → Assist → Explain → Personalize → Follow up → Farewell",
+    volver: "#/valet", volverTexto: "← Valet de spa",
+  },
+};
 
-// Sin etapa: las 11 etapas en recuadros, como el menú de categorías.
-function viewScriptMenu() {
+const stageIcon = (st, size, programa = "script") =>
+  catIcon({ id: programa === "script" ? `st-${st.id}` : `${programa}-${st.id}`, icon: st.icon }, size, colorPorIndice(PROGRAMAS[programa].stages.indexOf(st)));
+
+// Sin etapa: las etapas en recuadros, como el menú de categorías.
+function viewScriptMenu(programa = "script") {
+  const P = PROGRAMAS[programa], S = P.stages;
+  const videos = programa === "script" ? Object.keys(VIDEOS).length : 0;
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
-    <section class="script-hero" style="background-image:url('images/script/portada.jpg')">
+    <a class="back" href="${P.volver || "#/"}">${P.volverTexto || "← Todas las categorías"}</a>
+    <section class="script-hero" style="background-image:url('${P.portada}')">
       <div class="script-hero-text">
-        <p class="script-kicker">Programa de servicio · Estándares AAA</p>
-        <h1>Script de servicio</h1>
-        <p>La experiencia completa de la terapeuta con el huésped, de la bienvenida a la despedida.</p>
+        <p class="script-kicker">${esc(P.kicker)}</p>
+        <h1>${esc(P.titulo)}</h1>
+        <p>${esc(P.desc)}</p>
       </div>
     </section>
     <div class="script-facts">
-      <span><b>${STAGES.length}</b> pasos</span>
-      <span><b>${STAGES.reduce((n, st) => n + st.lines.length, 0)}</b> frases con audio</span>
-      <span><b>${STAGES.reduce((n, st) => n + st.standards.length, 0)}</b> estándares AAA</span>
-      ${Object.keys(VIDEOS).length ? `<span><b>${Object.keys(VIDEOS).length}</b> ${Object.keys(VIDEOS).length === 1 ? "video" : "videos"}</span>` : ""}
+      <span><b>${S.length}</b> pasos</span>
+      <span><b>${S.reduce((n, st) => n + st.lines.length, 0)}</b> frases con audio</span>
+      <span><b>${S.reduce((n, st) => n + st.standards.length, 0)}</b> ${programa === "hidroterapia" ? "pautas" : "estándares AAA"}</span>
+      ${videos ? `<span><b>${videos}</b> ${videos === 1 ? "video" : "videos"}</span>` : ""}
     </div>
-    <p class="script-flow">Welcome → Recognize → Discover → Anticipate → Personalize → Deliver → Follow up → Farewell</p>
-    <a class="btn full center" href="#/script/${STAGES[0].id}">▶ Comenzar con el Paso 1</a>
-    <h2 class="section-title">Los ${STAGES.length} pasos</h2>
-    <div class="grid menu">${STAGES.map(
-      (st, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/script/${st.id}">${stageIcon(st)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
+    <p class="script-flow">${esc(P.flow)}</p>
+    <a class="btn full center" href="#/${programa}/${S[0].id}">▶ Comenzar con el Paso 1</a>
+    <h2 class="section-title">Los ${S.length} pasos</h2>
+    <div class="grid menu">${S.map(
+      (st, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/${programa}/${st.id}">${stageIcon(st, "", programa)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
     ).join("")}</div>
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+    <a class="btn ghost full center" href="${P.volver || "#/"}">${P.volverTexto || "← Volver a las categorías"}</a>`;
 }
 
-function viewScript(stageId) {
-  if (!stageId) return viewScriptMenu();
-  const i = Math.max(0, STAGES.findIndex((st) => st.id === stageId));
-  const st = STAGES[i];
+function viewScript(stageId, programa = "script") {
+  if (!stageId) return viewScriptMenu(programa);
+  const P = PROGRAMAS[programa], S = P.stages;
+  const i = Math.max(0, S.findIndex((st) => st.id === stageId));
+  const st = S[i];
   const lines = st.lines
     .map(
       (l) => `
@@ -273,30 +301,31 @@ function viewScript(stageId) {
       </div>`
     )
     .join("");
-  const prev = STAGES[i - 1], next = STAGES[i + 1];
+  const prev = S[i - 1], next = S[i + 1];
+  const video = programa === "script" && VIDEOS[st.id];
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/script">← Los 11 pasos del script</a>
+    <a class="back" href="#/${programa}">← Los ${S.length} pasos del script</a>
     <section class="card">
-      <div class="cat-head">${stageIcon(st, "md")}<div>
-        <p class="label">Paso ${i + 1} de ${STAGES.length}</p>
+      <div class="cat-head">${stageIcon(st, "md", programa)}<div>
+        <p class="label">Paso ${i + 1} de ${S.length}</p>
         <h2 class="stage-title">${esc(st.title)}</h2>
         <p class="muted">${esc(st.titleEs)}</p>
       </div></div>
       <div class="standards">
-        <p class="label">⭐ Estándares AAA</p>
+        <p class="label">${P.standardsLabel}</p>
         <ul>${st.standards.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
       </div>
     </section>
-    ${VIDEOS[st.id] ? `<video class="stage-video" controls playsinline preload="metadata" src="${esc(VIDEOS[st.id])}#t=0.5"></video>` : ""}
+    ${video ? `<video class="stage-video" controls playsinline preload="metadata" src="${esc(video)}#t=0.5"></video>` : ""}
     <div class="row between">
       <button class="btn small" id="play-stage">▶ Escuchar todo el diálogo</button>
       <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>
     </div>
     <div class="dialogue ${practiceScript ? "practice" : ""}">${lines}</div>
     <div class="row between stage-nav">
-      ${prev ? `<a class="btn ghost small" href="#/script/${prev.id}">← ${esc(prev.titleEs)}</a>` : "<span></span>"}
-      ${next ? `<a class="btn small" href="#/script/${next.id}">${esc(next.titleEs)} →</a>` : `<a class="btn small" href="#/script">Terminar ✓</a>`}
+      ${prev ? `<a class="btn ghost small" href="#/${programa}/${prev.id}">← ${esc(prev.titleEs)}</a>` : "<span></span>"}
+      ${next ? `<a class="btn small" href="#/${programa}/${next.id}">${esc(next.titleEs)} →</a>` : `<a class="btn small" href="#/${programa}">Terminar ✓</a>`}
     </div>`;
 }
 
@@ -334,6 +363,7 @@ const AMPS = typeof AMPOLLETAS !== "undefined" ? AMPOLLETAS : [];
 const MATERIAL = {
   "ampoule-bar": { title: "BABOR Ampoule Bar 2026", subtitle: "Presentación de ampolletas para terapeutas", pages: 7 },
   "natura-bisse": { title: "Natura Bissé · Guía de producto", subtitle: "Retail México (en español)", pages: 26 },
+  "valet-spa": { title: "Valet Spa Script", subtitle: "Presentación de vocabulario para valets", pages: 14, volver: "#/valet", volverTexto: "← Valet de spa" },
 };
 
 const VENTA_ESTANDARES = [
@@ -408,7 +438,7 @@ function viewAmpolletas() {
       <div class="amp-clean">${BABOR_LIMPIO.map(([es, en]) => `<span>✓ 🇲🇽 ${esc(es)} <em>🇺🇸 ${esc(en)}</em></span>`).join("")}</div>
     </section>
     <h2 class="section-title">Material original</h2>
-    <div class="amp-docs">${Object.entries(MATERIAL).map(
+    <div class="amp-docs">${Object.entries(MATERIAL).filter(([, m]) => !m.volver).map(
       ([id, m]) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
         <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`
     ).join("")}</div>
@@ -526,13 +556,45 @@ function viewNaturaProducto(id) {
     </div>`;
 }
 
+// ---------- Valet de spa ----------
+const VALET_VOC = typeof VALET_VOCAB !== "undefined" ? VALET_VOCAB : [];
+
+function viewValet() {
+  const V = PROGRAMAS["valet-script"], H = PROGRAMAS.hidroterapia;
+  const m = MATERIAL["valet-spa"];
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <section class="script-hero" style="background-image:url('images/script/valet.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">Spa Valet · Spa Attendant · Estándares AAA</p>
+        <h1>Valet de spa</h1>
+        <p>Atención al huésped en vestidores, lockers, amenidades y áreas húmedas. Principio clave: <em>“Everything has been taken care of.”</em></p>
+      </div>
+    </section>
+    ${V.stages.length ? `<a class="script-banner" href="#/valet-script" style="background-image:url('${V.portada}')">
+      <span class="script-banner-text"><small>${esc(V.kicker)}</small><b>${esc(V.titulo)}</b><span>${V.stages.length} pasos con audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
+    ${H.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('${H.portada}')">
+      <span class="script-banner-text"><small>${esc(H.kicker)}</small><b>${esc(H.titulo)}</b><span>${H.stages.length} pasos con audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
+    ${VALET_VOC.length ? `<h2 class="section-title">Vocabulario esencial · ${VALET_VOC.length} palabras</h2>
+    <section class="card valet-vocab">${VALET_VOC.map(
+      (w) => `<div class="valet-word"><div><b>${esc(w.en)}</b> <small class="muted">${esc(w.pron)}</small><br><span>🇲🇽 ${esc(w.es)}</span></div><div class="row">${speakButtons(w.en)}</div></div>`
+    ).join("")}</section>` : ""}
+    <h2 class="section-title">Material original</h2>
+    <div class="amp-docs"><a class="amp-doc" href="#/material/valet-spa"><img src="images/material/valet-spa/p01.jpg" alt="" loading="lazy">
+      <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a></div>
+    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+}
+
 function viewMaterial(id) {
   const m = MATERIAL[id];
   if (!m) return viewAmpolletas();
   const pages = Array.from({ length: m.pages }, (_, k) => `images/material/${id}/p${String(k + 1).padStart(2, "0")}.jpg`);
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/ampolletas">← Venta de ampolletas</a>
+    <a class="back" href="${m.volver || "#/ampolletas"}">${m.volverTexto || "← Venta de ampolletas"}</a>
     ${id === "natura-bisse" ? `<a class="btn full center" href="#/natura">🇺🇸 Ver la versión en español e inglés</a>` : ""}
     <h2 class="section-title">${esc(m.title)}</h2>
     <p class="muted">${esc(m.subtitle)} · ${m.pages} páginas. Toca una página para verla en grande.</p>
@@ -540,7 +602,9 @@ function viewMaterial(id) {
 }
 
 function view(catId) {
-  if (catId === "script" || catId.startsWith("script/")) return viewScript(catId.split("/")[1]);
+  const [ruta0, clave0] = catId.split("/");
+  if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
+  if (catId === "valet") return viewValet();
   if (catId === "ampolletas") return viewAmpolletas();
   if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
   if (catId.startsWith("material/")) return viewMaterial(catId.split("/")[1]);
@@ -585,6 +649,14 @@ function view(catId) {
       <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${PROGRAMAS.hidroterapia.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('images/script/hidroterapia.jpg')">
+      <span class="script-banner-text"><small>Circuito de hidroterapia · Seguridad y servicio</small><b>Script de hidroterapia</b><span>Del recibimiento a la despedida · ${PROGRAMAS.hidroterapia.stages.length} pasos con audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
+    ${PROGRAMAS["valet-script"].stages.length ? `<a class="script-banner" href="#/valet" style="background-image:url('images/script/valet.jpg')">
+      <span class="script-banner-text"><small>Spa Valet · Estándares AAA</small><b>Valet de spa</b><span>Script de ${PROGRAMAS["valet-script"].stages.length} pasos, vocabulario y material</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
       <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -600,15 +672,20 @@ function render() {
   const viewed = VOCAB.find((c) => c.id === id);
   if (viewed) USO.track("category", { category: viewed.title });
   window.scrollTo(0, 0);
-  if (id === "script" || id.startsWith("script/")) {
-    const st = STAGES.find((x) => x.id === id.split("/")[1]);
-    if (!st) return; // menú de los 11 pasos
-    USO.track("script", { category: `Script de servicio: ${st.titleEs}` });
+  const [programa, etapa] = id.split("/");
+  if (PROGRAMAS[programa] && PROGRAMAS[programa].stages.length) {
+    const st = PROGRAMAS[programa].stages.find((x) => x.id === etapa);
+    if (!st) return; // menú de los pasos
+    USO.track("script", { category: programa === "script" ? `Script de servicio: ${st.titleEs}` : `${PROGRAMAS[programa].titulo}: ${st.titleEs}` });
     $("#play-stage").onclick = () => speakAll(st.lines.map((l) => l.en));
     $("#practice-toggle").onchange = (e) => {
       practiceScript = e.target.checked;
       $(".dialogue").classList.toggle("practice", practiceScript);
     };
+    return;
+  }
+  if (id === "valet") {
+    USO.track("category", { category: "Valet de spa" });
     return;
   }
   if (id === "natura" || id.startsWith("natura/")) {
