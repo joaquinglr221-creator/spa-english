@@ -438,3 +438,9 @@ a.btn.center { text-align: center; }
 .material-pages { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
 .material-pages img { width: 100%; border-radius: 10px; border: 1px solid var(--border); cursor: zoom-in; background: #fff; }
 @media (max-width: 480px) { .amp-card { flex-direction: column; text-align: center; } .amp-table th { width: 42%; } }
+
+/* Natura Bissé: guía de producto bilingüe (js/natura.js) */
+.nb-grid .tile { padding-top: 10px; }
+.nb-thumb { width: 92px; height: 92px; object-fit: contain; background: #fff; border-radius: 12px; }
+.nb-photo { object-fit: contain; background: #fff; }
+.chips-label em { text-transform: none; letter-spacing: 0; font-weight: 400; }

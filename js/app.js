@@ -450,6 +450,78 @@ function viewAmpolleta(id) {
     </div>`;
 }
 
+// ---------- Natura Bissé: guía de producto en español e inglés (js/natura.js) ----------
+const NB = typeof NATURA !== "undefined" ? NATURA : { categories: [], products: [] };
+const nbCat = (id) => NB.categories.find((c) => c.id === id) || { es: id, en: id };
+const titulo = (s) => s.replace(/\b([A-ZÁÉÍÓÚÑ])([A-ZÁÉÍÓÚÑ'’]+)\b/g, (m, a, b) => a + b.toLowerCase()).replace(/\bNb·/g, "NB·").replace(/\bC\+c\b/g, "C+C").replace(/\bSpf\b/g, "SPF").replace(/\bPa\+\+\+/g, "PA+++").replace(/\bS\.o\.s\b/gi, "S.O.S").replace(/\bA\.h\.a\b/gi, "A.H.A").replace(/\bP\.h\.a\b/gi, "P.H.A");
+
+function viewNatura() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <section class="script-hero" style="background-image:url('images/natura-portada/portada.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">Natura Bissé · Retail México · Español / English</p>
+        <h1>Guía de producto</h1>
+        <p>Los ${NB.products.length} productos de la guía, con sus beneficios e ingredientes en español e inglés.</p>
+      </div>
+    </section>
+    <input id="nb-search" class="search" type="search" placeholder="Buscar producto o ingrediente…" autocomplete="off">
+    <div id="nb-list">${nbLista(NB.products)}</div>
+    <a class="btn ghost full" href="#/material/natura-bisse">📄 Ver la guía original (PDF, en español)</a>
+    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+}
+
+function nbLista(products) {
+  if (!products.length) return `<p class="muted">No se encontraron productos.</p>`;
+  return NB.categories
+    .map((c, n) => {
+      const ps = products.filter((p) => p.cat === c.id);
+      if (!ps.length) return "";
+      return `<p class="chips-label">${esc(c.es)} · <em>${esc(c.en)}</em></p>
+        <div class="grid menu nb-grid">${ps.map((p) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/natura/${p.id}">
+          <img class="nb-thumb" src="${esc(p.img)}" alt="" loading="lazy"><span class="tile-title">${esc(titulo(p.name))}</span></a>`).join("")}</div>`;
+    })
+    .join("");
+}
+
+function viewNaturaProducto(id) {
+  const i = NB.products.findIndex((p) => p.id === id);
+  if (i < 0) return viewNatura();
+  const p = NB.products[i];
+  const c = nbCat(p.cat);
+  const color = colorPorIndice(NB.categories.indexOf(c));
+  const prev = NB.products[i - 1], next = NB.products[i + 1];
+  const lista = (items) => `<ul class="amp-list">${items.map((x) => `<li>${bilingue(x.es, x.en)}</li>`).join("")}</ul>`;
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/natura">← Guía Natura Bissé</a>
+    <section class="card amp-card" style="--c:${color}">
+      <img class="amp-photo nb-photo" src="${esc(p.img)}" alt="${esc(p.name)}">
+      <div>
+        <p class="label">${esc(c.es)} · ${esc(c.en)}</p>
+        <h2 class="stage-title">${esc(titulo(p.name))}</h2>
+        ${p.tagline ? `<p class="muted">${bilingue(p.tagline.es, p.tagline.en)}</p>` : ""}
+        <div class="row">${speakButtons(titulo(p.name))}</div>
+      </div>
+    </section>
+    <section class="card">
+      <p class="label">💛 ¿Por qué te encantará? · Why you'll love it</p>
+      ${lista(p.benefits)}
+    </section>
+    ${p.howTo.length ? `<section class="card"><p class="label">🧴 Cómo se usa · How to use</p>${lista(p.howTo)}</section>` : ""}
+    ${p.tip ? `<section class="card tip"><p class="label">💡 Pro tip</p>${bilingue(p.tip.es, p.tip.en)}</section>` : ""}
+    <section class="card">
+      <p class="label">🔬 ¿Cómo actúa? · How it works</p>
+      <table class="amp-table">${p.ingredients.map((g) => `<tr><th>${bilingue(g.es, g.en)}</th><td>${bilingue(g.descEs, g.descEn)}</td></tr>`).join("")}</table>
+    </section>
+    <a class="btn ghost small" href="#/material/natura-bisse">📄 Ver en la guía original · página ${p.page}</a>
+    <div class="row between stage-nav">
+      ${prev ? `<a class="btn ghost small" href="#/natura/${prev.id}">← ${esc(titulo(prev.name))}</a>` : "<span></span>"}
+      ${next ? `<a class="btn small" href="#/natura/${next.id}">${esc(titulo(next.name))} →</a>` : `<a class="btn small" href="#/natura">Terminar ✓</a>`}
+    </div>`;
+}
+
 function viewMaterial(id) {
   const m = MATERIAL[id];
   if (!m) return viewAmpolletas();
@@ -457,6 +529,7 @@ function viewMaterial(id) {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/ampolletas">← Venta de ampolletas</a>
+    ${id === "natura-bisse" ? `<a class="btn full center" href="#/natura">🇺🇸 Ver la versión en español e inglés</a>` : ""}
     <h2 class="section-title">${esc(m.title)}</h2>
     <p class="muted">${esc(m.subtitle)} · ${m.pages} páginas. Toca una página para verla en grande.</p>
     <div class="material-pages">${pages.map((src, k) => `<img src="${src}" alt="Página ${k + 1}" loading="lazy" data-sheet="${src}" data-title="${esc(m.title)} · página ${k + 1}">`).join("")}</div>`;
@@ -467,6 +540,8 @@ function view(catId) {
   if (catId === "ampolletas") return viewAmpolletas();
   if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
   if (catId.startsWith("material/")) return viewMaterial(catId.split("/")[1]);
+  if (catId === "natura") return viewNatura();
+  if (catId.startsWith("natura/")) return viewNaturaProducto(catId.split("/")[1]);
   const cat = VOCAB.find((c) => c.id === catId);
   currentWords = cat ? cat.words : [];
   const search = `<input id="search" class="search" type="search" placeholder="Buscar en inglés o español…" autocomplete="off">`;
@@ -506,6 +581,10 @@ function view(catId) {
       <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
+      <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     <h2 class="section-title">Categorías</h2>
     <div id="word-list">${menu()}</div>`;
 }
@@ -526,6 +605,18 @@ function render() {
       practiceScript = e.target.checked;
       $(".dialogue").classList.toggle("practice", practiceScript);
     };
+    return;
+  }
+  if (id === "natura" || id.startsWith("natura/")) {
+    const p = NB.products.find((x) => x.id === id.split("/")[1]);
+    USO.track("category", { category: p ? `Natura Bissé: ${titulo(p.name)}` : "Natura Bissé" });
+    const s = $("#nb-search");
+    if (s)
+      s.oninput = () => {
+        const q = s.value.trim().toLowerCase();
+        const hit = (p) => [p.name, ...p.benefits.flatMap((b) => [b.es, b.en]), ...p.ingredients.flatMap((g) => [g.es, g.en])].some((t) => t.toLowerCase().includes(q));
+        $("#nb-list").innerHTML = nbLista(q ? NB.products.filter(hit) : NB.products);
+      };
     return;
   }
   if (id === "ampolletas" || id.startsWith("ampolletas/") || id.startsWith("material/")) {
