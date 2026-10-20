@@ -353,7 +353,10 @@ const BABOR_LIMPIO = [
   ["Probado dermatológicamente", "Dermatologically tested"], ["Vegano", "Vegan"],
 ];
 
-const bilingue = (es, en) => `<span class="bi"><span>${esc(es)}</span><span class="bi-en">🇺🇸 ${esc(en)}</span></span>`;
+const bilingue = (es, en) => `<span class="bi"><span>🇲🇽 ${esc(es)}</span><span class="bi-en">🇺🇸 ${esc(en)}</span></span>`;
+
+// Texto bilingüe con botones para escuchar el inglés (🔊 y 🐢).
+const bilingueAudio = (es, en, hablar = en) => `<div class="bi-audio">${bilingue(es, en)}<div class="row">${speakButtons(hablar)}</div></div>`;
 
 function dialogueHtml(lines) {
   return lines
@@ -386,7 +389,7 @@ function viewAmpolletas() {
     </div>
     <section class="card">
       <p class="label">⭐ Cómo recomendar · How to recommend (AAA)</p>
-      <ul class="amp-list">${VENTA_ESTANDARES.map(([es, en]) => `<li>${bilingue(es, en)}</li>`).join("")}</ul>
+      <ul class="amp-list">${VENTA_ESTANDARES.map(([es, en]) => `<li>${bilingueAudio(es, en)}</li>`).join("")}</ul>
       <div class="line therapist amp-no">
         <p class="who">Si el huésped dice que no · If the guest says no</p>
         <p class="en">${esc(VENTA_NO[0])}</p><p class="es">${esc(VENTA_NO[1])}</p>
@@ -402,7 +405,7 @@ function viewAmpolletas() {
     ).join("")}</div>
     <section class="card">
       <p class="label">🌿 Fórmulas BABOR · BABOR formulas</p>
-      <div class="amp-clean">${BABOR_LIMPIO.map(([es, en]) => `<span>✓ ${esc(es)} <em>${esc(en)}</em></span>`).join("")}</div>
+      <div class="amp-clean">${BABOR_LIMPIO.map(([es, en]) => `<span>✓ 🇲🇽 ${esc(es)} <em>🇺🇸 ${esc(en)}</em></span>`).join("")}</div>
     </section>
     <h2 class="section-title">Material original</h2>
     <div class="amp-docs">${Object.entries(MATERIAL).map(
@@ -416,7 +419,7 @@ function viewAmpolleta(id) {
   const i = AMPS.findIndex((a) => a.id === id);
   if (i < 0) return viewAmpolletas();
   const a = AMPS[i];
-  const fila = (es, en, valor) => `<tr><th>${bilingue(es, en)}</th><td>${valor}</td></tr>`;
+  const fila = (es, en, valor) => `<tr><th>${bilingueAudio(es, en)}</th><td>${valor}</td></tr>`;
   const prev = AMPS[i - 1], next = AMPS[i + 1];
   return `${BRANDS}
     ${USO.badge()}
@@ -426,16 +429,16 @@ function viewAmpolleta(id) {
       <div>
         <p class="label">${esc(a.line)}</p>
         <h2 class="stage-title">${esc(a.name)}</h2>
-        <p class="muted">${bilingue(a.concern.es, a.concern.en)}</p>
+        <div class="muted">${bilingueAudio(a.concern.es, a.concern.en)}</div>
       </div>
     </section>
     <section class="card">
       <table class="amp-table">
-        ${fila("Beneficio instantáneo", "Instant benefit", bilingue(a.instant.es, a.instant.en))}
-        ${fila("Beneficio en 7 días", "7-day benefit", bilingue(a.days7.es, a.days7.en))}
-        ${fila("Uso", "Use", bilingue(a.use.es, a.use.en))}
-        ${fila("Efecto", "Effect", bilingue(a.effect.es, a.effect.en))}
-        ${fila("Activos", "Key ingredients", `<ul class="amp-list">${a.actives.es.map((x, k) => `<li>${bilingue(x, a.actives.en[k])}</li>`).join("")}</ul>`)}
+        ${fila("Beneficio instantáneo", "Instant benefit", bilingueAudio(a.instant.es, a.instant.en))}
+        ${fila("Beneficio en 7 días", "7-day benefit", bilingueAudio(a.days7.es, a.days7.en))}
+        ${fila("Uso", "Use", bilingueAudio(a.use.es, a.use.en))}
+        ${fila("Efecto", "Effect", bilingueAudio(a.effect.es, a.effect.en))}
+        ${fila("Activos", "Key ingredients", `<ul class="amp-list">${a.actives.es.map((x, k) => `<li>${bilingueAudio(x, a.actives.en[k])}</li>`).join("")}</ul>`)}
       </table>
     </section>
     <h2 class="section-title">💬 Script de venta · Sales script</h2>
@@ -485,8 +488,6 @@ function nbLista(products) {
     .join("");
 }
 
-// Texto bilingüe con botones para escuchar el inglés (🔊 y 🐢).
-const bilingueAudio = (es, en, hablar = en) => `<div class="bi-audio">${bilingue(es, en)}<div class="row">${speakButtons(hablar)}</div></div>`;
 
 function viewNaturaProducto(id) {
   const i = NB.products.findIndex((p) => p.id === id);
