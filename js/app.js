@@ -240,7 +240,7 @@ const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", v
 
 const PROGRAMAS = {
   script: {
-    stages: STAGES, icono: "script", portada: "images/script/portada.jpg", titulo: "Script de servicio",
+    stages: STAGES, icono: "script", portada: "images/script/portada.jpg", titulo: "Script de servicio Terapeuta",
     kicker: "Programa de servicio · Estándares AAA", standardsLabel: "⭐ Estándares AAA",
     desc: "La experiencia completa de la terapeuta con el huésped, de la bienvenida a la despedida.",
     flow: "Welcome → Recognize → Discover → Anticipate → Personalize → Deliver → Follow up → Farewell",
@@ -698,7 +698,7 @@ function view(catId) {
 
     ${search}
     ${STAGES.length ? `<a class="script-banner" href="#/script" style="background-image:url('images/script/portada.jpg')">
-      <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
+      <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio Terapeuta</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     ${AMPS.length ? `<a class="script-banner" href="#/ampolletas" style="background-image:url('images/ampolletas/portada.jpg')">
