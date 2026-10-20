@@ -32,17 +32,17 @@ const PIEL = {
 
   // Escala de Fitzpatrick: cómo reacciona cada color de piel al sol.
   fototipos: [
-    { tipo: "I", color: "#f6e0d2", en: "Type I: very fair skin", es: "Tipo I: piel muy clara",
+    { color: "#f6e0d2", en: "Very fair skin", es: "Piel muy clara",
       desc: { en: "Always burns and never tans. Often has freckles, red or blond hair and light eyes.", es: "Siempre se quema y nunca se broncea. Suele tener pecas, cabello pelirrojo o rubio y ojos claros." } },
-    { tipo: "II", color: "#eccaae", en: "Type II: fair skin", es: "Tipo II: piel clara",
+    { color: "#eccaae", en: "Fair skin", es: "Piel clara",
       desc: { en: "Burns easily and tans very little.", es: "Se quema con facilidad y se broncea muy poco." } },
-    { tipo: "III", color: "#d9aa82", en: "Type III: medium skin", es: "Tipo III: piel intermedia",
+    { color: "#d9aa82", en: "Medium skin", es: "Piel intermedia",
       desc: { en: "Sometimes burns and tans gradually.", es: "A veces se quema y se broncea poco a poco." } },
-    { tipo: "IV", color: "#b98258", en: "Type IV: olive skin", es: "Tipo IV: piel morena clara (oliva)",
+    { color: "#b98258", en: "Olive skin", es: "Piel morena clara (oliva)",
       desc: { en: "Rarely burns and tans easily.", es: "Rara vez se quema y se broncea con facilidad." } },
-    { tipo: "V", color: "#8b5737", en: "Type V: brown skin", es: "Tipo V: piel morena",
+    { color: "#8b5737", en: "Brown skin", es: "Piel morena",
       desc: { en: "Very rarely burns and tans very easily.", es: "Muy rara vez se quema y se broncea muy fácilmente." } },
-    { tipo: "VI", color: "#4c2e20", en: "Type VI: dark brown or black skin", es: "Tipo VI: piel morena oscura o negra",
+    { color: "#4c2e20", en: "Dark brown or black skin", es: "Piel morena oscura o negra",
       desc: { en: "Never burns. It still needs sun protection.", es: "Nunca se quema. Aun así necesita protección solar." } },
   ],
 

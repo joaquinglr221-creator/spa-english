@@ -757,9 +757,9 @@ function viewPiel() {
     ).join("")}</div>
 
     <h2 class="section-title" id="piel-colores">🎨 Colores de piel (fototipos) · Skin tones</h2>
-    <p class="muted">Escala de Fitzpatrick: cómo reacciona cada color de piel al sol.</p>
+    <p class="muted">De la piel más clara a la más oscura, y cómo reacciona cada una al sol.</p>
     <div class="piel-colores">${P.fototipos.map(
-      (f) => `<div class="piel-color"><span class="piel-muestra" style="background:${f.color}">${f.tipo}</span>
+      (f) => `<div class="piel-color"><span class="piel-muestra" style="background:${f.color}"></span>
         <div class="piel-af-txt">
           <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(f.en)}</b><span>🇲🇽 ${esc(f.es)}</span></span><div class="row">${speakButtons(f.en)}</div></div>
           ${bilingueAudio(f.desc.es, f.desc.en)}
