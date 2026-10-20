@@ -705,6 +705,10 @@ function view(catId) {
       <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
+      <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     ${PROGRAMAS.hidroterapia.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('images/script/hidroterapia.jpg')">
       <span class="script-banner-text"><small>Circuito de hidroterapia · Seguridad y servicio</small><b>Script de hidroterapia</b><span>Del recibimiento a la despedida · ${PROGRAMAS.hidroterapia.stages.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -715,10 +719,6 @@ function view(catId) {
     </a>` : ""}
     ${PROGRAMAS["concierge-script"].stages.length ? `<a class="script-banner" href="#/concierge" style="background-image:url('images/script/concierge.jpg')">
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span>
-    </a>` : ""}
-    ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
-      <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     <h2 class="section-title">Categorías</h2>
