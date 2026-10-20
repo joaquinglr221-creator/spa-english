@@ -236,7 +236,7 @@ const BRANDS = USO.hotel
 const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
 const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/videos.js (solo el script de servicio)
 let practiceScript = false;
-const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", valet: "Spa Valet · Valet de spa" };
+const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", valet: "Spa Valet · Valet de spa", concierge: "Spa Concierge · Concierge del spa" };
 
 const PROGRAMAS = {
   script: {
@@ -257,6 +257,13 @@ const PROGRAMAS = {
     desc: "El servicio del valet de spa: bienvenida, lockers, amenidades, áreas del spa y despedida.",
     flow: "Welcome → Recognize → Anticipate → Assist → Explain → Personalize → Follow up → Farewell",
     volver: "#/valet", volverTexto: "← Valet de spa",
+  },
+  "concierge-script": {
+    stages: typeof CONCIERGE_SCRIPT !== "undefined" ? CONCIERGE_SCRIPT : [], icono: "script", portada: "images/script/concierge.jpg",
+    titulo: "Script del Spa Concierge", kicker: "Spa Concierge · Ventas y bienestar", standardsLabel: "⭐ Estándares de venta",
+    desc: "Bienvenida, evaluación de necesidades, masajes, hidroterapia, objeciones y cierre de la venta.",
+    flow: "Welcome → Assess needs → Recommend → Upsell → Handle objections → Close → Confirm",
+    volver: "#/concierge", volverTexto: "← Spa Concierge",
   },
 };
 
@@ -280,7 +287,7 @@ function viewScriptMenu(programa = "script") {
     <div class="script-facts">
       <span><b>${S.length}</b> pasos</span>
       <span><b>${S.reduce((n, st) => n + st.lines.length, 0)}</b> frases con audio</span>
-      <span><b>${S.reduce((n, st) => n + st.standards.length, 0)}</b> ${programa === "hidroterapia" ? "pautas" : "estándares AAA"}</span>
+      <span><b>${S.reduce((n, st) => n + st.standards.length, 0)}</b> ${programa === "hidroterapia" ? "pautas" : programa === "concierge-script" ? "estándares" : "estándares AAA"}</span>
       ${videos ? `<span><b>${videos}</b> ${videos === 1 ? "video" : "videos"}</span>` : ""}
     </div>
     <p class="script-flow">${esc(P.flow)}</p>
@@ -371,6 +378,7 @@ const AMPS = typeof AMPOLLETAS !== "undefined" ? AMPOLLETAS : [];
 const MATERIAL = {
   "ampoule-bar": { title: "BABOR Ampoule Bar 2026", subtitle: "Presentación de ampolletas para terapeutas", pages: 7 },
   "natura-bisse": { title: "Natura Bissé · Guía de producto", subtitle: "Retail México (en español)", pages: 26 },
+  "spa-concierge": { title: "Spa Concierge · Sales & Wellness Script", subtitle: "Manual original (en inglés)", pages: 11, volver: "#/concierge", volverTexto: "← Spa Concierge" },
   "valet-spa": { title: "Valet Spa Script", subtitle: "Presentación de vocabulario para valets", pages: 14, volver: "#/valet", volverTexto: "← Valet de spa" },
 };
 
@@ -567,6 +575,11 @@ function viewNaturaProducto(id) {
 // ---------- Valet de spa ----------
 const VALET_VOC = typeof VALET_VOCAB !== "undefined" ? VALET_VOCAB : [];
 
+// Lista de vocabulario con pronunciación, traducción y audio (valet y concierge).
+const vocabFilas = (words) => `<section class="card valet-vocab">${words.map(
+  (w) => `<div class="valet-word"><div><b>${esc(w.en)}</b>${w.pron ? ` <small class="muted">${esc(w.pron)}</small>` : ""}<br><span>🇲🇽 ${esc(w.es)}</span></div><div class="row">${speakButtons(w.en)}</div></div>`
+).join("")}</section>`;
+
 function viewValet() {
   const V = PROGRAMAS["valet-script"], H = PROGRAMAS.hidroterapia;
   const m = MATERIAL["valet-spa"];
@@ -587,11 +600,45 @@ function viewValet() {
       <span class="script-banner-text"><small>${esc(H.kicker)}</small><b>${esc(H.titulo)}</b><span>${H.stages.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
     ${VALET_VOC.length ? `<h2 class="section-title">Vocabulario esencial · ${VALET_VOC.length} palabras</h2>
-    <section class="card valet-vocab">${VALET_VOC.map(
-      (w) => `<div class="valet-word"><div><b>${esc(w.en)}</b> <small class="muted">${esc(w.pron)}</small><br><span>🇲🇽 ${esc(w.es)}</span></div><div class="row">${speakButtons(w.en)}</div></div>`
-    ).join("")}</section>` : ""}
+    ${vocabFilas(VALET_VOC)}` : ""}
     <h2 class="section-title">Material original</h2>
     <div class="amp-docs"><a class="amp-doc" href="#/material/valet-spa"><img src="images/material/valet-spa/p01.jpg" alt="" loading="lazy">
+      <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a></div>
+    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+}
+
+// ---------- Spa Concierge ----------
+const CONC_VOC = typeof CONCIERGE_VOCAB !== "undefined" ? CONCIERGE_VOCAB : [];
+const CONC_KPIS = typeof CONCIERGE_KPIS !== "undefined" ? CONCIERGE_KPIS : [];
+
+function viewConcierge() {
+  const C = PROGRAMAS["concierge-script"], H = PROGRAMAS.hidroterapia;
+  const m = MATERIAL["spa-concierge"];
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <section class="script-hero" style="background-image:url('${C.portada}')">
+      <div class="script-hero-text">
+        <p class="script-kicker">Spa Concierge · Professional Sales &amp; Guest Experience</p>
+        <h1>Spa Concierge</h1>
+        <p>Venta consultiva y recomendaciones centradas en el huésped: masajes, hidroterapia y tratamientos de bienestar, sin presión y sin promesas médicas.</p>
+      </div>
+    </section>
+    <a class="script-banner" href="#/concierge-script" style="background-image:url('${C.portada}')">
+      <span class="script-banner-text"><small>${esc(C.kicker)}</small><b>${esc(C.titulo)}</b><span>${C.stages.length} pasos con audio, del saludo al cierre</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>
+    ${H.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('${H.portada}')">
+      <span class="script-banner-text"><small>${esc(H.kicker)}</small><b>${esc(H.titulo)}</b><span>${H.stages.length} pasos con audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
+    ${CONC_VOC.map((g) => `<h2 class="section-title">${esc(g.titleEs)} · ${g.words.length}</h2>
+    <p class="muted">🇺🇸 ${esc(g.title)}</p>
+    ${vocabFilas(g.words)}`).join("")}
+    ${CONC_KPIS.length ? `<h2 class="section-title">Indicadores de ventas (KPI)</h2>
+    <section class="card valet-vocab">${CONC_KPIS.map(
+      (k) => `<div class="valet-word"><div><b>${esc(k.en)}</b><br><span>🇲🇽 ${esc(k.es)}</span><br><small class="muted">${esc(k.formula)}</small></div><div class="row">${speakButtons(k.en)}</div></div>`
+    ).join("")}</section>` : ""}
+    <h2 class="section-title">Material original</h2>
+    <div class="amp-docs"><a class="amp-doc" href="#/material/spa-concierge"><img src="images/material/spa-concierge/p01.jpg" alt="" loading="lazy">
       <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a></div>
     <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
 }
@@ -613,6 +660,7 @@ function view(catId) {
   const [ruta0, clave0] = catId.split("/");
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
+  if (catId === "concierge") return viewConcierge();
   if (catId === "ampolletas") return viewAmpolletas();
   if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
   if (catId.startsWith("material/")) return viewMaterial(catId.split("/")[1]);
@@ -665,6 +713,10 @@ function view(catId) {
       <span class="script-banner-text"><small>Spa Valet · Estándares AAA</small><b>Valet de spa</b><span>Script de ${PROGRAMAS["valet-script"].stages.length} pasos, vocabulario y material</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${PROGRAMAS["concierge-script"].stages.length ? `<a class="script-banner" href="#/concierge" style="background-image:url('images/script/concierge.jpg')">
+      <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
       <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -692,8 +744,8 @@ function render() {
     };
     return;
   }
-  if (id === "valet") {
-    USO.track("category", { category: "Valet de spa" });
+  if (id === "valet" || id === "concierge") {
+    USO.track("category", { category: id === "valet" ? "Valet de spa" : "Spa Concierge" });
     return;
   }
   if (id === "natura" || id.startsWith("natura/")) {
