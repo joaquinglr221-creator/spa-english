@@ -135,13 +135,13 @@ const VALET_SCRIPT = [
   {
     id: "hours", icon: "🕗", title: "Hours and Treatments", titleEs: "Horarios y tratamientos",
     standards: [
-      "Usar siempre los horarios reales del hotel (los de este guion son un ejemplo).",
+      "Horario del spa y del área de hidroterapia: de 8:00 a.m. a 8:00 p.m.",
       "Explicar que los tratamientos son con cita y ofrecer contactar a la recepción del spa.",
     ],
     lines: [
       { who: "guest", en: "What time does the Spa close?", es: "¿A qué hora cierra el spa?" },
-      { who: "valet", en: "The Spa is open from 8:00 a.m. to 10:00 p.m.", es: "El spa abre de 8:00 a.m. a 10:00 p.m." },
-      { who: "valet", en: "The hydrotherapy area closes at 9:00 p.m.", es: "El área de hidroterapia cierra a las 9:00 p.m." },
+      { who: "valet", en: "The Spa is open from 8:00 a.m. to 8:00 p.m.", es: "El spa abre de 8:00 a.m. a 8:00 p.m." },
+      { who: "valet", en: "The hydrotherapy area is also open until 8:00 p.m.", es: "El área de hidroterapia también está abierta hasta las 8:00 p.m." },
       { who: "valet", en: "Our Spa offers massages, facials and body treatments. Treatments are available by appointment.", es: "Nuestro spa ofrece masajes, faciales y tratamientos corporales. Los tratamientos son con cita." },
       { who: "valet", en: "Would you like me to connect you with Spa Reception?", es: "¿Le gustaría que le comunique con la recepción del spa?" },
     ],
