@@ -816,8 +816,246 @@ function viewMaterial(id) {
     <div class="material-pages">${pages.map((src, k) => `<img src="${src}" alt="Página ${k + 1}" loading="lazy" data-sheet="${src}" data-title="${esc(m.title)} · página ${k + 1}">`).join("")}</div>`;
 }
 
+// ---------- Pruebas de listening y writing de cada vocabulario ----------
+// Listening: se escucha la palabra y se elige entre 4 opciones. Writing: se ve en español y se escribe en inglés.
+// El resultado va al reporte de uso (evento "quiz") y cada error como "miss".
+const MODOS = {
+  listening: { icono: "🎧", nombre: "Listening", desc: "Escucha la palabra y elige cuál es" },
+  writing: { icono: "✍️", nombre: "Writing", desc: "Lee la palabra en español y escríbela en inglés" },
+};
+const PREGUNTAS_POR_PRUEBA = 10;
+let prueba = null;
+
+const barajar = (arr) => {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+const leerMejor = (clave) => {
+  try {
+    return JSON.parse(localStorage.getItem(`mejor:${clave}`) || "null");
+  } catch {
+    return null;
+  }
+};
+const guardarMejor = (clave, r) => {
+  try {
+    const m = leerMejor(clave);
+    if (!m || r.aciertos / r.total > m.aciertos / m.total) localStorage.setItem(`mejor:${clave}`, JSON.stringify(r));
+  } catch {}
+};
+
+function nuevaPrueba(cat, modo) {
+  const preguntas = barajar(cat.words).slice(0, Math.min(PREGUNTAS_POR_PRUEBA, cat.words.length));
+  return {
+    clave: `${cat.id}/${modo}`, cat, modo, i: 0, aciertos: 0, respondida: null, fallas: [],
+    preguntas: preguntas.map((w) => ({
+      w,
+      opciones: modo === "listening" ? barajar([w, ...barajar(cat.words.filter((x) => x.en !== w.en)).slice(0, 3)]) : null,
+    })),
+  };
+}
+
+// Normaliza una respuesta escrita: sin mayúsculas, acentos, signos ni espacios de más.
+const normalizar = (t) =>
+  t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[’`]/g, "'").replace(/[^a-z0-9' ]/g, " ").replace(/\s+/g, " ").trim();
+
+function respuestasValidas(en) {
+  const v = new Set();
+  const agregar = (t) => {
+    const n = normalizar(t);
+    if (!n) return;
+    v.add(n);
+    v.add(n.replace(/^(to|a|an|the) /, ""));
+  };
+  agregar(en);
+  agregar(en.replace(/\([^)]*\)/g, ""));
+  en.split("/").forEach(agregar);
+  return [...v];
+}
+
+function distancia(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+
+// "ok" = correcta, "casi" = un pequeño error de ortografía (cuenta como correcta), "mal" = incorrecta.
+function revisarEscrita(escrito, en) {
+  const n = normalizar(escrito);
+  if (!n) return "mal";
+  const validas = respuestasValidas(en);
+  if (validas.includes(n)) return "ok";
+  const tolerancia = (t) => (t.length >= 30 ? 3 : t.length >= 12 ? 2 : t.length >= 5 ? 1 : 0);
+  return validas.some((v) => distancia(n, v) <= tolerancia(v)) ? "casi" : "mal";
+}
+
+function botonesPrueba(cat) {
+  return `<div class="prueba-botones">${Object.entries(MODOS)
+    .map(([modo, m]) => {
+      const mejor = leerMejor(`${cat.id}/${modo}`);
+      return `<a class="prueba-boton" href="#/practica/${cat.id}/${modo}"><span class="prueba-icono">${m.icono}</span>
+        <span><b>Prueba de ${m.nombre}</b><small>${m.desc}${mejor ? ` · Mejor: ${mejor.aciertos}/${mejor.total}` : ""}</small></span></a>`;
+    })
+    .join("")}</div>`;
+}
+
+function viewPruebas() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Todas las categorías</a>
+    <section class="hero prueba-hero"><span class="prueba-hero-icono">🎧✍️</span><div>
+      <h1>Pruebas de listening y writing</h1>
+      <p>Elige un vocabulario. En cada prueba hay ${PREGUNTAS_POR_PRUEBA} preguntas al azar.</p></div></section>
+    ${VOCAB.map(
+      (c) => `<section class="card prueba-cat">
+        <h3 class="cat-head" style="color:${colorCategoria(c.id)}">${catIcon(c, "md", colorCategoria(c.id))}<span>${esc(c.title)} <span class="muted">· ${c.words.length} palabras</span></span></h3>
+        ${botonesPrueba(c)}</section>`
+    ).join("")}
+    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+}
+
+function viewPrueba(catId, modo) {
+  const cat = VOCAB.find((c) => c.id === catId);
+  if (!cat || !MODOS[modo]) return viewPruebas();
+  if (!prueba || prueba.clave !== `${cat.id}/${modo}`) prueba = nuevaPrueba(cat, modo);
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/${cat.id}">← ${esc(cat.title)}</a>
+    <h2 class="section-title cat-head" style="color:${colorCategoria(cat.id)}">${catIcon(cat, "md", colorCategoria(cat.id))}<span>${MODOS[modo].icono} Prueba de ${MODOS[modo].nombre} <span class="muted">· ${esc(cat.title)}</span></span></h2>
+    <div id="prueba">${pruebaHtml()}</div>`;
+}
+
+function pruebaHtml() {
+  const P = prueba, total = P.preguntas.length;
+  if (P.i >= total) return resultadoHtml();
+  const { w, opciones } = P.preguntas[P.i];
+  const r = P.respondida;
+  const avance = `<div class="prueba-avance"><span>Pregunta ${P.i + 1} de ${total}</span><span>✓ ${P.aciertos}</span></div>
+    <div class="progress"><div style="width:${(P.i / total) * 100}%"></div></div>`;
+  const foto = PHOTOS[w.en] ? `<img class="prueba-foto" src="${esc(PHOTOS[w.en].src)}" alt="" loading="lazy">` : "";
+  const siguiente = r ? `<button id="prueba-sig" class="btn full center">${P.i + 1 < total ? "Siguiente →" : "Ver mi resultado"}</button>` : "";
+  if (P.modo === "listening") {
+    return `${avance}
+      <section class="card prueba-card">
+        <p class="label">🎧 Escucha y elige la palabra que oíste</p>
+        <div class="prueba-escuchar">
+          <button class="btn prueba-play" data-speak="${esc(w.en)}">🔊 Escuchar</button>
+          <button class="btn ghost" data-speak="${esc(w.en)}" data-slow>🐢 Despacio</button>
+        </div>
+        <div class="prueba-opciones">${opciones
+          .map((o, k) => {
+            const cls = !r ? "" : o.en === w.en ? "bien" : r.elegida === o.en ? "mal" : "apagada";
+            return `<button class="prueba-opcion ${cls}" data-opcion="${k}" ${r ? "disabled" : ""}>${esc(o.en)}</button>`;
+          })
+          .join("")}</div>
+        ${r ? `<div class="prueba-retro ${r.ok ? "bien" : "mal"}">${r.ok ? "✓ ¡Correcto!" : `✗ Era: <b>${esc(w.en)}</b>`}<span>🇲🇽 ${esc(w.es)}</span></div>${foto}` : ""}
+      </section>${siguiente}`;
+  }
+  return `${avance}
+    <section class="card prueba-card">
+      <p class="label">✍️ Escribe en inglés</p>
+      <p class="prueba-es">🇲🇽 ${esc(w.es)}</p>
+      ${foto}
+      <input id="prueba-texto" class="search prueba-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+        placeholder="Escribe aquí en inglés…" value="${r ? esc(r.escrito) : ""}" ${r ? "disabled" : ""}>
+      ${r ? "" : `<div class="row between"><button id="prueba-pista" class="btn ghost small">💡 Pista</button><button id="prueba-revisar" class="btn small">Revisar ✓</button></div>
+        <p id="prueba-pista-txt" class="muted prueba-pista"></p>`}
+      ${r ? `<div class="prueba-retro ${r.ok ? "bien" : "mal"}">${
+        r.ok ? (r.casi ? `✓ ¡Casi perfecto! Revisa la ortografía: <b>${esc(w.en)}</b>` : "✓ ¡Correcto!") : `✗ La respuesta es: <b>${esc(w.en)}</b>`
+      }<div class="row">${speakButtons(w.en)}</div></div>` : ""}
+    </section>${siguiente}`;
+}
+
+function resultadoHtml() {
+  const P = prueba, total = P.preguntas.length, pct = Math.round((P.aciertos / total) * 100);
+  const otro = P.modo === "listening" ? "writing" : "listening";
+  const msg = pct === 100 ? "¡Perfecto! 🌟" : pct >= 80 ? "¡Muy bien! 👏" : pct >= 60 ? "¡Bien! Sigue practicando 💪" : "Repasa el vocabulario y vuelve a intentarlo 📚";
+  return `<section class="card prueba-final">
+      <p class="prueba-puntos">${P.aciertos} / ${total}</p>
+      <div class="progress"><div style="width:${pct}%"></div></div>
+      <p class="prueba-msg">${pct}% · ${msg}</p>
+    </section>
+    ${P.fallas.length ? `<h3 class="piel-sub">Palabras para repasar</h3>
+      <div class="prueba-fallas">${P.fallas
+        .map((w) => `<div class="valet-word"><div><b>🇺🇸 ${esc(w.en)}</b><br><span>🇲🇽 ${esc(w.es)}</span></div><div class="row">${speakButtons(w.en)}</div></div>`)
+        .join("")}</div>` : ""}
+    <button id="prueba-repetir" class="btn full center">🔁 Repetir la prueba</button>
+    <a class="btn ghost full center" href="#/practica/${P.cat.id}/${otro}">${MODOS[otro].icono} Hacer la prueba de ${MODOS[otro].nombre}</a>
+    <a class="btn ghost full center" href="#/${P.cat.id}">← Volver a ${esc(P.cat.title)}</a>`;
+}
+
+function responderPrueba(ok, datos) {
+  const P = prueba, w = P.preguntas[P.i].w;
+  P.respondida = { ok, ...datos };
+  if (ok) P.aciertos++;
+  else {
+    P.fallas.push(w);
+    USO.track("miss", { item: w.en, category: P.cat.title });
+  }
+  if (P.modo === "listening") speak(w.en);
+  pintarPrueba();
+}
+
+function pintarPrueba() {
+  const P = prueba;
+  $("#prueba").innerHTML = pruebaHtml();
+  if (P.i >= P.preguntas.length) {
+    $("#prueba-repetir").onclick = () => {
+      prueba = nuevaPrueba(P.cat, P.modo);
+      pintarPrueba();
+    };
+    return;
+  }
+  const sig = $("#prueba-sig");
+  if (sig) {
+    sig.onclick = () => {
+      P.i++;
+      P.respondida = null;
+      if (P.i >= P.preguntas.length) {
+        const r = { aciertos: P.aciertos, total: P.preguntas.length };
+        guardarMejor(P.clave, r);
+        USO.track("quiz", { category: P.cat.title, item: MODOS[P.modo].nombre, score: r.aciertos, total: r.total });
+      }
+      pintarPrueba();
+      window.scrollTo(0, 0);
+      if (P.modo === "listening" && P.i < P.preguntas.length) speak(P.preguntas[P.i].w.en);
+    };
+    sig.focus();
+  }
+  const { w } = P.preguntas[P.i];
+  document.querySelectorAll(".prueba-opcion").forEach(
+    (b) => (b.onclick = () => {
+      const elegida = P.preguntas[P.i].opciones[+b.dataset.opcion].en;
+      responderPrueba(elegida === w.en, { elegida });
+    })
+  );
+  const input = $("#prueba-texto");
+  if (input && !P.respondida) {
+    const revisar = () => {
+      if (!input.value.trim()) return input.focus();
+      const res = revisarEscrita(input.value, w.en);
+      responderPrueba(res !== "mal", { escrito: input.value, casi: res === "casi" });
+    };
+    $("#prueba-revisar").onclick = revisar;
+    input.onkeydown = (e) => e.key === "Enter" && revisar();
+    $("#prueba-pista").onclick = () => {
+      $("#prueba-pista-txt").textContent = `Empieza con "${w.en.charAt(0)}" y tiene ${w.en.replace(/[^A-Za-z]/g, "").length} letras: ${w.en.replace(/[A-Za-z]/g, (c, k) => (k === 0 ? c : "_"))}`;
+    };
+    input.focus();
+  }
+}
+
 function view(catId) {
   const [ruta0, clave0] = catId.split("/");
+  if (catId === "pruebas") return viewPruebas();
+  if (ruta0 === "practica") return viewPrueba(clave0, catId.split("/")[2]);
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
@@ -839,6 +1077,7 @@ function view(catId) {
     <a class="back" href="#/">← Todas las categorías</a>
     ${search}
     <h2 class="section-title cat-head" style="color:${colorCategoria(cat.id)}">${catIcon(cat, "md", colorCategoria(cat.id))}<span>${esc(cat.title)} <span class="muted">· ${learned} de ${cat.words.length}</span></span></h2>
+    ${botonesPrueba(cat)}
     <div id="word-list">${wordList(cat.words)}</div>
     <a class="btn ghost full center" href="#/">← Volver a las categorías</a>
     <a class="float-back" href="#/" aria-label="Volver a las categorías">← Categorías</a>`;
@@ -892,6 +1131,7 @@ function view(catId) {
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    <a class="prueba-banner" href="#/pruebas"><span class="prueba-icono">🎧✍️</span><span><b>Pruebas de listening y writing</b><small>Practica cada vocabulario: escucha y elige, o escribe en inglés</small></span><span class="script-banner-go" aria-hidden="true">→</span></a>
     <h2 class="section-title">Categorías</h2>
     <div id="word-list">${menu()}</div>`;
 }
@@ -900,6 +1140,14 @@ function render() {
   const catId = location.hash.replace(/^#\/?/, "");
   const id = decodeURIComponent(catId);
   $("#app").innerHTML = view(id);
+  if (id.startsWith("practica/")) {
+    if (VOCAB.some((c) => c.id === id.split("/")[1])) {
+      prueba = nuevaPrueba(VOCAB.find((c) => c.id === id.split("/")[1]), id.split("/")[2]);
+      pintarPrueba();
+    }
+    return;
+  }
+  if (id === "pruebas") return;
   const viewed = VOCAB.find((c) => c.id === id);
   if (viewed) USO.track("category", { category: viewed.title });
   window.scrollTo(0, 0);

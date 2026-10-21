@@ -530,3 +530,41 @@ a.btn.center { text-align: center; }
 .piel-foto { position: relative; flex-shrink: 0; width: 84px; height: 84px; }
 .piel-foto img { width: 84px; height: 84px; border-radius: 14px; display: block; }
 .piel-foto .piel-muestra { position: absolute; right: -6px; bottom: -6px; width: 28px; height: 28px; border: 3px solid var(--surface); }
+
+/* Pruebas de listening y writing */
+.prueba-botones { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 8px 0 14px; }
+.prueba-boton, .prueba-banner {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--radius); text-decoration: none; color: var(--text);
+  background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.prueba-boton b, .prueba-banner b { display: block; color: var(--accent); }
+.prueba-boton small, .prueba-banner small { color: var(--muted); font-size: 0.8rem; }
+.prueba-banner { margin: 12px 0; }
+.prueba-banner .script-banner-go { margin-left: auto; }
+.prueba-icono { font-size: 1.6rem; flex-shrink: 0; }
+.prueba-hero-icono { font-size: 2.4rem; }
+.prueba-cat h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 4px; font-size: 1rem; }
+.prueba-avance { display: flex; justify-content: space-between; font-weight: 600; color: var(--muted); margin: 8px 0 4px; }
+.prueba-card { display: grid; gap: 12px; margin-top: 10px; }
+.prueba-escuchar { display: flex; gap: 8px; justify-content: center; }
+.prueba-play { font-size: 1.1rem; padding: 12px 22px; }
+.prueba-opciones { display: grid; gap: 8px; }
+.prueba-opcion {
+  text-align: left; padding: 14px 16px; border-radius: 12px; border: 2px solid var(--border); background: var(--surface);
+  color: var(--text); font: inherit; font-size: 1rem; cursor: pointer;
+}
+.prueba-opcion.bien { border-color: var(--ok); background: var(--ok-soft); font-weight: 700; }
+.prueba-opcion.mal { border-color: var(--bad); background: var(--bad-soft); text-decoration: line-through; }
+.prueba-opcion.apagada { opacity: 0.55; }
+.prueba-retro { display: grid; gap: 4px; padding: 12px 14px; border-radius: 12px; font-size: 1rem; }
+.prueba-retro.bien { background: var(--ok-soft); color: var(--ok); }
+.prueba-retro.mal { background: var(--bad-soft); color: var(--bad); }
+.prueba-retro span { color: var(--text); }
+.prueba-es { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.prueba-foto { width: 100%; max-height: 220px; object-fit: contain; border-radius: 12px; background: #fff; }
+.prueba-input { font-size: 1.1rem; }
+.prueba-pista { margin: 0; letter-spacing: 0.08em; }
+.prueba-final { text-align: center; }
+.prueba-puntos { font-size: 2.6rem; font-weight: 800; color: var(--accent); margin: 4px 0; }
+.prueba-msg { font-weight: 600; }
+.prueba-fallas { display: grid; gap: 4px; margin-bottom: 12px; }
