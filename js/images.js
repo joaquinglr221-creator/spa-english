@@ -1,4 +1,4 @@
-// Generado por scripts/importar_imagenes_canva.py.
+// Generado por scripts/descargar_imagenes.py y scripts/importar_imagenes_canva.py.
 const IMAGES = {
  "head": {
   "src": "images/canva/head.jpg",
@@ -1298,6 +1298,378 @@ const IMAGES = {
  },
  "body scrub massage": {
   "src": "images/canva/body-scrub-massage.jpg",
+  "source": "canva"
+ },
+ "Spa Attendant": {
+  "src": "images/canva/spa-attendant.jpg",
+  "source": "canva"
+ },
+ "Spa Valet": {
+  "src": "images/canva/spa-valet.jpg",
+  "source": "canva"
+ },
+ "Guest": {
+  "src": "images/canva/guest.jpg",
+  "source": "canva"
+ },
+ "Locker": {
+  "src": "images/canva/locker.jpg",
+  "source": "canva"
+ },
+ "Locker room": {
+  "src": "images/canva/locker-room.jpg",
+  "source": "canva"
+ },
+ "Changing room": {
+  "src": "images/canva/changing-room.jpg",
+  "source": "canva"
+ },
+ "Robe": {
+  "src": "images/canva/robe.jpg",
+  "source": "canva"
+ },
+ "Slippers": {
+  "src": "images/canva/slippers.jpg",
+  "source": "canva"
+ },
+ "Hand towel": {
+  "src": "images/canva/hand-towel.jpg",
+  "source": "canva"
+ },
+ "Bath towel": {
+  "src": "images/canva/bath-towel.jpg",
+  "source": "canva"
+ },
+ "Amenities": {
+  "src": "images/canva/amenities.jpg",
+  "source": "canva"
+ },
+ "Shower": {
+  "src": "images/canva/shower.jpg",
+  "source": "canva"
+ },
+ "Shower gel": {
+  "src": "images/canva/shower-gel.jpg",
+  "source": "canva"
+ },
+ "Shampoo": {
+  "src": "images/canva/shampoo.jpg",
+  "source": "canva"
+ },
+ "Body lotion": {
+  "src": "images/canva/body-lotion.jpg",
+  "source": "canva"
+ },
+ "Hair dryer": {
+  "src": "images/canva/hair-dryer.jpg",
+  "source": "canva"
+ },
+ "Vanity": {
+  "src": "images/canva/vanity.jpg",
+  "source": "canva"
+ },
+ "Sauna": {
+  "src": "images/canva/sauna.jpg",
+  "source": "canva"
+ },
+ "Steam room": {
+  "src": "images/canva/steam-room.jpg",
+  "source": "canva"
+ },
+ "Hydrotherapy": {
+  "src": "images/canva/hydrotherapy.jpg",
+  "source": "canva"
+ },
+ "Vitality pool": {
+  "src": "images/canva/vitality-pool.jpg",
+  "source": "canva"
+ },
+ "Whirlpool": {
+  "src": "images/canva/whirlpool.jpg",
+  "source": "canva"
+ },
+ "Jacuzzi": {
+  "src": "images/canva/jacuzzi.jpg",
+  "source": "canva"
+ },
+ "Cold plunge": {
+  "src": "images/canva/cold-plunge.jpg",
+  "source": "canva"
+ },
+ "Relaxation lounge": {
+  "src": "images/canva/relaxation-lounge.jpg",
+  "source": "canva"
+ },
+ "Treatment room": {
+  "src": "images/canva/treatment-room.jpg",
+  "source": "canva"
+ },
+ "Massage": {
+  "src": "images/canva/massage.jpg",
+  "source": "canva"
+ },
+ "Facial": {
+  "src": "images/canva/facial.jpg",
+  "source": "canva"
+ },
+ "Body treatment": {
+  "src": "images/canva/body-treatment.jpg",
+  "source": "canva"
+ },
+ "Hydrotherapy circuit": {
+  "src": "images/canva/hydrotherapy-circuit.jpg",
+  "source": "canva"
+ },
+ "Temperature": {
+  "src": "images/canva/temperature.jpg",
+  "source": "canva"
+ },
+ "Wet area": {
+  "src": "images/canva/wet-area.jpg",
+  "source": "canva"
+ },
+ "Dry area": {
+  "src": "images/canva/dry-area.jpg",
+  "source": "canva"
+ },
+ "Relaxation area": {
+  "src": "images/canva/relaxation-area.jpg",
+  "source": "canva"
+ },
+ "Quiet area": {
+  "src": "images/canva/quiet-area.jpg",
+  "source": "canva"
+ },
+ "Hydration": {
+  "src": "images/canva/hydration.jpg",
+  "source": "canva"
+ },
+ "Herbal tea": {
+  "src": "images/canva/herbal-tea.jpg",
+  "source": "canva"
+ },
+ "Water": {
+  "src": "images/canva/water.jpg",
+  "source": "canva"
+ },
+ "Privacy": {
+  "src": "images/canva/privacy.jpg",
+  "source": "canva"
+ },
+ "Safety": {
+  "src": "images/canva/safety.jpg",
+  "source": "canva"
+ },
+ "Assistance": {
+  "src": "images/canva/assistance.jpg",
+  "source": "canva"
+ },
+ "Reservation": {
+  "src": "images/canva/reservation.jpg",
+  "source": "canva"
+ },
+ "Appointment": {
+  "src": "images/canva/appointment.jpg",
+  "source": "canva"
+ },
+ "Available": {
+  "src": "images/canva/available.jpg",
+  "source": "canva"
+ },
+ "Occupied": {
+  "src": "images/canva/occupied.jpg",
+  "source": "canva"
+ },
+ "Pool towel": {
+  "src": "images/canva/pool-towel.jpg",
+  "source": "canva"
+ },
+ "Towel warmer": {
+  "src": "images/canva/towel-warmer.jpg",
+  "source": "canva"
+ },
+ "Blanket": {
+  "src": "images/canva/blanket.jpg",
+  "source": "canva"
+ },
+ "Pillow": {
+  "src": "images/canva/pillow.jpg",
+  "source": "canva"
+ },
+ "Eye mask": {
+  "src": "images/canva/eye-mask.jpg",
+  "source": "canva"
+ },
+ "Disposable underwear": {
+  "src": "images/canva/disposable-underwear.jpg",
+  "source": "canva"
+ },
+ "Swimsuit": {
+  "src": "images/canva/swimsuit.jpg",
+  "source": "canva"
+ },
+ "Shower cap": {
+  "src": "images/canva/shower-cap.jpg",
+  "source": "canva"
+ },
+ "Headband": {
+  "src": "images/canva/headband.jpg",
+  "source": "canva"
+ },
+ "Hair tie": {
+  "src": "images/canva/hair-tie.jpg",
+  "source": "canva"
+ },
+ "Hairbrush": {
+  "src": "images/canva/hairbrush.jpg",
+  "source": "canva"
+ },
+ "Hair straightener": {
+  "src": "images/canva/hair-straightener.jpg",
+  "source": "canva"
+ },
+ "Face wash": {
+  "src": "images/canva/face-wash.jpg",
+  "source": "canva"
+ },
+ "Makeup remover": {
+  "src": "images/canva/makeup-remover.jpg",
+  "source": "canva"
+ },
+ "Cotton pads": {
+  "src": "images/canva/cotton-pads.jpg",
+  "source": "canva"
+ },
+ "Cotton swabs": {
+  "src": "images/canva/cotton-swabs.jpg",
+  "source": "canva"
+ },
+ "Toothbrush": {
+  "src": "images/canva/toothbrush.jpg",
+  "source": "canva"
+ },
+ "Toothpaste": {
+  "src": "images/canva/toothpaste.jpg",
+  "source": "canva"
+ },
+ "Mouthwash": {
+  "src": "images/canva/mouthwash.jpg",
+  "source": "canva"
+ },
+ "Deodorant": {
+  "src": "images/canva/deodorant.jpg",
+  "source": "canva"
+ },
+ "Sunscreen": {
+  "src": "images/canva/sunscreen.jpg",
+  "source": "canva"
+ },
+ "Tissues": {
+  "src": "images/canva/tissues.jpg",
+  "source": "canva"
+ },
+ "Hand sanitizer": {
+  "src": "images/canva/hand-sanitizer.jpg",
+  "source": "canva"
+ },
+ "Scale": {
+  "src": "images/canva/scale.jpg",
+  "source": "canva"
+ },
+ "Locker key": {
+  "src": "images/canva/locker-key.jpg",
+  "source": "canva"
+ },
+ "Wristband": {
+  "src": "images/canva/wristband.jpg",
+  "source": "canva"
+ },
+ "Bench": {
+  "src": "images/canva/bench.jpg",
+  "source": "canva"
+ },
+ "Hamper": {
+  "src": "images/canva/hamper.jpg",
+  "source": "canva"
+ },
+ "Laundry bag": {
+  "src": "images/canva/laundry-bag.jpg",
+  "source": "canva"
+ },
+ "Towel cart": {
+  "src": "images/canva/towel-cart.jpg",
+  "source": "canva"
+ },
+ "Trash can": {
+  "src": "images/canva/trash-can.jpg",
+  "source": "canva"
+ },
+ "Lounge chair": {
+  "src": "images/canva/lounge-chair.jpg",
+  "source": "canva"
+ },
+ "Massage table": {
+  "src": "images/canva/massage-table.jpg",
+  "source": "canva"
+ },
+ "Water dispenser": {
+  "src": "images/canva/water-dispenser.jpg",
+  "source": "canva"
+ },
+ "Cup": {
+  "src": "images/canva/cup.jpg",
+  "source": "canva"
+ },
+ "Infused water": {
+  "src": "images/canva/infused-water.jpg",
+  "source": "canva"
+ },
+ "Fresh fruit": {
+  "src": "images/canva/fresh-fruit.jpg",
+  "source": "canva"
+ },
+ "Candle": {
+  "src": "images/canva/candle.jpg",
+  "source": "canva"
+ },
+ "Aroma diffuser": {
+  "src": "images/canva/aroma-diffuser.jpg",
+  "source": "canva"
+ },
+ "Sauna bucket": {
+  "src": "images/canva/sauna-bucket.jpg",
+  "source": "canva"
+ },
+ "Ladle": {
+  "src": "images/canva/ladle.jpg",
+  "source": "canva"
+ },
+ "Hourglass": {
+  "src": "images/canva/hourglass.jpg",
+  "source": "canva"
+ },
+ "Thermometer": {
+  "src": "images/canva/thermometer.jpg",
+  "source": "canva"
+ },
+ "Footbath": {
+  "src": "images/canva/footbath.jpg",
+  "source": "canva"
+ },
+ "Handrail": {
+  "src": "images/canva/handrail.jpg",
+  "source": "canva"
+ },
+ "Wet floor sign": {
+  "src": "images/canva/wet-floor-sign.jpg",
+  "source": "canva"
+ },
+ "Mop": {
+  "src": "images/canva/mop.jpg",
+  "source": "canva"
+ },
+ "Lost and found": {
+  "src": "images/canva/lost-and-found.jpg",
   "source": "canva"
  }
 };
