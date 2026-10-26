@@ -576,8 +576,13 @@ function viewNaturaProducto(id) {
 const VALET_VOC = typeof VALET_VOCAB !== "undefined" ? VALET_VOCAB : [];
 
 // Lista de vocabulario con pronunciación, traducción y audio (valet y concierge).
+// Foto de una palabra (js/images.js), sin importar mayúsculas.
+const fotoDe = (en) => PHOTOS[en] || PHOTOS[en.toLowerCase()];
+
 const vocabFilas = (words) => `<section class="card valet-vocab">${words.map(
-  (w) => `<div class="valet-word"><div><b>${esc(w.en)}</b>${w.pron ? ` <small class="muted">${esc(w.pron)}</small>` : ""}<br><span>🇲🇽 ${esc(w.es)}</span>${
+  (w) => `<div class="valet-word">${
+    fotoDe(w.en) ? `<img class="vocab-foto" src="${esc(fotoDe(w.en).src)}" alt="" loading="lazy" data-sheet="${esc(fotoDe(w.en).src)}" data-title="${esc(w.en)} · ${esc(w.es)}">` : ""
+  }<div class="vocab-txt"><b>${esc(w.en)}</b>${w.pron ? ` <small class="muted">${esc(w.pron)}</small>` : ""}<br><span>🇲🇽 ${esc(w.es)}</span>${
     w.ex ? `<p class="vocab-ex"><span class="vocab-ex-en">💬 ${esc(w.ex)} <span class="vocab-ex-play">${speakButtons(w.ex)}</span></span><span class="muted">🇲🇽 ${esc(w.exEs)}</span></p>` : ""
   }</div><div class="row">${speakButtons(w.en)}</div></div>`
 ).join("")}</section>`;
