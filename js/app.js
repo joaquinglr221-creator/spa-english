@@ -276,7 +276,7 @@ function viewScriptMenu(programa = "script") {
   const videos = programa === "script" ? Object.keys(VIDEOS).length : 0;
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="${P.volver || "#/"}">${P.volverTexto || "← Todas las categorías"}</a>
+    <a class="back" href="${P.volver || "#/"}">${P.volverTexto || "← Inicio"}</a>
     <section class="script-hero" style="background-image:url('${P.portada}')">
       <div class="script-hero-text">
         <p class="script-kicker">${esc(P.kicker)}</p>
@@ -296,7 +296,7 @@ function viewScriptMenu(programa = "script") {
     <div class="grid menu">${S.map(
       (st, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/${programa}/${st.id}">${stageIcon(st, "", programa)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
     ).join("")}</div>
-    <a class="btn ghost full center" href="${P.volver || "#/"}">${P.volverTexto || "← Volver a las categorías"}</a>`;
+    <a class="btn ghost full center" href="${P.volver || "#/"}">${P.volverTexto || "← Volver al inicio"}</a>`;
 }
 
 function viewScript(stageId, programa = "script") {
@@ -421,7 +421,7 @@ function dialogueHtml(lines) {
 function viewAmpolletas() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
+    <a class="back" href="#/">← Inicio</a>
     <section class="script-hero" style="background-image:url('images/ampolletas/portada.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">BABOR Ampoule Bar 2026 · Español / English</p>
@@ -458,7 +458,7 @@ function viewAmpolletas() {
       ([id, m]) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
         <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`
     ).join("")}</div>
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
 function viewAmpolleta(id) {
@@ -507,7 +507,7 @@ const titulo = (s) => s.replace(/\b([A-ZÁÉÍÓÚÑ])([A-ZÁÉÍÓÚÑ'’]+)\b
 function viewNatura() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
+    <a class="back" href="#/">← Inicio</a>
     <section class="script-hero" style="background-image:url('images/natura-portada/portada.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Natura Bissé · Retail México · Español / English</p>
@@ -518,7 +518,7 @@ function viewNatura() {
     <input id="nb-search" class="search" type="search" placeholder="Buscar producto o ingrediente…" autocomplete="off">
     <div id="nb-list">${nbLista(NB.products)}</div>
     <a class="btn ghost full" href="#/material/natura-bisse">📄 Ver la guía original (PDF, en español)</a>
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
 function nbLista(products) {
@@ -592,7 +592,7 @@ function viewValet() {
   const m = MATERIAL["valet-spa"];
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
+    <a class="back" href="#/">← Inicio</a>
     <section class="script-hero" style="background-image:url('images/script/valet.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Spa Valet · Spa Attendant · Estándares AAA</p>
@@ -611,7 +611,7 @@ function viewValet() {
     <h2 class="section-title">Material original</h2>
     <div class="amp-docs"><a class="amp-doc" href="#/material/valet-spa"><img src="images/material/valet-spa/p01.jpg" alt="" loading="lazy">
       <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a></div>
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
 // ---------- Spa Concierge ----------
@@ -623,7 +623,7 @@ function viewConcierge() {
   const m = MATERIAL["spa-concierge"];
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
+    <a class="back" href="#/">← Inicio</a>
     <section class="script-hero" style="background-image:url('${C.portada}')">
       <div class="script-hero-text">
         <p class="script-kicker">Spa Concierge · Professional Sales &amp; Guest Experience</p>
@@ -647,7 +647,7 @@ function viewConcierge() {
     <h2 class="section-title">Material original</h2>
     <div class="amp-docs"><a class="amp-doc" href="#/material/spa-concierge"><img src="images/material/spa-concierge/p01.jpg" alt="" loading="lazy">
       <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a></div>
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
 // ---------- Anatomía del cuerpo humano (js/anatomia.js) ----------
@@ -656,7 +656,7 @@ const ANAT = typeof ANATOMIA !== "undefined" ? ANATOMIA : [];
 function viewAnatomia() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
+    <a class="back" href="#/">← Inicio</a>
     <section class="script-hero anat-hero" style="background-image:url('images/anatomia/musculos.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Human anatomy · Inglés / Español</p>
@@ -674,7 +674,7 @@ function viewAnatomia() {
         <img class="anat-thumb" src="images/anatomia/piel.jpg" alt="" loading="lazy">
         <span class="tile-title">La piel: tipos, colores y afecciones</span>
         <small class="muted">Skin types, tones and conditions</small></a>` : ""}</div>
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
 function viewLamina(id) {
@@ -914,7 +914,7 @@ function botonesPrueba(cat) {
 function viewPruebas() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
+    <a class="back" href="#/">← Inicio</a>
     <section class="hero prueba-hero"><span class="prueba-hero-icono">🎧✍️</span><div>
       <h1>Pruebas de listening y writing</h1>
       <p>Elige un vocabulario. En cada prueba hay ${PREGUNTAS_POR_PRUEBA} preguntas al azar.</p></div></section>
@@ -923,7 +923,7 @@ function viewPruebas() {
         <h3 class="cat-head" style="color:${colorCategoria(c.id)}">${catIcon(c, "md", colorCategoria(c.id))}<span>${esc(c.title)} <span class="muted">· ${c.words.length} palabras</span></span></h3>
         ${botonesPrueba(c)}</section>`
     ).join("")}
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>`;
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
 function viewPrueba(catId, modo) {
@@ -1057,9 +1057,48 @@ function pintarPrueba() {
   }
 }
 
+// ---------- Vocabularios: todas las categorías y los vocabularios de las secciones ----------
+function viewVocabularios() {
+  const tarjeta = (href, icono, titulo, sub) =>
+    `<a class="prueba-boton" href="${href}"><span class="prueba-icono">${icono}</span><span><b>${titulo}</b><small>${sub}</small></span></a>`;
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Inicio</a>
+    <section class="hero">
+      <span class="prueba-hero-icono">📚</span>
+      <div><h1>Vocabularios</h1><p>${VOCAB.length} categorías con audio, ejemplos e imágenes. Toca una para estudiarla.</p></div>
+    </section>
+    <input id="search" class="search" type="search" placeholder="Buscar una palabra en inglés o español…" autocomplete="off">
+    <div id="word-list">${menu()}</div>
+    <h2 class="section-title">Vocabularios de las secciones</h2>
+    <div class="prueba-botones">
+      ${VALET_VOC.length ? tarjeta("#/vocab-valet", "🧺", "Valet de spa", `${VALET_VOC.length} palabras: servicio y artículos del spa`) : ""}
+      ${CONC_VOC.length ? tarjeta("#/vocab-concierge", "🛎️", "Spa Concierge", `${CONC_VOC.reduce((n, g) => n + g.words.length, 0)} palabras de ventas y técnicas de masaje`) : ""}
+      ${ANAT.length ? tarjeta("#/anatomia", "🫀", "Anatomía del cuerpo humano", `${ANAT.length} láminas con partes numeradas`) : ""}
+      ${PIEL_D ? tarjeta("#/la-piel", "🖐️", "La piel", "Tipos, colores y afecciones") : ""}
+      ${tarjeta("#/pruebas", "🎧✍️", "Pruebas de listening y writing", "Practica cada vocabulario")}
+    </div>
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+}
+
+function viewVocabSeccion(cual) {
+  const valet = cual === "valet";
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/vocabularios">← Vocabularios</a>
+    <h2 class="section-title">${valet ? "🧺 Vocabulario esencial · Valet de spa" : "🛎️ Vocabulario del Spa Concierge"}</h2>
+    ${valet
+      ? `<p class="muted">${VALET_VOC.length} palabras. Toca la foto para verla en grande y escucharla.</p>${vocabFilas(VALET_VOC)}`
+      : CONC_VOC.map((g) => `<h3 class="piel-sub">${esc(g.titleEs)} · ${g.words.length}</h3><p class="muted">🇺🇸 ${esc(g.title)}</p>${vocabFilas(g.words)}`).join("")}
+    <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>`;
+}
+
 function view(catId) {
   const [ruta0, clave0] = catId.split("/");
   if (catId === "pruebas") return viewPruebas();
+  if (catId === "vocabularios") return viewVocabularios();
+  if (catId === "vocab-valet") return viewVocabSeccion("valet");
+  if (catId === "vocab-concierge") return viewVocabSeccion("concierge");
   if (ruta0 === "practica") return viewPrueba(clave0, catId.split("/")[2]);
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
@@ -1079,13 +1118,13 @@ function view(catId) {
     const learned = cat.words.filter((w) => known.has(w.en)).length;
     return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Todas las categorías</a>
+    <a class="back" href="#/vocabularios">← Vocabularios</a>
     ${search}
     <h2 class="section-title cat-head" style="color:${colorCategoria(cat.id)}">${catIcon(cat, "md", colorCategoria(cat.id))}<span>${esc(cat.title)} <span class="muted">· ${learned} de ${cat.words.length}</span></span></h2>
     ${botonesPrueba(cat)}
     <div id="word-list">${wordList(cat.words)}</div>
-    <a class="btn ghost full center" href="#/">← Volver a las categorías</a>
-    <a class="float-back" href="#/" aria-label="Volver a las categorías">← Categorías</a>`;
+    <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>
+    <a class="float-back" href="#/vocabularios" aria-label="Volver a Vocabularios">← Vocabularios</a>`;
   }
   const pct = Math.round((known.size / ALL_WORDS.length) * 100);
   return `${BRANDS}
@@ -1103,7 +1142,10 @@ function view(catId) {
       <p class="muted">${known.size} de ${ALL_WORDS.length} palabras marcadas como aprendidas</p>
     </section>
 
-    ${search}
+    <a class="script-banner vocab-banner" href="#/vocabularios" style="background-image:url('images/canva/amenities.jpg')">
+      <span class="script-banner-text"><small>Inglés / Español · Audio e imágenes</small><b>📚 Vocabularios</b><span>${VOCAB.length} categorías · ${ALL_WORDS.length} palabras, más el vocabulario del Valet y del Spa Concierge</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>
     ${STAGES.length ? `<a class="script-banner" href="#/script" style="background-image:url('images/script/portada.jpg')">
       <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio Terapeuta</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -1137,8 +1179,7 @@ function view(catId) {
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     <a class="prueba-banner" href="#/pruebas"><span class="prueba-icono">🎧✍️</span><span><b>Pruebas de listening y writing</b><small>Practica cada vocabulario: escucha y elige, o escribe en inglés</small></span><span class="script-banner-go" aria-hidden="true">→</span></a>
-    <h2 class="section-title">Categorías</h2>
-    <div id="word-list">${menu()}</div>`;
+`;
 }
 
 function render() {
@@ -1233,6 +1274,8 @@ function render() {
     }
     return;
   }
+  if (id === "vocabularios" || id.startsWith("vocab-")) USO.track("category", { category: id === "vocabularios" ? "Vocabularios" : `Vocabularios: ${id === "vocab-valet" ? "Valet de spa" : "Spa Concierge"}` });
+  if (!$("#search")) return;
   const onMenu = !VOCAB.some((c) => c.id === id);
   $("#search").oninput = (e) => {
     const q = e.target.value.trim().toLowerCase();
