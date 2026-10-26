@@ -581,7 +581,7 @@ const fotoDe = (en) => PHOTOS[en] || PHOTOS[en.toLowerCase()];
 
 const vocabFilas = (words) => `<section class="card valet-vocab">${words.map(
   (w) => `<div class="valet-word">${
-    fotoDe(w.en) ? `<img class="vocab-foto" src="${esc(fotoDe(w.en).src)}" alt="" loading="lazy" data-sheet="${esc(fotoDe(w.en).src)}" data-title="${esc(w.en)} · ${esc(w.es)}">` : ""
+    fotoDe(w.en) ? `<img class="vocab-foto" src="${esc(fotoDe(w.en).src)}" alt="" loading="lazy" data-foto="${esc(fotoDe(w.en).src)}" data-en="${esc(w.en)}" data-es="${esc(w.es)}" data-pron="${esc(w.pron || "")}">` : ""
   }<div class="vocab-txt"><b>${esc(w.en)}</b>${w.pron ? ` <small class="muted">${esc(w.pron)}</small>` : ""}<br><span>🇲🇽 ${esc(w.es)}</span>${
     w.ex ? `<p class="vocab-ex"><span class="vocab-ex-en">💬 ${esc(w.ex)} <span class="vocab-ex-play">${speakButtons(w.ex)}</span></span><span class="muted">🇲🇽 ${esc(w.exEs)}</span></p>` : ""
   }</div><div class="row">${speakButtons(w.en)}</div></div>`
@@ -717,7 +717,7 @@ function afeccionesLista(lista) {
     .map((a) => {
       const foto = PHOTOS[a.en.toLowerCase()];
       return `<div class="piel-af nivel-${a.nivel}">
-        ${foto ? `<img class="piel-af-img" src="${esc(foto.src)}" alt="" loading="lazy" data-sheet="${esc(foto.src)}" data-title="${esc(a.en)} · ${esc(a.es)}">` : `<span class="piel-af-img vacia">${NIVELES[a.nivel].icono}</span>`}
+        ${foto ? `<img class="piel-af-img" src="${esc(foto.src)}" alt="" loading="lazy" data-foto="${esc(foto.src)}" data-en="${esc(a.en)}" data-es="${esc(a.es)}">` : `<span class="piel-af-img vacia">${NIVELES[a.nivel].icono}</span>`}
         <div class="piel-af-txt">
           <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(a.en)}</b><span>🇲🇽 ${esc(a.es)}</span></span><div class="row">${speakButtons(a.en)}</div></div>
           <span class="piel-nivel">${NIVELES[a.nivel].icono} ${NIVELES[a.nivel].texto} · <em>${NIVELES[a.nivel].en}</em></span>
@@ -1252,6 +1252,21 @@ document.addEventListener("click", (e) => {
 
   const hidden = e.target.closest(".practice .line");
   if (hidden && !e.target.closest("button")) hidden.classList.toggle("revealed");
+
+  // Foto de una palabra: tarjeta con la foto, la palabra, su pronunciación y su traducción; suena la palabra.
+  const foto = e.target.closest("[data-foto]");
+  if (foto) {
+    const { en, es, pron } = foto.dataset;
+    const box = document.createElement("div");
+    box.className = "lightbox tarjeta-foto";
+    box.innerHTML = `<div class="tarjeta"><img src="${esc(foto.dataset.foto)}" alt="">
+      <p class="en">${esc(en)}</p>${pron ? `<p class="pron">${esc(pron)}</p>` : ""}<p class="es">${esc(es)}</p>
+      <div class="row">${speakButtons(en)}</div><p class="cerrar">Toca fuera de la tarjeta para cerrar</p></div>`;
+    box.onclick = (ev) => !ev.target.closest(".tarjeta") && box.remove();
+    document.body.appendChild(box);
+    speak(en);
+    return;
+  }
 
   const zoom = e.target.closest("[data-zoom]");
   if (zoom) {
