@@ -1,7 +1,7 @@
 {
-  "name": "English for Spa Therapists",
-  "short_name": "Spa English",
-  "description": "Vocabulario de spa en inglés para estudiar a tu ritmo.",
+  "name": "SPA Service Excellence App",
+  "short_name": "SPA Excellence",
+  "description": "Inglés y servicio de excelencia para el equipo del spa.",
   "lang": "es",
   "start_url": "./",
   "scope": "./",

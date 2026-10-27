@@ -109,6 +109,7 @@ const USO = (() => {
     box.innerHTML = `
       <form class="uso-card">
         <h2>¡Bienvenido!</h2>
+        <p class="uso-app"><b>SPA Service Excellence App</b></p>
         <p>Escribe tu <b>número de colaborador</b> y tu <b>PIN</b> para entrar.</p>
         <input name="employee_no" inputmode="numeric" autocomplete="off" placeholder="Número de colaborador" required>
         <input name="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="PIN (4 dígitos)" required>

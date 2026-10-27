@@ -1132,8 +1132,8 @@ function view(catId) {
     <section class="hero">
       ${catIcon({ id: "spa", icon: "🪷" }, "hero-icon")}
       <div>
-        <h1>English for Spa Therapists</h1>
-        <p>Vocabulario de spa en inglés para estudiar a tu ritmo.</p>
+        <h1>SPA Service Excellence App</h1>
+        <p>Inglés y servicio de excelencia para el equipo del spa.</p>
       </div>
     </section>
 
