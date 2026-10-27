@@ -373,6 +373,7 @@ function speakAll(texts) {
 
 // ---------- Venta de ampolletas BABOR (js/ampolletas.js) y material original ----------
 const AMPS = typeof AMPOLLETAS !== "undefined" ? AMPOLLETAS : [];
+const AMP_VID = typeof AMP_VIDEOS !== "undefined" ? AMP_VIDEOS : {}; // js/videos-ampolletas.js
 
 // Material original: páginas de los PDF convertidas en imágenes (images/material/).
 const MATERIAL = {
@@ -488,6 +489,7 @@ function viewAmpolleta(id) {
       </table>
     </section>
     <h2 class="section-title">💬 Script de venta · Sales script</h2>
+    ${AMP_VID[a.id] ? `<video class="stage-video" controls playsinline preload="metadata" src="${esc(AMP_VID[a.id])}#t=0.5"></video>` : ""}
     <div class="row between">
       <button class="btn small" id="play-stage">▶ Escuchar todo el diálogo</button>
       <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>
