@@ -21,6 +21,14 @@
   .lbl { margin:10px 0 4px; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--gris); }
   .copiable { display:flex; gap:8px; align-items:center; }
   pre.neg { background:#fdf3f3; border-color:#f0d6d6; }
+  .hecho { font-size:.85rem; color:var(--gris); cursor:pointer; user-select:none; }
+  .escena.hecha .num::after { content:" ✓"; color:#2f8a4c; }
+  .progreso { position:sticky; top:0; z-index:2; background:var(--morado); color:#fff; border-radius:12px; padding:8px 14px; margin:14px 0;
+    display:flex; align-items:center; gap:12px; font-weight:700; }
+  .progreso .barra { flex:1; height:10px; background:rgba(255,255,255,.3); border-radius:99px; overflow:hidden; }
+  .progreso .barra div { height:100%; background:#fff; width:0; }
+  .progreso button { background:#fff; color:var(--morado); border-color:#fff; font-size:.78rem; padding:3px 10px; }
+  .solo-pdf { display:none; }
   .todo { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:10px 0 6px; }
   .todo span { font-size:.8rem; color:var(--gris); }
   button.grande { font-size:1rem; padding:8px 18px; font-weight:700; }
@@ -32,6 +40,9 @@
   button.ok { background:#2f8a4c; border-color:#2f8a4c; color:#fff; }
   @page { size: letter; margin: 14mm 14mm; }
   @media print {
+    .no-print, .hecho { display:none !important; }
+    .solo-pdf { display:block; margin:4px 0 6px; padding:6px 10px; border-radius:8px; background:#efe8f3; color:#5b3f78;
+      font-weight:700; font-size:11px; text-decoration:none; }
     body { background:#fff; font-size:12px; } main { max-width:none; padding:0; }
     button { display:none !important; }
     section { break-before: page; }
@@ -44,7 +55,7 @@
 </style></head><body><main>
 <h1>Prompts para Kling AI · animación 3D estilo Pixar</h1>
 <p>Script de servicio AAA · English for Spa Therapists · 52 escenas (9 de 5 s y 43 de 10 s) ·
-  <span class="avance">3 de 52 listas</span></p>
+  <span class="avance">52 escenas por generar</span></p>
 <div class="pasos"><b>Cómo hacerlo</b><ol>
   <li><b>Primero crea las 4 imágenes de referencia</b> (abajo) en Kling, en <b>Image</b> (texto a imagen). Genera varias y quédate con
       la que más te guste de cada una. Guárdalas con el nombre que se indica. Son las que hacen que Ana, Mrs. Smith y el spa
@@ -76,9 +87,13 @@
 
 <h2>Negative prompt (para todas las escenas)</h2>
 <article class="escena negativo"><pre>background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre><button class="btn" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">📋 Copiar negative prompt</button></article>
+<div class="progreso no-print"><span id="cuenta">0 de 52 generadas</span><div class="barra"><div id="barra"></div></div>
+  <button id="siguiente">Ir a la siguiente</button></div>
 <section><h2>Paso 1. Bienvenida y presentación <small>Welcome &amp; Introduction</small></h2>
-      <article class="escena hecha">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">✅ Ya está en la app</span></div>
+      <article class="escena" id="paso-01-escena-1" data-id="paso-01-escena-1">
+        <div class="cab"><span class="num">Paso 1 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-01-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana recibe a la huésped en la cabina de masaje.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.3 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Good afternoon. Welcome to our Spa.<br><span class="es">Buenas tardes. Bienvenida a nuestro spa.</span></li></ul>
@@ -120,10 +135,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Good afternoon. Welcome to our Spa.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena hecha">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">✅ Ya está en la app</span></div>
+      <article class="escena" id="paso-01-escena-2" data-id="paso-01-escena-2">
+        <div class="cab"><span class="num">Paso 1 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-01-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana se presenta; la huésped sonríe.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 6.1 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> My name is Ana, and I will be your therapist today.<br><span class="es">Mi nombre es Ana y hoy seré su terapeuta.</span></li><li><b>Mrs. Smith:</b> Nice to meet you, Ana.<br><span class="es">Mucho gusto, Ana.</span></li></ul>
@@ -168,10 +185,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Nice to meet you, Ana.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena hecha">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">✅ Ya está en la app</span></div>
+      <article class="escena" id="paso-01-escena-3" data-id="paso-01-escena-3">
+        <div class="cab"><span class="num">Paso 1 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-01-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana pregunta cómo se siente; la huésped se ve cansada.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 6.7 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> It is a pleasure to have you with us. How are you feeling today?<br><span class="es">Es un placer tenerla con nosotros. ¿Cómo se siente hoy?</span></li><li><b>Mrs. Smith:</b> A little tired, actually.<br><span class="es">Un poco cansada, la verdad.</span></li></ul>
@@ -216,10 +235,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;A little tired, actually.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-01-escena-4" data-id="paso-01-escena-4">
+        <div class="cab"><span class="num">Paso 1 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-01-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana la tranquiliza y le señala la camilla.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.3 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Then you came to the right place. We will take good care of you.<br><span class="es">Entonces llegó al lugar indicado. La vamos a cuidar muy bien.</span></li></ul>
@@ -261,10 +282,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Then you came to the right place. We will take good care of you.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 2. Confirmar la reservación <small>Confirming the Reservation</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-02-escena-1" data-id="paso-02-escena-1">
+        <div class="cab"><span class="num">Paso 2 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-02-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">En el mostrador, Ana pregunta el nombre.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.7 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> May I have your name, please?<br><span class="es">¿Me permite su nombre, por favor?</span></li><li><b>Mrs. Smith:</b> Smith. Laura Smith.<br><span class="es">Smith. Laura Smith.</span></li></ul>
@@ -309,10 +332,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Smith. Laura Smith.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-02-escena-2" data-id="paso-02-escena-2">
+        <div class="cab"><span class="num">Paso 2 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-02-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana, con la tablet en la mano, agradece y pide confirmar el tratamiento.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.2 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Thank you, Mrs. Smith. May I confirm your treatment?<br><span class="es">Gracias, señora Smith. ¿Me permite confirmar su tratamiento?</span></li></ul>
@@ -354,10 +379,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Thank you, Mrs. Smith. May I confirm your treatment?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-02-escena-3" data-id="paso-02-escena-3">
+        <div class="cab"><span class="num">Paso 2 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-02-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana confirma la reservación en la tablet; la huésped asiente.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 8.1 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> You are booked for a 60-minute relaxation massage at three o&#x27;clock. Is that correct?<br><span class="es">Tiene reservado un masaje relajante de 60 minutos a las tres. ¿Es correcto?</span></li><li><b>Mrs. Smith:</b> Yes, that&#x27;s right.<br><span class="es">Sí, así es.</span></li></ul>
@@ -402,10 +429,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Yes, that&#x27;s right.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-02-escena-4" data-id="paso-02-escena-4">
+        <div class="cab"><span class="num">Paso 2 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-02-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana la acompaña por el pasillo.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 6.1 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Wonderful. Please allow me to show you to the treatment room. Right this way, please.<br><span class="es">Excelente. Permítame acompañarla a la cabina. Por aquí, por favor.</span></li></ul>
@@ -447,10 +476,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Wonderful. Please allow me to show you to the treatment room. Right this way, please.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 3. Consulta de salud y bienestar <small>Health &amp; Wellness Consultation</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-1" data-id="paso-03-escena-1">
+        <div class="cab"><span class="num">Paso 3 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Sentadas en la sala de consulta, Ana pide permiso para hacer unas preguntas.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.7 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Before we begin, may I ask you a few questions about your health?<br><span class="es">Antes de comenzar, ¿le puedo hacer unas preguntas sobre su salud?</span></li></ul>
@@ -492,10 +523,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Before we begin, may I ask you a few questions about your health?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-2" data-id="paso-03-escena-2">
+        <div class="cab"><span class="num">Paso 3 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana pregunta si ya ha recibido masajes; la huésped contesta.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.8 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Have you had a massage before?<br><span class="es">¿Ha recibido un masaje antes?</span></li><li><b>Mrs. Smith:</b> Yes, a few times.<br><span class="es">Sí, algunas veces.</span></li></ul>
@@ -540,10 +573,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Yes, a few times.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-3" data-id="paso-03-escena-3">
+        <div class="cab"><span class="num">Paso 3 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Pregunta por alergias; Ana anota.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.2 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Do you have any allergies or sensitivities?<br><span class="es">¿Tiene alguna alergia o sensibilidad?</span></li><li><b>Mrs. Smith:</b> I&#x27;m allergic to nuts.<br><span class="es">Soy alérgica a las nueces.</span></li></ul>
@@ -588,10 +623,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;I&#x27;m allergic to nuts.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-4" data-id="paso-03-escena-4">
+        <div class="cab"><span class="num">Paso 3 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana muestra un aceite sin nueces.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.0 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Thank you for letting me know. I will use a nut-free oil for your treatment.<br><span class="es">Gracias por decírmelo. Usaré un aceite sin nueces en su tratamiento.</span></li></ul>
@@ -633,10 +670,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Thank you for letting me know. I will use a nut-free oil for your treatment.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 5</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-5" data-id="paso-03-escena-5">
+        <div class="cab"><span class="num">Paso 3 · Escena 5</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-5">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana pregunta por lesiones o dolor.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.8 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Do you have any injuries, or are you currently experiencing any pain?<br><span class="es">¿Tiene alguna lesión o siente algún dolor en este momento?</span></li></ul>
@@ -678,10 +717,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Do you have any injuries, or are you currently experiencing any pain?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 6</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-6" data-id="paso-03-escena-6">
+        <div class="cab"><span class="num">Paso 3 · Escena 6</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-6">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana pregunta por zonas de tensión o a evitar.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.6 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Are there any areas where you feel tension, or any areas you would like me to avoid?<br><span class="es">¿Hay zonas donde sienta tensión, o alguna zona que prefiera que evite?</span></li></ul>
@@ -723,10 +764,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Are there any areas where you feel tension, or any areas you would like me to avoid?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 7</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-7" data-id="paso-03-escena-7">
+        <div class="cab"><span class="num">Paso 3 · Escena 7</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-7">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped toca sus hombros tensos y señala su rodilla izquierda.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.0 s)</span></p>
         <ul class="frases"><li><b>Mrs. Smith:</b> My shoulders are very tense. Please avoid my left knee.<br><span class="es">Tengo los hombros muy tensos. Por favor evite mi rodilla izquierda.</span></li></ul>
@@ -768,10 +811,12 @@ Dialogue:
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;My shoulders are very tense. Please avoid my left knee.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 8</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-03-escena-8" data-id="paso-03-escena-8">
+        <div class="cab"><span class="num">Paso 3 · Escena 8</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-03-escena-8">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana asiente, anota y sonríe.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.7 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Of course. I will focus on your shoulders and avoid your left knee.<br><span class="es">Claro. Me enfocaré en sus hombros y evitaré su rodilla izquierda.</span></li></ul>
@@ -813,10 +858,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Of course. I will focus on your shoulders and avoid your left knee.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 4. Explicar el tratamiento <small>Explaining the Treatment</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-04-escena-1" data-id="paso-04-escena-1">
+        <div class="cab"><span class="num">Paso 4 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-04-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">En la cabina, Ana presenta el tratamiento.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.4 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Today you will be having our 60-minute Relaxation Massage.<br><span class="es">Hoy recibirá nuestro masaje relajante de 60 minutos.</span></li></ul>
@@ -858,10 +905,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Today you will be having our 60-minute Relaxation Massage.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-04-escena-2" data-id="paso-04-escena-2">
+        <div class="cab"><span class="num">Paso 4 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-04-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana explica las técnicas del masaje.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 6.9 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> The treatment includes gentle massage techniques designed to promote relaxation and release muscle tension.<br><span class="es">El tratamiento incluye técnicas suaves de masaje para favorecer la relajación y liberar la tensión muscular.</span></li></ul>
@@ -903,10 +952,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;The treatment includes gentle massage techniques designed to promote relaxation and release muscle tension.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-04-escena-3" data-id="paso-04-escena-3">
+        <div class="cab"><span class="num">Paso 4 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-04-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana señala espalda y hombros para explicar el orden.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.9 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> We will begin with your back and shoulders, and then continue with your legs, arms and feet.<br><span class="es">Comenzaremos con la espalda y los hombros, y luego seguiremos con las piernas, los brazos y los pies.</span></li></ul>
@@ -948,10 +999,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;We will begin with your back and shoulders, and then continue with your legs, arms and feet.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-04-escena-4" data-id="paso-04-escena-4">
+        <div class="cab"><span class="num">Paso 4 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-04-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana abre el aceite y la huésped huele el aroma.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.9 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> This massage oil contains essential oils with a relaxing aroma.<br><span class="es">Este aceite de masaje contiene aceites esenciales con un aroma relajante.</span></li></ul>
@@ -993,10 +1046,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;This massage oil contains essential oils with a relaxing aroma.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 5</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-04-escena-5" data-id="paso-04-escena-5">
+        <div class="cab"><span class="num">Paso 4 · Escena 5</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-04-escena-5">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped sonríe: todo claro.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.3 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Do you have any questions before we begin?<br><span class="es">¿Tiene alguna pregunta antes de comenzar?</span></li><li><b>Mrs. Smith:</b> No, it sounds perfect.<br><span class="es">No, suena perfecto.</span></li></ul>
@@ -1041,10 +1096,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;No, it sounds perfect.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 5. Personalizar la experiencia <small>Personalizing the Experience</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-05-escena-1" data-id="paso-05-escena-1">
+        <div class="cab"><span class="num">Paso 5 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-05-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana muestra con la mano niveles de presión.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.2 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Would you prefer light, medium or deep pressure?<br><span class="es">¿Prefiere presión ligera, media o profunda?</span></li><li><b>Mrs. Smith:</b> Medium, please.<br><span class="es">Media, por favor.</span></li></ul>
@@ -1089,10 +1146,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Medium, please.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-05-escena-2" data-id="paso-05-escena-2">
+        <div class="cab"><span class="num">Paso 5 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-05-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana presenta tres aromas en una charola.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 6.0 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Do you prefer a floral, citrus or herbal aroma?<br><span class="es">¿Prefiere un aroma floral, cítrico o herbal?</span></li><li><b>Mrs. Smith:</b> What do you recommend?<br><span class="es">¿Qué me recomienda?</span></li></ul>
@@ -1137,10 +1196,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;What do you recommend?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-05-escena-3" data-id="paso-05-escena-3">
+        <div class="cab"><span class="num">Paso 5 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-05-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped huele la lavanda y sonríe.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.8 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Since you are feeling tired, I would recommend lavender. It is very relaxing.<br><span class="es">Como se siente cansada, le recomiendo lavanda. Es muy relajante.</span></li></ul>
@@ -1182,10 +1243,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Since you are feeling tired, I would recommend lavender. It is very relaxing.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-05-escena-4" data-id="paso-05-escena-4">
+        <div class="cab"><span class="num">Paso 5 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-05-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana ajusta la música y baja la luz.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.4 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Would you like some soft music during your treatment?<br><span class="es">¿Le gustaría música suave durante su tratamiento?</span></li></ul>
@@ -1227,10 +1290,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Would you like some soft music during your treatment?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 6. Preparación y privacidad <small>Preparing the Guest</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-06-escena-1" data-id="paso-06-escena-1">
+        <div class="cab"><span class="num">Paso 6 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-06-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana muestra dónde dejar sus cosas, la bata y las pantuflas.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.4 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Please place your belongings here, and use the robe and slippers provided for you.<br><span class="es">Por favor deje sus pertenencias aquí y use la bata y las pantuflas que le preparamos.</span></li></ul>
@@ -1272,10 +1337,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Please place your belongings here, and use the robe and slippers provided for you.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-06-escena-2" data-id="paso-06-escena-2">
+        <div class="cab"><span class="num">Paso 6 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-06-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana señala la camilla y el cabezal.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.2 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Please lie face down on the massage table, with your face in the face cradle.<br><span class="es">Por favor recuéstese boca abajo en la camilla, con la cara en el cabezal.</span></li></ul>
@@ -1317,10 +1384,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Please lie face down on the massage table, with your face in the face cradle.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-06-escena-3" data-id="paso-06-escena-3">
+        <div class="cab"><span class="num">Paso 6 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-06-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana sale y cierra la puerta con cuidado.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.8 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> I will give you some privacy while you prepare. I will knock before I come back in.<br><span class="es">Le daré privacidad mientras se prepara. Tocaré antes de volver a entrar.</span></li></ul>
@@ -1362,10 +1431,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;I will give you some privacy while you prepare. I will knock before I come back in.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-06-escena-4" data-id="paso-06-escena-4">
+        <div class="cab"><span class="num">Paso 6 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-06-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana toca la puerta y entra despacio.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.5 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> May I come in?<br><span class="es">¿Puedo pasar?</span></li><li><b>Mrs. Smith:</b> Yes, I&#x27;m ready.<br><span class="es">Sí, estoy lista.</span></li></ul>
@@ -1410,10 +1481,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Yes, I&#x27;m ready.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 5</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-06-escena-5" data-id="paso-06-escena-5">
+        <div class="cab"><span class="num">Paso 6 · Escena 5</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-06-escena-5">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped boca abajo; Ana acomoda la sábana.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.0 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Please let me know when you are comfortable.<br><span class="es">Por favor avíseme cuando esté cómoda.</span></li></ul>
@@ -1455,10 +1528,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Please let me know when you are comfortable.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 7. Durante el tratamiento <small>During the Treatment</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-07-escena-1" data-id="paso-07-escena-1">
+        <div class="cab"><span class="num">Paso 7 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-07-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Masaje de hombros; Ana pregunta y ajusta la presión.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 8.7 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> How is the pressure?<br><span class="es">¿Cómo está la presión?</span></li><li><b>Mrs. Smith:</b> It could be a little stronger on my shoulders.<br><span class="es">Podría ser un poco más fuerte en los hombros.</span></li><li><b>Ana:</b> Of course. Is this pressure more comfortable for you?<br><span class="es">Claro. ¿Esta presión es más cómoda para usted?</span></li></ul>
@@ -1506,10 +1581,12 @@ MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Of course. Is this pressure more comfortable for you?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-07-escena-2" data-id="paso-07-escena-2">
+        <div class="cab"><span class="num">Paso 7 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-07-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped respira profundo, relajada.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.5 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Take a deep breath in, and slowly breathe out.<br><span class="es">Inhale profundamente, y exhale despacio.</span></li></ul>
@@ -1551,10 +1628,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Take a deep breath in, and slowly breathe out.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-07-escena-3" data-id="paso-07-escena-3">
+        <div class="cab"><span class="num">Paso 7 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-07-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana sostiene la sábana mientras la huésped se voltea.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 4.9 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Now, please turn over onto your back. I will hold the sheet for you.<br><span class="es">Ahora, por favor voltéese boca arriba. Yo le sostengo la sábana.</span></li></ul>
@@ -1596,10 +1675,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Now, please turn over onto your back. I will hold the sheet for you.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-07-escena-4" data-id="paso-07-escena-4">
+        <div class="cab"><span class="num">Paso 7 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-07-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana la cubre con una toalla tibia.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.0 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Is the room temperature comfortable for you?<br><span class="es">¿La temperatura de la cabina es cómoda para usted?</span></li></ul>
@@ -1641,10 +1722,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Is the room temperature comfortable for you?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 5</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-07-escena-5" data-id="paso-07-escena-5">
+        <div class="cab"><span class="num">Paso 7 · Escena 5</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-07-escena-5">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Plano general del masaje con velas.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.0 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Please relax and enjoy your treatment. Let me know if you need anything.<br><span class="es">Por favor relájese y disfrute su tratamiento. Avíseme si necesita algo.</span></li></ul>
@@ -1686,10 +1769,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Please relax and enjoy your treatment. Let me know if you need anything.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 8. Atender una molestia <small>Handling a Concern</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-08-escena-1" data-id="paso-08-escena-1">
+        <div class="cab"><span class="num">Paso 8 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-08-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La presión molesta; Ana la suaviza de inmediato.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 8.6 s)</span></p>
         <ul class="frases"><li><b>Mrs. Smith:</b> Excuse me, the pressure is too strong.<br><span class="es">Disculpe, la presión está demasiado fuerte.</span></li><li><b>Ana:</b> I&#x27;m sorry about that. Let me reduce the pressure for you. Is this better?<br><span class="es">Disculpe. Permítame reducir la presión. ¿Así está mejor?</span></li></ul>
@@ -1734,10 +1819,12 @@ MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;I&#x27;m sorry about that. Let me reduce the pressure for you. Is this better?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-08-escena-2" data-id="paso-08-escena-2">
+        <div class="cab"><span class="num">Paso 8 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-08-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped se relaja y agradece.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 2.8 s)</span></p>
         <ul class="frases"><li><b>Mrs. Smith:</b> Yes, much better, thank you.<br><span class="es">Sí, mucho mejor, gracias.</span></li></ul>
@@ -1779,10 +1866,12 @@ Dialogue:
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Yes, much better, thank you.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-08-escena-3" data-id="paso-08-escena-3">
+        <div class="cab"><span class="num">Paso 8 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-08-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped tiene frío; Ana la cubre con una cobija.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 7.0 s)</span></p>
         <ul class="frases"><li><b>Mrs. Smith:</b> The room is a little cold.<br><span class="es">La cabina está un poco fría.</span></li><li><b>Ana:</b> I&#x27;m sorry. Let me adjust the temperature and bring you a warm blanket.<br><span class="es">Disculpe. Permítame ajustar la temperatura y traerle una cobija tibia.</span></li></ul>
@@ -1827,10 +1916,12 @@ MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;I&#x27;m sorry. Let me adjust the temperature and bring you a warm blanket.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-08-escena-4" data-id="paso-08-escena-4">
+        <div class="cab"><span class="num">Paso 8 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-08-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped pide más tiempo de masaje.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.5 s)</span></p>
         <ul class="frases"><li><b>Mrs. Smith:</b> Can you extend my massage for another thirty minutes?<br><span class="es">¿Puede extender mi masaje otros treinta minutos?</span></li></ul>
@@ -1872,10 +1963,12 @@ Dialogue:
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;Can you extend my massage for another thirty minutes?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 5</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-08-escena-5" data-id="paso-08-escena-5">
+        <div class="cab"><span class="num">Paso 8 · Escena 5</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-08-escena-5">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana responde amable que lo consultará.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.8 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Let me check with my Spa Manager. I would be happy to find the best option for you.<br><span class="es">Permítame consultarlo con mi gerente de spa. Con gusto le busco la mejor opción.</span></li></ul>
@@ -1917,10 +2010,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Let me check with my Spa Manager. I would be happy to find the best option for you.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 9. Seguimiento después del tratamiento <small>After the Treatment</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-09-escena-1" data-id="paso-09-escena-1">
+        <div class="cab"><span class="num">Paso 9 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-09-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana ayuda a la huésped a incorporarse despacio.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.3 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Your treatment is now complete. Please take your time and sit up slowly.<br><span class="es">Su tratamiento ha terminado. Tómese su tiempo e incorpórese despacio.</span></li></ul>
@@ -1962,10 +2057,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Your treatment is now complete. Please take your time and sit up slowly.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-09-escena-2" data-id="paso-09-escena-2">
+        <div class="cab"><span class="num">Paso 9 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-09-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped sonríe muy relajada.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 8.8 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> How are you feeling?<br><span class="es">¿Cómo se siente?</span></li><li><b>Mrs. Smith:</b> Wonderful. So relaxed.<br><span class="es">De maravilla. Muy relajada.</span></li><li><b>Ana:</b> I&#x27;m so glad to hear that. Was the pressure comfortable for you?<br><span class="es">Me da mucho gusto. ¿La presión fue cómoda para usted?</span></li></ul>
@@ -2013,10 +2110,12 @@ MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;I&#x27;m so glad to hear that. Was the pressure comfortable for you?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-09-escena-3" data-id="paso-09-escena-3">
+        <div class="cab"><span class="num">Paso 9 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-09-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana sirve té herbal y agua.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 6.2 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Would you like some water or herbal tea?<br><span class="es">¿Le gustaría un poco de agua o té herbal?</span></li><li><b>Ana:</b> Please remember to drink plenty of water today.<br><span class="es">Por favor recuerde tomar suficiente agua hoy.</span></li></ul>
@@ -2061,10 +2160,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Please remember to drink plenty of water today.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-09-escena-4" data-id="paso-09-escena-4">
+        <div class="cab"><span class="num">Paso 9 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-09-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana la acompaña a la sala de relajación.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 3.9 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Please allow me to show you to our relaxation lounge.<br><span class="es">Permítame acompañarla a nuestra sala de relajación.</span></li></ul>
@@ -2106,10 +2207,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Please allow me to show you to our relaxation lounge.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 10. Recomendar otros servicios <small>Recommending Other Services</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-10-escena-1" data-id="paso-10-escena-1">
+        <div class="cab"><span class="num">Paso 10 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-10-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">En la sala, Ana le muestra los faciales.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.3 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> If you enjoyed your massage, you may also be interested in our facial treatments.<br><span class="es">Si disfrutó su masaje, también le pueden interesar nuestros faciales.</span></li></ul>
@@ -2151,10 +2254,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;If you enjoyed your massage, you may also be interested in our facial treatments.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-10-escena-2" data-id="paso-10-escena-2">
+        <div class="cab"><span class="num">Paso 10 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-10-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">El circuito de hidroterapia: sauna, vapor, alberca.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.6 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Our hydrotherapy circuit includes a sauna, a steam room and a vitality pool.<br><span class="es">Nuestro circuito de hidroterapia incluye sauna, vapor y alberca de vitalidad.</span></li></ul>
@@ -2196,10 +2301,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Our hydrotherapy circuit includes a sauna, a steam room and a vitality pool.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-10-escena-3" data-id="paso-10-escena-3">
+        <div class="cab"><span class="num">Paso 10 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-10-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped se entusiasma; Ana le ofrece reservar.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 8.3 s)</span></p>
         <ul class="frases"><li><b>Mrs. Smith:</b> That sounds lovely. Can I book it for tomorrow?<br><span class="es">Suena muy bien. ¿Lo puedo reservar para mañana?</span></li><li><b>Ana:</b> Of course. Would you like me to arrange an appointment with our Spa Reception?<br><span class="es">Claro. ¿Le gustaría que le agende una cita con la recepción del spa?</span></li></ul>
@@ -2244,10 +2351,12 @@ MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Of course. Would you like me to arrange an appointment with our Spa Reception?&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-10-escena-4" data-id="paso-10-escena-4">
+        <div class="cab"><span class="num">Paso 10 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-10-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana menciona al concierge del hotel.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.9 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Our Concierge team can also assist you with restaurant reservations and transportation.<br><span class="es">Nuestro equipo de concierge también le puede ayudar con reservaciones de restaurante y transporte.</span></li></ul>
@@ -2289,10 +2398,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Our Concierge team can also assist you with restaurant reservations and transportation.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section><section><h2>Paso 11. Despedida <small>Farewell</small></h2>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 1</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-11-escena-1" data-id="paso-11-escena-1">
+        <div class="cab"><span class="num">Paso 11 · Escena 1</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-11-escena-1">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">En la salida, Ana pregunta si necesita algo más.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.4 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Is there anything else we can assist you with?<br><span class="es">¿Hay algo más en que le podamos ayudar?</span></li><li><b>Mrs. Smith:</b> No, everything was perfect.<br><span class="es">No, todo estuvo perfecto.</span></li></ul>
@@ -2337,10 +2448,12 @@ ANA (warm, calm, friendly young female voice, clear and slow American English) s
 MRS. SMITH (kind, relaxed female voice in her forties, American English) says: &quot;No, everything was perfect.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 2</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-11-escena-2" data-id="paso-11-escena-2">
+        <div class="cab"><span class="num">Paso 11 · Escena 2</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-11-escena-2">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana agradece con las manos juntas.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 6.1 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Thank you for visiting our Spa, Mrs. Smith. It was my pleasure taking care of you today.<br><span class="es">Gracias por visitar nuestro spa, señora Smith. Fue un placer atenderla hoy.</span></li></ul>
@@ -2382,10 +2495,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Thank you for visiting our Spa, Mrs. Smith. It was my pleasure taking care of you today.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 3</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-11-escena-3" data-id="paso-11-escena-3">
+        <div class="cab"><span class="num">Paso 11 · Escena 3</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-11-escena-3">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">Ana se despide y la invita a volver; la huésped agradece.</p>
         <p class="dur">⏱ En Kling elige <b>10 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 5.2 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> I hope you enjoyed your treatment. We look forward to welcoming you back.<br><span class="es">Espero que haya disfrutado su tratamiento. Esperamos recibirla de nuevo.</span></li></ul>
@@ -2427,10 +2542,12 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;I hope you enjoyed your treatment. We look forward to welcoming you back.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article>
-      <article class="escena ">
-        <div class="cab"><span class="num">Escena 4</span><span class="estado">Pendiente</span></div>
+      <article class="escena" id="paso-11-escena-4" data-id="paso-11-escena-4">
+        <div class="cab"><span class="num">Paso 11 · Escena 4</span>
+          <label class="hecho"><input type="checkbox"> Ya lo generé</label></div>
+        <a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/prompts-kling.html#paso-11-escena-4">📋 Copiar este prompt: tócalo para abrir la escena en el celular o la computadora, con sus botones de copiar</a>
         <p class="que">La huésped se va por el jardín y Ana se despide.</p>
         <p class="dur">⏱ En Kling elige <b>5 segundos</b> y activa el <b>audio</b> <span>(el diálogo dura unos 2.4 s)</span></p>
         <ul class="frases"><li><b>Ana:</b> Have a wonderful afternoon.<br><span class="es">Que tenga una tarde maravillosa.</span></li></ul>
@@ -2472,12 +2589,30 @@ Dialogue:
 ANA (warm, calm, friendly young female voice, clear and slow American English) says: &quot;Have a wonderful afternoon.&quot;">Copiar solo el prompt</button>
         <p class="lbl">Negative prompt <span class="nota">(pégalo en el campo "Negative prompt" de Kling)</span></p>
         <pre class="neg">background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting</pre>
-        <button class="" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
+        <button data-neg="1" data-copiar="background music, narration, voice-over, extra dialogue, changed words, mumbling, off-sync lips, text, subtitles, captions, letters, words, logo, watermark, photorealistic, live action, real people, uncanny face, distorted face, deformed hands, extra fingers, extra limbs, blurry, low quality, flickering, jittery motion, sudden cuts, dark or gloomy lighting">🚫 Copiar negative prompt</button>
       </article></section>
 </main>
 <script>
+// Avance: al copiar el prompt de una escena queda marcada como generada (se puede desmarcar). Se guarda en este navegador.
+const CLAVE = "kling-escenas-generadas";
+let hechas = new Set();
+try { hechas = new Set(JSON.parse(localStorage.getItem(CLAVE) || "[]")); } catch (err) {}
+const escenas = [...document.querySelectorAll("article[data-id]")];
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify([...hechas])); } catch (err) {} };
+function pintar() {
+  escenas.forEach((a) => { const ok = hechas.has(a.dataset.id); a.classList.toggle("hecha", ok); a.querySelector(".hecho input").checked = ok; });
+  document.getElementById("cuenta").textContent = `${hechas.size} de ${escenas.length} generadas`;
+  document.getElementById("barra").style.width = `${(100 * hechas.size) / escenas.length}%`;
+}
+function marcar(a, ok) { ok ? hechas.add(a.dataset.id) : hechas.delete(a.dataset.id); guardar(); pintar(); }
+document.addEventListener("change", (ev) => { const c = ev.target.closest(".hecho input"); if (c) marcar(c.closest("article"), c.checked); });
+document.getElementById("siguiente").onclick = () => {
+  const a = escenas.find((x) => !hechas.has(x.dataset.id)); if (a) a.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+pintar();
 document.addEventListener("click", async (ev) => {
   const b = ev.target.closest("[data-copiar]"); if (!b) return;
+  const art = b.closest("article[data-id]"); if (art && !b.dataset.neg) marcar(art, true);
   try { await navigator.clipboard.writeText(b.dataset.copiar); } catch (err) {
     const t = document.createElement("textarea"); t.value = b.dataset.copiar; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
   }
