@@ -1142,6 +1142,7 @@ function view(catId) {
       <p class="muted">${known.size} de ${ALL_WORDS.length} palabras marcadas como aprendidas</p>
     </section>
 
+    <div class="inicio-grid">
     <a class="script-banner vocab-banner" href="#/vocabularios" style="background-image:url('images/canva/amenities.jpg')">
       <span class="script-banner-text"><small>Inglés / Español · Audio e imágenes</small><b>📚 Vocabularios</b><span>${VOCAB.length} categorías · ${ALL_WORDS.length} palabras, más el vocabulario del Valet y del Spa Concierge</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -1178,7 +1179,11 @@ function view(catId) {
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    <a class="prueba-banner" href="#/pruebas"><span class="prueba-icono">🎧✍️</span><span><b>Pruebas de listening y writing</b><small>Practica cada vocabulario: escucha y elige, o escribe en inglés</small></span><span class="script-banner-go" aria-hidden="true">→</span></a>
+    <a class="script-banner inicio-pruebas" href="#/pruebas">
+      <span class="script-banner-text"><small>Listening · Writing</small><b>🎧✍️ Pruebas</b><span>Escucha y elige, o escribe en inglés</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>
+    </div>
 `;
 }
 
