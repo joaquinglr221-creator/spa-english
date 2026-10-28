@@ -702,7 +702,7 @@ const ANAT = typeof ANATOMIA !== "undefined" ? ANATOMIA : [];
 function viewAnatomia() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Inicio</a>
+    <a class="back" href="#/vocabularios">← Vocabularios</a>
     <section class="script-hero anat-hero" style="background-image:url('images/anatomia/musculos.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Human anatomy · Inglés / Español</p>
@@ -720,7 +720,7 @@ function viewAnatomia() {
         <img class="anat-thumb" src="images/anatomia/piel.jpg" alt="" loading="lazy">
         <span class="tile-title">La piel: tipos, colores y afecciones</span>
         <small class="muted">Skin types, tones and conditions</small></a>` : ""}</div>
-    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+    <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>`;
 }
 
 function viewLamina(id) {
@@ -779,7 +779,7 @@ function viewPiel() {
   const capas = ANAT.find((l) => l.id === "piel");
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/anatomia">← Anatomía</a>
+    <a class="back" href="#/vocabularios">← Vocabularios</a>
     <section class="script-hero anat-hero" style="background-image:url('images/anatomia/piel.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Skin · Inglés / Español</p>
@@ -836,7 +836,7 @@ function viewPiel() {
 
     <h2 class="section-title" id="piel-frases">💬 Frases para la consulta · Useful phrases</h2>
     <section class="card">${P.frases.map((f) => bilingueAudio(f.es, f.en)).join("")}</section>
-    <a class="btn ghost full center" href="#/anatomia">← Volver a Anatomía</a>`;
+    <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>`;
 }
 
 // Marca una parte de la lámina: su número en la imagen, su fila en la lista y el recuadro de abajo.
@@ -1114,6 +1114,12 @@ function viewVocabularios() {
       <span class="prueba-hero-icono">📚</span>
       <div><h1>Vocabularios</h1><p>${VOCAB.length} categorías con audio, ejemplos e imágenes. Toca una para estudiarla.</p></div>
     </section>
+    <div class="inicio-grid">
+      ${ANAT.length ? `<a class="script-banner" href="#/anatomia" style="background-image:url('images/anatomia/musculos.jpg')">
+        <span class="script-banner-text"><b>🫀 Anatomía del cuerpo humano</b><span>${ANAT.length} láminas con partes numeradas</span></span></a>` : ""}
+      ${PIEL_D ? `<a class="script-banner piel-banner" href="#/la-piel" style="background-image:url('images/anatomia/piel.jpg')">
+        <span class="script-banner-text"><b>🖐️ La piel</b><span>Capas, tipos, colores y ${PIEL_D.afecciones.length} afecciones</span></span></a>` : ""}
+    </div>
     <input id="search" class="search" type="search" placeholder="Buscar una palabra en inglés o español…" autocomplete="off">
     <div id="word-list">${menu()}</div>
     <h2 class="section-title">Vocabularios de las secciones</h2>
@@ -1121,8 +1127,6 @@ function viewVocabularios() {
       ${VALET_VOC.length ? tarjeta("#/vocab-valet", "🧺", "Valet de spa", `${VALET_VOC.length} palabras: servicio y artículos del spa`) : ""}
       ${GYM_VOC.length ? tarjeta("#/gym", "🏋️", "Gym del spa", `${GYM_VOC.length + GYM_GRP.reduce((n, g) => n + g.words.length, 0)} palabras: equipo, ejercicios, verbos y calentamiento`) : ""}
       ${CONC_VOC.length ? tarjeta("#/vocab-concierge", "🛎️", "Spa Concierge", `${CONC_VOC.reduce((n, g) => n + g.words.length, 0)} palabras de ventas y técnicas de masaje`) : ""}
-      ${ANAT.length ? tarjeta("#/anatomia", "🫀", "Anatomía del cuerpo humano", `${ANAT.length} láminas con partes numeradas`) : ""}
-      ${PIEL_D ? tarjeta("#/la-piel", "🖐️", "La piel", "Tipos, colores y afecciones") : ""}
       ${tarjeta("#/pruebas", "🎧✍️", "Pruebas de listening y writing", "Practica cada vocabulario")}
     </div>
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
@@ -1201,14 +1205,6 @@ function view(catId) {
     </a>` : ""}
     ${AMPS.length ? `<a class="script-banner" href="#/ampolletas" style="background-image:url('images/ampolletas/portada.jpg')">
       <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span>
-    </a>` : ""}
-    ${ANAT.length ? `<a class="script-banner" href="#/anatomia" style="background-image:url('images/anatomia/musculos.jpg')">
-      <span class="script-banner-text"><small>Human anatomy · Español / English</small><b>Anatomía del cuerpo humano</b><span>${ANAT.length} láminas: partes del cuerpo, músculos, huesos, órganos y sistemas</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span>
-    </a>` : ""}
-    ${PIEL_D ? `<a class="script-banner piel-banner" href="#/la-piel" style="background-image:url('images/anatomia/piel.jpg')">
-      <span class="script-banner-text"><small>Skin · Español / English</small><b>La piel</b><span>Capas, tipos de piel, colores y ${PIEL_D.afecciones.length} afecciones</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
