@@ -1214,7 +1214,7 @@ function view(catId) {
   const pct = Math.round((known.size / ALL_WORDS.length) * 100);
   return `${BRANDS}
     ${USO.badge()}
-    <section class="hero">
+    <section class="hero con-video app-hero">${vidFondo("app")}
       ${catIcon({ id: "spa", icon: "🪷" }, "hero-icon")}
       <div>
         <h1>SPA Service Excellence App</h1>
