@@ -1157,6 +1157,7 @@ function viewProductos() {
         <p>Fichas de producto en español e inglés y scripts para recomendar y vender a los huéspedes.</p>
       </div>
     </section>
+    <div class="inicio-grid">
     ${AMPS.length ? `<a class="script-banner" href="#/ampolletas" style="background-image:url('images/ampolletas/portada.jpg')">
       <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -1165,6 +1166,7 @@ function viewProductos() {
       <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    </div>
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
