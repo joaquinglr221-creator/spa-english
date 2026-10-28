@@ -76,7 +76,26 @@ function audioKey(text) {
 }
 const spokenText = (text) => text.replace(/\s*\/\s*/g, ", ");
 
+// Aviso de audífonos: la primera vez que suena un audio en cada sesión.
+function avisoAudifonos() {
+  try {
+    if (sessionStorage.getItem("aviso-audifonos")) return;
+    sessionStorage.setItem("aviso-audifonos", "1");
+  } catch {}
+  const box = document.createElement("div");
+  box.className = "aviso-audifonos";
+  box.setAttribute("role", "status");
+  box.innerHTML = `<span class="aviso-audifonos-icono">🎧</span>
+    <span><b>Escucha los audios con audífonos</b>Así escuchas mejor la pronunciación y no molestas a los huéspedes.</span>
+    <button type="button">Entendido</button>`;
+  const cerrar = () => box.remove();
+  box.querySelector("button").onclick = cerrar;
+  document.body.appendChild(box);
+  setTimeout(cerrar, 8000);
+}
+
 function speak(text, slow = false) {
+  avisoAudifonos();
   if (text) USO.track("audio", { item: text.slice(0, 120) });
   const clean = spokenText(text);
   if (currentAudio) currentAudio.pause();
