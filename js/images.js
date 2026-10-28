@@ -1671,5 +1671,149 @@ const IMAGES = {
  "Lost and found": {
   "src": "images/canva/lost-and-found.jpg",
   "source": "canva"
+ },
+ "Leg Press": {
+  "src": "images/gym/leg-press.jpg",
+  "source": "presentacion-gym"
+ },
+ "Treadmill": {
+  "src": "images/gym/treadmill.jpg",
+  "source": "presentacion-gym"
+ },
+ "Stationary bike": {
+  "src": "images/gym/stationary-bike.jpg",
+  "source": "presentacion-gym"
+ },
+ "Elliptical": {
+  "src": "images/gym/elliptical.jpg",
+  "source": "presentacion-gym"
+ },
+ "Rowing machine": {
+  "src": "images/gym/rowing-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Stair climber": {
+  "src": "images/gym/stair-climber.jpg",
+  "source": "presentacion-gym"
+ },
+ "Lat pulldown machine": {
+  "src": "images/gym/lat-pulldown-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Bench Press": {
+  "src": "images/gym/bench-press.jpg",
+  "source": "presentacion-gym"
+ },
+ "Dumbbells": {
+  "src": "images/gym/dumbbells.jpg",
+  "source": "presentacion-gym"
+ },
+ "Barbell": {
+  "src": "images/gym/barbell.jpg",
+  "source": "presentacion-gym"
+ },
+ "Kettlebell": {
+  "src": "images/gym/kettlebell.jpg",
+  "source": "presentacion-gym"
+ },
+ "Smith machine": {
+  "src": "images/gym/smith-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Foam roller": {
+  "src": "images/gym/foam-roller.jpg",
+  "source": "presentacion-gym"
+ },
+ "Cable machine": {
+  "src": "images/gym/cable-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Pull-up bar": {
+  "src": "images/gym/pull-up-bar.jpg",
+  "source": "presentacion-gym"
+ },
+ "Dip Station": {
+  "src": "images/gym/dip-station.jpg",
+  "source": "presentacion-gym"
+ },
+ "Medicine ball": {
+  "src": "images/gym/medicine-ball.jpg",
+  "source": "presentacion-gym"
+ },
+ "Seated Row Machine": {
+  "src": "images/gym/seated-row-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Power Rack": {
+  "src": "images/gym/power-rack.jpg",
+  "source": "presentacion-gym"
+ },
+ "Step platform": {
+  "src": "images/gym/step-platform.jpg",
+  "source": "presentacion-gym"
+ },
+ "Resistance bands": {
+  "src": "images/gym/resistance-bands.jpg",
+  "source": "presentacion-gym"
+ },
+ "Hack Squat Machine": {
+  "src": "images/gym/hack-squat-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Pec Deck": {
+  "src": "images/gym/pec-deck.jpg",
+  "source": "presentacion-gym"
+ },
+ "Abdominal Crunch Machine": {
+  "src": "images/gym/abdominal-crunch-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Hyperextension Bench": {
+  "src": "images/gym/hyperextension-bench.jpg",
+  "source": "presentacion-gym"
+ },
+ "Jump rope": {
+  "src": "images/gym/jump-rope.jpg",
+  "source": "presentacion-gym"
+ },
+ "Leg extension machine": {
+  "src": "images/gym/leg-extension-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Leg curl machine": {
+  "src": "images/gym/leg-curl-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Medicine Ball Rebounder": {
+  "src": "images/gym/medicine-ball-rebounder.jpg",
+  "source": "presentacion-gym"
+ },
+ "Battle ropes": {
+  "src": "images/gym/battle-ropes.jpg",
+  "source": "presentacion-gym"
+ },
+ "Pulley Machine": {
+  "src": "images/gym/pulley-machine.jpg",
+  "source": "presentacion-gym"
+ },
+ "Incline Bench": {
+  "src": "images/gym/incline-bench.jpg",
+  "source": "presentacion-gym"
+ },
+ "Decline Bench": {
+  "src": "images/gym/decline-bench.jpg",
+  "source": "presentacion-gym"
+ },
+ "Sled": {
+  "src": "images/gym/sled.jpg",
+  "source": "presentacion-gym"
+ },
+ "Plyo box": {
+  "src": "images/gym/plyo-box.jpg",
+  "source": "presentacion-gym"
+ },
+ "Landmine": {
+  "src": "images/gym/landmine.jpg",
+  "source": "presentacion-gym"
  }
 };
