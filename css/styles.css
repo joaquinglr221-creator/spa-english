@@ -600,3 +600,8 @@ a.btn.center { text-align: center; }
 .uso-link { background: none; border: 0; color: var(--muted); text-decoration: underline; font: inherit; font-size: 0.85rem; cursor: pointer; padding: 6px; }
 .uso-bio-lista { display: grid; gap: 6px; }
 .uso-bio-lista:empty { display: none; }
+
+/* Productos de belleza: animación de la ampolleta */
+.prod-video { margin: 0 0 12px; }
+.prod-video video { display: block; width: 100%; max-width: 520px; margin: 0 auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: #dceff4; }
+.prod-video figcaption { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 6px; }

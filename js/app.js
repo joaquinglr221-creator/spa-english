@@ -1157,6 +1157,10 @@ function viewProductos() {
         <p>Fichas de producto en español e inglés y scripts para recomendar y vender a los huéspedes.</p>
       </div>
     </section>
+    <figure class="prod-video">
+      <video src="videos/productos/ampolletas.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Animación: el sérum de la ampolleta se absorbe en la piel"></video>
+      <figcaption>Así actúa una ampolleta: el sérum concentrado penetra en la piel · <em>How an ampoule works</em></figcaption>
+    </figure>
     <div class="inicio-grid">
     ${AMPS.length ? `<a class="script-banner" href="#/ampolletas" style="background-image:url('images/ampolletas/portada.jpg')">
       <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
