@@ -264,7 +264,7 @@ const PROGRAMAS = {
     volver: "#/valet", volverTexto: "← Valet de spa",
   },
   "gym-script": {
-    stages: typeof GYM_SCRIPT !== "undefined" ? GYM_SCRIPT : [], icono: "script", portada: "images/script/gym.jpg",
+    stages: typeof GYM_SCRIPT !== "undefined" ? GYM_SCRIPT : [], icono: "script", portada: "images/canva/gym-trainer.jpg",
     titulo: "Script del entrenador del gym", kicker: "Gym Trainer · Estándares AAA", standardsLabel: "⭐ Estándares AAA",
     desc: "Bienvenida, objetivos, equipos, instrucciones seguras, entrenamiento personalizado y despedida.",
     flow: "Welcome → Recognize → Discover → Anticipate → Personalize → Explain → Deliver → Follow up → Farewell",
