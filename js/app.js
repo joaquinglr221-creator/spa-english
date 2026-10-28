@@ -649,9 +649,10 @@ function viewGym() {
         <p>Inglés para el entrenador: recibir al huésped, explicar los equipos, dar instrucciones seguras y recomendar el spa. Principio de servicio: <em>“Create a personalized wellness experience and make every guest feel cared for.”</em></p>
       </div>
     </section>
-    <a class="script-banner" href="#/gym-script" style="${portadaGym()}">
-      <span class="script-banner-text"><small>${esc(G.kicker)}</small><b>${esc(G.titulo)}</b><span>${G.stages.length} pasos con audio</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span></a>
+    <div class="inicio-grid">
+      <a class="script-banner con-video" href="#/gym-script">${vidFondo("gym")}
+        <span class="script-banner-text"><small>${esc(G.kicker)}</small><b>🏋️ ${esc(G.titulo)}</b><span>${G.stages.length} pasos con audio</span></span></a>
+    </div>
     <h2 class="section-title">Vocabulario del gym · ${GYM_VOC.length} palabras</h2>
     <p class="muted">Términos del entrenador y todo el equipo del gimnasio. Toca la foto para verla en grande y escucharla.</p>
     ${vocabFilas(GYM_VOC)}
