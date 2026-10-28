@@ -387,6 +387,9 @@ const MATERIAL = {
   "ampoule-bar": { title: "BABOR Ampoule Bar 2026", subtitle: "Presentación de ampolletas para terapeutas", pages: 7 },
   "natura-bisse": { title: "Natura Bissé · Guía de producto", subtitle: "Retail México (en español)", pages: 26 },
   "spa-concierge": { title: "Spa Concierge · Sales & Wellness Script", subtitle: "Manual original (en inglés)", pages: 11, volver: "#/concierge", volverTexto: "← Spa Concierge" },
+  "gym-workouts": { title: "Work Outs", subtitle: "Ejercicios, equipo, verbos y calentamiento", pages: 20, volver: "#/gym", volverTexto: "← Gym del spa" },
+  "gym-equipment": { title: "Gym Equipment", subtitle: "Equipo del gimnasio", pages: 18, volver: "#/gym", volverTexto: "← Gym del spa" },
+  "gym-verbs": { title: "Gym Verbs", subtitle: "Verbos del entrenamiento", pages: 8, volver: "#/gym", volverTexto: "← Gym del spa" },
   "valet-spa": { title: "Valet Spa Script", subtitle: "Presentación de vocabulario para valets", pages: 14, volver: "#/valet", volverTexto: "← Valet de spa" },
 };
 
@@ -625,6 +628,7 @@ function viewValet() {
 
 // ---------- Gym del spa (js/gym-script.js) ----------
 const GYM_VOC = typeof GYM_VOCAB !== "undefined" ? GYM_VOCAB : [];
+const GYM_GRP = typeof GYM_GRUPOS !== "undefined" ? GYM_GRUPOS : [];
 // Portada: la foto del gimnasio del vocabulario (cuando exista); si no, un degradado.
 const portadaGym = () => (fotoDe("Fitness Center") ? `background-image:url('${fotoDe("Fitness Center").src}')` : "background:linear-gradient(135deg,#2f6b8a,#5b3f78)");
 
@@ -646,6 +650,13 @@ function viewGym() {
     <h2 class="section-title">Vocabulario del gym · ${GYM_VOC.length} palabras</h2>
     <p class="muted">Términos del entrenador y todo el equipo del gimnasio. Toca la foto para verla en grande y escucharla.</p>
     ${vocabFilas(GYM_VOC)}
+    ${GYM_GRP.map((g) => `<h2 class="section-title">${esc(g.titleEs)} · ${g.words.length}</h2><p class="muted">🇺🇸 ${esc(g.title)}</p>${vocabFilas(g.words)}`).join("")}
+    <h2 class="section-title">Material original</h2>
+    <div class="amp-docs">${["gym-workouts", "gym-equipment", "gym-verbs"].map((id) => {
+      const m = MATERIAL[id];
+      return `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
+        <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`;
+    }).join("")}</div>
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
@@ -1108,7 +1119,7 @@ function viewVocabularios() {
     <h2 class="section-title">Vocabularios de las secciones</h2>
     <div class="prueba-botones">
       ${VALET_VOC.length ? tarjeta("#/vocab-valet", "🧺", "Valet de spa", `${VALET_VOC.length} palabras: servicio y artículos del spa`) : ""}
-      ${GYM_VOC.length ? tarjeta("#/gym", "🏋️", "Gym del spa", `${GYM_VOC.length} palabras: entrenamiento y equipo del gimnasio`) : ""}
+      ${GYM_VOC.length ? tarjeta("#/gym", "🏋️", "Gym del spa", `${GYM_VOC.length + GYM_GRP.reduce((n, g) => n + g.words.length, 0)} palabras: equipo, ejercicios, verbos y calentamiento`) : ""}
       ${CONC_VOC.length ? tarjeta("#/vocab-concierge", "🛎️", "Spa Concierge", `${CONC_VOC.reduce((n, g) => n + g.words.length, 0)} palabras de ventas y técnicas de masaje`) : ""}
       ${ANAT.length ? tarjeta("#/anatomia", "🫀", "Anatomía del cuerpo humano", `${ANAT.length} láminas con partes numeradas`) : ""}
       ${PIEL_D ? tarjeta("#/la-piel", "🖐️", "La piel", "Tipos, colores y afecciones") : ""}
@@ -1217,7 +1228,7 @@ function view(catId) {
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     ${GYM_VOC.length ? `<a class="script-banner" href="#/gym" style="${portadaGym()}">
-      <span class="script-banner-text"><small>Gym Trainer · Estándares AAA</small><b>Gym del spa</b><span>Script de ${PROGRAMAS["gym-script"].stages.length} pasos y ${GYM_VOC.length} palabras del equipo</span></span>
+      <span class="script-banner-text"><small>Gym Trainer · Estándares AAA</small><b>Gym del spa</b><span>Script de ${PROGRAMAS["gym-script"].stages.length} pasos, ${GYM_VOC.length + GYM_GRP.reduce((n, g) => n + g.words.length, 0)} palabras y material</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     <a class="script-banner inicio-pruebas" href="#/pruebas">
