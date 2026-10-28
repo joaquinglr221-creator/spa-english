@@ -611,3 +611,9 @@ a.btn.center { text-align: center; }
 .app-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(60, 38, 78, 0.45), rgba(60, 38, 78, 0.72)); }
 .app-hero > * { position: relative; }
 .app-hero h1, .app-hero p { text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45); }
+
+/* Gym: instrucciones de uso de cada equipo */
+.gym-eq { border-top: 4px solid var(--c); display: grid; gap: 8px; }
+.gym-eq-cab { display: flex; gap: 12px; align-items: center; }
+.gym-eq-cab .bi-audio { flex: 1; }
+.gym-pasos { margin: 0; padding-left: 20px; display: grid; gap: 8px; }

@@ -437,7 +437,7 @@ function dialogueHtml(lines) {
 function viewAmpolletas() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/productos">← Productos de belleza</a>
+    <a class="back" href="#/productos-belleza">← Productos de belleza</a>
     <section class="script-hero" style="background-image:url('images/ampolletas/portada.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">BABOR Ampoule Bar 2026 · Español / English</p>
@@ -474,7 +474,7 @@ function viewAmpolletas() {
       ([id, m]) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
         <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`
     ).join("")}</div>
-    <a class="btn ghost full center" href="#/productos">← Volver a Productos de belleza</a>`;
+    <a class="btn ghost full center" href="#/productos-belleza">← Volver a Productos de belleza</a>`;
 }
 
 function viewAmpolleta(id) {
@@ -524,7 +524,7 @@ const titulo = (s) => s.replace(/\b([A-ZÁÉÍÓÚÑ])([A-ZÁÉÍÓÚÑ'’]+)\b
 function viewNatura() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/productos">← Productos de belleza</a>
+    <a class="back" href="#/productos-belleza">← Productos de belleza</a>
     <section class="script-hero" style="background-image:url('images/natura-portada/portada.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Natura Bissé · Retail México · Español / English</p>
@@ -535,7 +535,7 @@ function viewNatura() {
     <input id="nb-search" class="search" type="search" placeholder="Buscar producto o ingrediente…" autocomplete="off">
     <div id="nb-list">${nbLista(NB.products)}</div>
     <a class="btn ghost full" href="#/material/natura-bisse">📄 Ver la guía original (PDF, en español)</a>
-    <a class="btn ghost full center" href="#/productos">← Volver a Productos de belleza</a>`;
+    <a class="btn ghost full center" href="#/productos-belleza">← Volver a Productos de belleza</a>`;
 }
 
 function nbLista(products) {
@@ -637,8 +637,26 @@ const GYM_GRP = typeof GYM_GRUPOS !== "undefined" ? GYM_GRUPOS : [];
 // Portada: la foto del gimnasio del vocabulario (cuando exista); si no, un degradado.
 const portadaGym = () => (fotoDe("Fitness Center") ? `background-image:url('${fotoDe("Fitness Center").src}')` : "background:linear-gradient(135deg,#2f6b8a,#5b3f78)");
 
+// Partes del vocabulario del gym: equipo (de "Cardio area" a "Disinfectant wipes" + el equipo de las presentaciones)
+// y el resto de los términos del entrenamiento.
+const GYM_PH = typeof GYM_PHRASAL !== "undefined" ? GYM_PHRASAL : [];
+const GYM_EQ = typeof GYM_EQUIPOS !== "undefined" ? GYM_EQUIPOS : [];
+const GYM_CU = typeof GYM_CUERPO !== "undefined" ? GYM_CUERPO : [];
+function gymPartes() {
+  const a = GYM_VOC.findIndex((w) => w.en === "Cardio area"), b = GYM_VOC.findIndex((w) => w.en === "Disinfectant wipes");
+  const equipoPres = (GYM_GRP.find((g) => g.title === "Gym equipment") || { words: [] }).words;
+  return {
+    equipo: [...GYM_VOC.slice(a, b + 1), ...equipoPres],
+    terminos: [...GYM_VOC.slice(0, a), ...GYM_VOC.slice(b + 1)],
+    grupos: GYM_GRP.filter((g) => g.title !== "Gym equipment"),
+  };
+}
+const fondoFoto = (palabra, degradado) => (fotoDe(palabra) ? `background-image:url('${fotoDe(palabra).src}')` : `background:${degradado}`);
+
 function viewGym() {
-  const G = PROGRAMAS["gym-script"];
+  const G = PROGRAMAS["gym-script"], P = gymPartes();
+  const recuadro = (href, fondo, titulo, sub) =>
+    `<a class="script-banner" href="${href}" style="${fondo}"><span class="script-banner-text"><b>${titulo}</b><span>${sub}</span></span></a>`;
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
@@ -651,12 +669,12 @@ function viewGym() {
     </section>
     <div class="inicio-grid">
       <a class="script-banner con-video" href="#/gym-script">${vidFondo("gym")}
-        <span class="script-banner-text"><small>${esc(G.kicker)}</small><b>🏋️ ${esc(G.titulo)}</b><span>${G.stages.length} pasos con audio</span></span></a>
+        <span class="script-banner-text"><b>🏋️ ${esc(G.titulo)}</b><span>${G.stages.length} pasos con audio</span></span></a>
+      ${recuadro("#/gym-equipo", fondoFoto("Treadmill", "linear-gradient(135deg,#2f6b8a,#1f3d55)"), "🚴 Equipo del gym", `${P.equipo.length} equipos con foto y audio`)}
+      ${recuadro("#/gym-instrucciones", fondoFoto("Dumbbells", "linear-gradient(135deg,#7b5e8c,#2f8a7a)"), "📣 Instrucciones de uso", `${GYM_PH.length} phrasal verbs y cómo usar ${GYM_EQ.length} equipos`)}
+      ${recuadro("#/gym-cuerpo", "background-image:url('images/anatomia/musculos.jpg')", "💪 Partes del cuerpo", `${GYM_CU.length} partes y grupos musculares`)}
+      ${recuadro("#/gym-vocab", fondoFoto("Workout", "linear-gradient(135deg,#c98a2e,#7b5e8c)"), "📚 Vocabulario del entrenamiento", `${P.terminos.length + P.grupos.reduce((n, g) => n + g.words.length, 0)} palabras: términos, ejercicios, verbos y calentamiento`)}
     </div>
-    <h2 class="section-title">Vocabulario del gym · ${GYM_VOC.length} palabras</h2>
-    <p class="muted">Términos del entrenador y todo el equipo del gimnasio. Toca la foto para verla en grande y escucharla.</p>
-    ${vocabFilas(GYM_VOC)}
-    ${GYM_GRP.map((g) => `<h2 class="section-title">${esc(g.titleEs)} · ${g.words.length}</h2><p class="muted">🇺🇸 ${esc(g.title)}</p>${vocabFilas(g.words)}`).join("")}
     <h2 class="section-title">Material original</h2>
     <div class="amp-docs">${["gym-workouts", "gym-equipment", "gym-verbs"].map((id) => {
       const m = MATERIAL[id];
@@ -664,6 +682,42 @@ function viewGym() {
         <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`;
     }).join("")}</div>
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+}
+
+function viewGymSub(cual) {
+  const P = gymPartes();
+  const cab = (titulo, sub) => `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/gym">← Gym del spa</a>
+    <h2 class="section-title">${titulo}</h2><p class="muted">${sub}</p>`;
+  const pie = `<a class="btn ghost full center" href="#/gym">← Volver a Gym del spa</a>`;
+  if (cual === "equipo")
+    return `${cab("🚴 Equipo del gym", `${P.equipo.length} equipos. Toca la foto para verla en grande y escucharla.`)}${vocabFilas(P.equipo)}${pie}`;
+  if (cual === "cuerpo")
+    return `${cab("💪 Partes del cuerpo", "Las partes del cuerpo y los grupos musculares que se trabajan en el gym.")}
+      <div class="inicio-grid"><a class="script-banner" href="#/anatomia/musculos" style="background-image:url('images/anatomia/musculos.jpg')">
+        <span class="script-banner-text"><b>🫀 Lámina del sistema muscular</b><span>Los músculos numerados en inglés y español</span></span></a></div>
+      ${vocabFilas(GYM_CU)}${pie}`;
+  if (cual === "vocab")
+    return `${cab("📚 Vocabulario del entrenamiento", "Términos del entrenador, ejercicios, verbos y calentamiento.")}
+      <h3 class="piel-sub">Términos del entrenamiento · ${P.terminos.length}</h3>${vocabFilas(P.terminos)}
+      ${P.grupos.map((g) => `<h3 class="piel-sub">${esc(g.titleEs)} · ${g.words.length}</h3><p class="muted">🇺🇸 ${esc(g.title)}</p>${vocabFilas(g.words)}`).join("")}${pie}`;
+  // Instrucciones de uso: phrasal verbs y cada equipo con sus pasos y beneficios
+  return `${cab("📣 Instrucciones de uso del equipo", "Primero los phrasal verbs para dar instrucciones; después, cómo usar cada equipo y sus beneficios.")}
+    <h3 class="piel-sub">Phrasal verbs para dar instrucciones · ${GYM_PH.length}</h3>
+    ${vocabFilas(GYM_PH)}
+    <h3 class="piel-sub">Cómo usar cada equipo · ${GYM_EQ.length}</h3>
+    ${GYM_EQ.map((q, k) => {
+      const f = fotoDe(q.foto);
+      return `<section class="card gym-eq" style="--c:${colorPorIndice(k)}">
+        <div class="gym-eq-cab">${f ? `<img class="vocab-foto" src="${esc(f.src)}" alt="" loading="lazy" data-foto="${esc(f.src)}" data-en="${esc(q.en)}" data-es="${esc(q.es)}">` : ""}
+          <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(q.en)}</b><span>🇲🇽 ${esc(q.es)}</span></span><div class="row">${speakButtons(q.en)}</div></div></div>
+        <p class="label">🧭 Cómo se usa · How to use it</p>
+        <ol class="gym-pasos">${q.pasos.map((x) => `<li>${bilingueAudio(x.es, x.en)}</li>`).join("")}</ol>
+        <p class="label">✨ Beneficios · Benefits</p>
+        <ul class="gym-pasos">${q.beneficios.map((x) => `<li>${bilingueAudio(x.es, x.en)}</li>`).join("")}</ul>
+      </section>`;
+    }).join("")}${pie}`;
 }
 
 // ---------- Spa Concierge ----------
@@ -1188,10 +1242,11 @@ function view(catId) {
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
   if (catId === "gym") return viewGym();
+  if (["gym-equipo", "gym-instrucciones", "gym-cuerpo", "gym-vocab"].includes(catId)) return viewGymSub(catId.slice(4));
   if (catId === "anatomia") return viewAnatomia();
   if (catId === "la-piel" && PIEL_D) return viewPiel();
   if (catId.startsWith("anatomia/")) return viewLamina(catId.split("/")[1]);
-  if (catId === "productos") return viewProductos();
+  if (catId === "productos-belleza") return viewProductos();
   if (catId === "ampolletas") return viewAmpolletas();
   if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
   if (catId.startsWith("material/")) return viewMaterial(catId.split("/")[1]);
@@ -1237,7 +1292,7 @@ function view(catId) {
       <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio Terapeuta</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${AMPS.length || NB.products.length ? `<a class="script-banner con-video" href="#/productos">
+    ${AMPS.length || NB.products.length ? `<a class="script-banner con-video" href="#/productos-belleza">
       <video class="banner-video" src="videos/productos/ampolletas.mp4" poster="videos/productos/ampolletas.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
       <span class="script-banner-text"><small>BABOR · Natura Bissé · Español / English</small><b>Productos de belleza · Venta</b><span>${AMPS.length} ampolletas con script de venta y ${NB.products.length} productos Natura Bissé</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -1323,8 +1378,12 @@ function render() {
     document.querySelectorAll(".anat-lista li").forEach((li) => (li.onclick = (e) => !e.target.closest("button") && marcarParte(+li.dataset.fila, true)));
     return;
   }
-  if (id === "valet" || id === "concierge" || id === "gym" || id === "productos") {
-    USO.track("category", { category: { valet: "Valet de spa", concierge: "Spa Concierge", gym: "Gym del spa", productos: "Productos de belleza" }[id] });
+  if (id.startsWith("gym-") && !id.startsWith("gym-script")) {
+    USO.track("category", { category: `Gym del spa: ${{ "gym-equipo": "Equipo", "gym-instrucciones": "Instrucciones de uso", "gym-cuerpo": "Partes del cuerpo", "gym-vocab": "Vocabulario" }[id]}` });
+    return;
+  }
+  if (id === "valet" || id === "concierge" || id === "gym" || id === "productos-belleza") {
+    USO.track("category", { category: { valet: "Valet de spa", concierge: "Spa Concierge", gym: "Gym del spa", "productos-belleza": "Productos de belleza" }[id] });
     return;
   }
   if (id === "natura" || id.startsWith("natura/")) {
