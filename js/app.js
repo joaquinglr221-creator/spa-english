@@ -230,6 +230,10 @@ const BRANDS = USO.hotel || location.protocol === "file:" // en el hotel o abier
     </header>`
   : "";
 
+// Video de fondo de los recuadros del inicio y de las portadas (videos/portadas/<nombre>.mp4).
+const vidFondo = (n) =>
+  `<video class="banner-video" src="videos/portadas/${n}.mp4" poster="videos/portadas/${n}.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>`;
+
 // ---------- Scripts de servicio por etapas ----------
 // Script de servicio AAA (js/service-script.js), hidroterapia (js/hydro-script.js) y valet de spa
 // (js/valet-script.js): mismas vistas, cada uno con su ruta, portada y textos.
@@ -285,7 +289,7 @@ function viewScriptMenu(programa = "script") {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="${P.volver || "#/"}">${P.volverTexto || "← Inicio"}</a>
-    <section class="script-hero" style="background-image:url('${P.portada}')">
+    ${programa === "script" ? `<section class="script-hero con-video">${vidFondo("script")}` : `<section class="script-hero" style="background-image:url('${P.portada}')">`}
       <div class="script-hero-text">
         <p class="script-kicker">${esc(P.kicker)}</p>
         <h1>${esc(P.titulo)}</h1>
@@ -606,7 +610,7 @@ function viewValet() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
-    <section class="script-hero" style="background-image:url('images/script/valet.jpg')">
+    <section class="script-hero con-video">${vidFondo("valet")}
       <div class="script-hero-text">
         <p class="script-kicker">Spa Valet · Spa Attendant · Estándares AAA</p>
         <h1>Valet de spa</h1>
@@ -638,7 +642,7 @@ function viewGym() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
-    <section class="script-hero" style="${portadaGym()}">
+    <section class="script-hero con-video">${vidFondo("gym")}
       <div class="script-hero-text">
         <p class="script-kicker">Gym Trainer · Fitness Center · Estándares AAA</p>
         <h1>Gym del spa</h1>
@@ -671,7 +675,7 @@ function viewConcierge() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
-    <section class="script-hero" style="background-image:url('${C.portada}')">
+    <section class="script-hero con-video">${vidFondo("concierge")}
       <div class="script-hero-text">
         <p class="script-kicker">Spa Concierge · Professional Sales &amp; Guest Experience</p>
         <h1>Spa Concierge</h1>
@@ -962,8 +966,9 @@ function viewPruebas() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
-    <section class="hero prueba-hero"><span class="prueba-hero-icono">🎧✍️</span><div>
-      <h1>Pruebas de listening y writing</h1>
+    <section class="script-hero con-video">${vidFondo("pruebas")}
+      <div class="script-hero-text"><p class="script-kicker">Listening · Writing</p>
+      <h1>🎧✍️ Pruebas de listening y writing</h1>
       <p>Elige un vocabulario. En cada prueba hay ${PREGUNTAS_POR_PRUEBA} preguntas al azar.</p></div></section>
     ${VOCAB.map(
       (c) => `<section class="card prueba-cat">
@@ -1111,9 +1116,9 @@ function viewVocabularios() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
-    <section class="hero">
-      <span class="prueba-hero-icono">📚</span>
-      <div><h1>Vocabularios</h1><p>${VOCAB.length} categorías con audio, ejemplos e imágenes. Toca una para estudiarla.</p></div>
+    <section class="script-hero con-video">${vidFondo("vocabularios")}
+      <div class="script-hero-text"><p class="script-kicker">Inglés / Español · Audio e imágenes</p>
+        <h1>📚 Vocabularios</h1><p>${VOCAB.length} categorías con audio, ejemplos e imágenes. Toca una para estudiarla.</p></div>
     </section>
     <div class="inicio-grid">
       ${ANAT.length ? `<a class="script-banner" href="#/anatomia" style="background-image:url('images/anatomia/musculos.jpg')">
@@ -1223,11 +1228,11 @@ function view(catId) {
     </section>
 
     <div class="inicio-grid">
-    <a class="script-banner vocab-banner" href="#/vocabularios" style="background-image:url('images/canva/amenities.jpg')">
+    <a class="script-banner vocab-banner con-video" href="#/vocabularios">${vidFondo("vocabularios")}
       <span class="script-banner-text"><small>Inglés / Español · Audio e imágenes</small><b>📚 Vocabularios</b><span>${VOCAB.length} categorías · ${ALL_WORDS.length} palabras, más el vocabulario del Valet y del Spa Concierge</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>
-    ${STAGES.length ? `<a class="script-banner" href="#/script" style="background-image:url('images/script/portada.jpg')">
+    ${STAGES.length ? `<a class="script-banner con-video" href="#/script">${vidFondo("script")}
       <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio Terapeuta</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
@@ -1236,19 +1241,19 @@ function view(catId) {
       <span class="script-banner-text"><small>BABOR · Natura Bissé · Español / English</small><b>Productos de belleza · Venta</b><span>${AMPS.length} ampolletas con script de venta y ${NB.products.length} productos Natura Bissé</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${PROGRAMAS["valet-script"].stages.length ? `<a class="script-banner" href="#/valet" style="background-image:url('images/script/valet.jpg')">
+    ${PROGRAMAS["valet-script"].stages.length ? `<a class="script-banner con-video" href="#/valet">${vidFondo("valet")}
       <span class="script-banner-text"><small>Spa Valet · Estándares AAA</small><b>Valet de spa</b><span>Script de ${PROGRAMAS["valet-script"].stages.length} pasos, vocabulario y material</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${PROGRAMAS["concierge-script"].stages.length ? `<a class="script-banner" href="#/concierge" style="background-image:url('images/script/concierge.jpg')">
+    ${PROGRAMAS["concierge-script"].stages.length ? `<a class="script-banner con-video" href="#/concierge">${vidFondo("concierge")}
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${GYM_VOC.length ? `<a class="script-banner" href="#/gym" style="${portadaGym()}">
+    ${GYM_VOC.length ? `<a class="script-banner con-video" href="#/gym">${vidFondo("gym")}
       <span class="script-banner-text"><small>Gym Trainer · Estándares AAA</small><b>Gym del spa</b><span>Script de ${PROGRAMAS["gym-script"].stages.length} pasos, ${GYM_VOC.length + GYM_GRP.reduce((n, g) => n + g.words.length, 0)} palabras y material</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    <a class="script-banner inicio-pruebas" href="#/pruebas">
+    <a class="script-banner inicio-pruebas con-video" href="#/pruebas">${vidFondo("pruebas")}
       <span class="script-banner-text"><small>Listening · Writing</small><b>🎧✍️ Pruebas</b><span>Escucha y elige, o escribe en inglés</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>

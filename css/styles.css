@@ -593,7 +593,6 @@ a.btn.center { text-align: center; }
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .inicio-grid .script-banner-go { display: none; }
 .inicio-pruebas { background: linear-gradient(135deg, #8e6aa6, #2f8a7a); }
-.inicio-pruebas::before { background: none; }
 
 /* Acceso con Face ID / huella */
 .uso-bio { font-size: 2.6rem; text-align: center; }
