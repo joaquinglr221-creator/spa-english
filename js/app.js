@@ -250,6 +250,7 @@ const PROGRAMAS = {
     titulo: "Script de hidroterapia", kicker: "Circuito de hidroterapia · Seguridad y servicio", standardsLabel: "⭐ Pautas y seguridad",
     desc: "Cómo recibir, orientar y cuidar al huésped en cada estación del circuito de hidroterapia.",
     flow: "Warm shower → Sauna → Cold shower → Steam room → Cold plunge → Vitality pool → Whirlpool → Relaxation lounge",
+    volver: "#/valet", volverTexto: "← Valet de spa",
   },
   "valet-script": {
     stages: typeof VALET_SCRIPT !== "undefined" ? VALET_SCRIPT : [], icono: "amenidades", portada: "images/script/valet.jpg",
@@ -1209,10 +1210,6 @@ function view(catId) {
     </a>` : ""}
     ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
       <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span>
-    </a>` : ""}
-    ${PROGRAMAS.hidroterapia.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('images/script/hidroterapia.jpg')">
-      <span class="script-banner-text"><small>Circuito de hidroterapia · Seguridad y servicio</small><b>Script de hidroterapia</b><span>Del recibimiento a la despedida · ${PROGRAMAS.hidroterapia.stages.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     ${PROGRAMAS["valet-script"].stages.length ? `<a class="script-banner" href="#/valet" style="background-image:url('images/script/valet.jpg')">
