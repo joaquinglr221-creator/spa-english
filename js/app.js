@@ -697,7 +697,9 @@ function viewGymSub(cual) {
   if (cual === "cuerpo")
     return `${cab("💪 Partes del cuerpo", "Las partes del cuerpo y los grupos musculares que se trabajan en el gym.")}
       <div class="inicio-grid"><a class="script-banner" href="#/anatomia/musculos" style="background-image:url('images/anatomia/musculos.jpg')">
-        <span class="script-banner-text"><b>🫀 Lámina del sistema muscular</b><span>Los músculos numerados en inglés y español</span></span></a></div>
+        <span class="script-banner-text"><b>🫀 Lámina del sistema muscular</b><span>Los músculos numerados en inglés y español</span></span></a>
+      ${C3D ? `<a class="script-banner c3d-banner" href="#/cuerpo-3d" style="background-image:url('images/anatomia/c3d.jpg')">
+        <span class="script-banner-text"><b>🧍 Cuerpo humano 3D</b><span>Gíralo y toca cada músculo</span></span></a>` : ""}</div>
       ${vocabFilas(GYM_CU)}${pie}`;
   if (cual === "vocab")
     return `${cab("📚 Vocabulario del entrenamiento", "Términos del entrenador, ejercicios, verbos y calentamiento.")}
@@ -754,8 +756,103 @@ function viewConcierge() {
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
+// ---------- Cuerpo humano 3D (js/cuerpo3d.js + js/cuerpo3d-visor.js) ----------
+const C3D_CAPAS = { musculos: "💪 Músculos", esqueleto: "🦴 Esqueleto", organos: "🫀 Órganos" };
+
+function viewCuerpo3d() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/anatomia">← Anatomía</a>
+    <h2 class="section-title">🧍 Cuerpo humano 3D</h2>
+    <p class="muted">Gíralo con el dedo, acércalo con dos dedos y toca una parte para escuchar su nombre en inglés.</p>
+    <div class="c3d-capas">${Object.entries(C3D_CAPAS).map(([k, t], n) => `<button class="chip${n ? "" : " active"}" data-capa="${k}">${t}</button>`).join("")}</div>
+    <div id="c3d" class="c3d"><div class="c3d-carga">Cargando el modelo 3D…</div>
+      <div class="c3d-vistas"><button data-vista="frente">Frente</button><button data-vista="lado">Lado</button><button data-vista="espalda">Espalda</button><button data-girar>⟳</button></div></div>
+    <div id="c3d-sel" class="anat-sel muted">👆 Toca una parte del cuerpo</div>
+    <button id="c3d-practica" class="btn full">🎯 Practicar: escucha y toca la parte</button>
+    <h3 class="piel-sub" id="c3d-titulo"></h3>
+    <div id="c3d-lista" class="c3d-lista"></div>
+    <p class="anat-credito">Modelo 3D: BodyParts3D © The Database Center for Life Science · CC BY-SA 2.1 Japón</p>
+    <a class="btn ghost full center" href="#/anatomia">← Volver a Anatomía</a>`;
+}
+
+async function montarCuerpo3d() {
+  const G = CUERPO3D.grupos;
+  let capa = "musculos", reto = null, aciertos = 0, intentos = 0, api = null;
+  const sel = $("#c3d-sel");
+  const lista = () => G.map((g, n) => [g, n]).filter(([g]) => g.capa === capa && g.en !== "Muscles");
+  const tarjeta = (g) => `<div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(g.en)}</b><span>🇲🇽 ${esc(g.es)}</span></span><div class="row">${speakButtons(g.en)}</div></div>`;
+  const marcarChip = (n) => document.querySelectorAll("#c3d-lista button").forEach((b) => b.classList.toggle("active", +b.dataset.g === n));
+  function pintarLista() {
+    $("#c3d-titulo").textContent = `${C3D_CAPAS[capa]} · ${lista().length} partes`;
+    $("#c3d-lista").innerHTML = lista().map(([g, n]) => `<button class="chip" data-g="${n}"><b>${esc(g.en)}</b> · ${esc(g.es)}</button>`).join("");
+    document.querySelectorAll("#c3d-lista button").forEach((b) => (b.onclick = () => api && api.seleccionar(+b.dataset.g)));
+  }
+  function nuevoReto() {
+    const op = lista().filter(([, n]) => n !== reto);
+    reto = op[Math.floor(Math.random() * op.length)][1];
+    api.seleccionar(-1);
+    api.vista("frente");
+    sel.className = "anat-sel c3d-reto";
+    sel.innerHTML = `🎯 Toca en el cuerpo: <b>${esc(G[reto].en)}</b> <span class="row">${speakButtons(G[reto].en)}</span>
+      <small class="muted">Aciertos: ${aciertos} de ${intentos}</small>`;
+    speak(G[reto].en);
+  }
+  function alSeleccionar(n, g) {
+    marcarChip(n);
+    if (reto === null || n < 0) {
+      sel.className = "anat-sel";
+      sel.innerHTML = tarjeta(g);
+      return speak(g.en);
+    }
+    intentos++;
+    if (n === reto) {
+      aciertos++;
+      sel.innerHTML = `✅ ¡Correcto! <b>${esc(g.en)}</b> = ${esc(g.es)}`;
+      setTimeout(() => reto !== null && nuevoReto(), 1400);
+    } else sel.innerHTML = `❌ Eso es <b>${esc(g.en)}</b> (${esc(g.es)}). Busca <b>${esc(G[reto].en)}</b> otra vez. <span class="row">${speakButtons(G[reto].en)}</span>`;
+  }
+  function practica(on) {
+    reto = on ? -1 : null;
+    $("#c3d-practica").textContent = on ? "✋ Terminar la práctica" : "🎯 Practicar: escucha y toca la parte";
+    if (on) {
+      aciertos = intentos = 0;
+      nuevoReto();
+    } else {
+      sel.className = "anat-sel muted";
+      sel.textContent = "👆 Toca una parte del cuerpo";
+      api.seleccionar(-1);
+    }
+  }
+  pintarLista();
+  try {
+    const visor = await import(new URL("js/cuerpo3d-visor.js", document.baseURI).href);
+    api = await visor.montar($("#c3d"), { alSeleccionar });
+  } catch (err) {
+    $(".c3d-carga").textContent = "No se pudo cargar el modelo 3D en este navegador.";
+    return;
+  }
+  if (!api) return;
+  $(".c3d-carga").remove();
+  document.querySelectorAll("[data-capa]").forEach(
+    (b) =>
+      (b.onclick = () => {
+        capa = b.dataset.capa;
+        document.querySelectorAll("[data-capa]").forEach((x) => x.classList.toggle("active", x === b));
+        api.capa(capa);
+        pintarLista();
+        practica(false);
+      })
+  );
+  document.querySelectorAll("[data-vista]").forEach((b) => (b.onclick = () => api.vista(b.dataset.vista)));
+  const giro = $("[data-girar]");
+  giro.onclick = () => api.girar(giro.classList.toggle("on"));
+  $("#c3d-practica").onclick = () => practica(reto === null);
+}
+
 // ---------- Anatomía del cuerpo humano (js/anatomia.js) ----------
 const ANAT = typeof ANATOMIA !== "undefined" ? ANATOMIA : [];
+const C3D = typeof CUERPO3D !== "undefined";
 
 function viewAnatomia() {
   return `${BRANDS}
@@ -768,6 +865,8 @@ function viewAnatomia() {
         <p>Las partes del cuerpo y todos sus sistemas en ${ANAT.length} láminas. Toca un número para ver y escuchar su nombre en inglés.</p>
       </div>
     </section>
+    ${C3D ? `<a class="script-banner c3d-banner" href="#/cuerpo-3d" style="background-image:url('images/anatomia/c3d.jpg')">
+        <span class="script-banner-text"><b>🧍 Cuerpo humano 3D</b><span>Gíralo, tócalo y escucha cada músculo, hueso y órgano</span></span></a>` : ""}
     <div class="grid menu">${ANAT.map(
       (l, n) => `<a class="tile colored anat-tile" style="--c:${colorPorIndice(n)}" href="#/anatomia/${l.id}">
         <img class="anat-thumb" src="${esc(l.img)}" alt="" loading="lazy">
@@ -1241,6 +1340,7 @@ function view(catId) {
   if (catId === "concierge") return viewConcierge();
   if (catId === "gym") return viewGym();
   if (["gym-equipo", "gym-instrucciones", "gym-cuerpo", "gym-vocab"].includes(catId)) return viewGymSub(catId.slice(4));
+  if (catId === "cuerpo-3d" && C3D) return viewCuerpo3d();
   if (catId === "anatomia") return viewAnatomia();
   if (catId === "la-piel" && PIEL_D) return viewPiel();
   if (catId.startsWith("anatomia/")) return viewLamina(catId.split("/")[1]);
@@ -1362,6 +1462,10 @@ function render() {
     );
     document.querySelectorAll("[data-ir]").forEach((b) => (b.onclick = () => document.getElementById(b.dataset.ir).scrollIntoView({ behavior: "smooth" })));
     return;
+  }
+  if (id === "cuerpo-3d" && C3D) {
+    USO.track("category", { category: "Cuerpo humano 3D" });
+    return montarCuerpo3d();
   }
   if (id === "anatomia" || id.startsWith("anatomia/")) {
     const l = ANAT.find((x) => x.id === id.split("/")[1]);

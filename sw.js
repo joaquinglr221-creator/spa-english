@@ -3,7 +3,7 @@
 //   actualizaciones lleguen en cuanto haya señal.
 // - Imágenes, audios y videos se guardan la primera vez que se usan y desde ahí salen del celular.
 // scripts/publicar.py cambia VERSION en cada publicación para renovar lo guardado.
-const VERSION = "20261028-1417-0cf0e70";
+const VERSION = "20261028-1505-5d5ca2f";
 const SHELL_CACHE = `app-${VERSION}`;
 const MEDIA_CACHE = `media-${VERSION}`;
 const SHELL = [
@@ -22,6 +22,7 @@ const SHELL = [
   "js/gym-script.js",
   "js/gym-instrucciones.js",
   "js/anatomia.js",
+  "js/cuerpo3d.js",
   "js/piel.js",
   "js/ampolletas.js",
   "js/videos-ampolletas.js",
@@ -50,7 +51,7 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   const url = new URL(req.url);
   if (req.method !== "GET" || url.origin !== location.origin || url.pathname.includes("/api/")) return;
-  if (/\/(audio|images|videos)\//.test(url.pathname)) e.respondWith(media(req));
+  if (/\/(audio|images|videos|modelos)\//.test(url.pathname)) e.respondWith(media(req));
   else e.respondWith(shell(req));
 });
 
