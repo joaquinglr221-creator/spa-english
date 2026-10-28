@@ -655,8 +655,9 @@ const fondoFoto = (palabra, degradado) => (fotoDe(palabra) ? `background-image:u
 
 function viewGym() {
   const G = PROGRAMAS["gym-script"], P = gymPartes();
+  // Cada recuadro con su video de fondo (videos/portadas/<ruta>.mp4).
   const recuadro = (href, fondo, titulo, sub) =>
-    `<a class="script-banner" href="${href}" style="${fondo}"><span class="script-banner-text"><b>${titulo}</b><span>${sub}</span></span></a>`;
+    `<a class="script-banner con-video" href="${href}">${vidFondo(href.slice(2))}<span class="script-banner-text"><b>${titulo}</b><span>${sub}</span></span></a>`;
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
@@ -668,7 +669,7 @@ function viewGym() {
       </div>
     </section>
     <div class="inicio-grid">
-      <a class="script-banner con-video" href="#/gym-script">${vidFondo("gym")}
+      <a class="script-banner con-video" href="#/gym-script">${vidFondo("gym-script")}
         <span class="script-banner-text"><b>🏋️ ${esc(G.titulo)}</b><span>${G.stages.length} pasos con audio</span></span></a>
       ${recuadro("#/gym-equipo", fondoFoto("Treadmill", "linear-gradient(135deg,#2f6b8a,#1f3d55)"), "🚴 Equipo del gym", `${P.equipo.length} equipos con foto y audio`)}
       ${recuadro("#/gym-instrucciones", fondoFoto("Dumbbells", "linear-gradient(135deg,#7b5e8c,#2f8a7a)"), "📣 Instrucciones de uso", `${GYM_PH.length} phrasal verbs y cómo usar ${GYM_EQ.length} equipos`)}
