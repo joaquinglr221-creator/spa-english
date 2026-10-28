@@ -236,7 +236,7 @@ const BRANDS = USO.hotel || location.protocol === "file:" // en el hotel o abier
 const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
 const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/videos.js (solo el script de servicio)
 let practiceScript = false;
-const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", valet: "Spa Valet · Valet de spa", concierge: "Spa Concierge · Concierge del spa" };
+const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", valet: "Spa Valet · Valet de spa", concierge: "Spa Concierge · Concierge del spa", trainer: "Gym Trainer · Entrenador" };
 
 const PROGRAMAS = {
   script: {
@@ -257,6 +257,13 @@ const PROGRAMAS = {
     desc: "El servicio del valet de spa: bienvenida, lockers, amenidades, áreas del spa y despedida.",
     flow: "Welcome → Recognize → Anticipate → Assist → Explain → Personalize → Follow up → Farewell",
     volver: "#/valet", volverTexto: "← Valet de spa",
+  },
+  "gym-script": {
+    stages: typeof GYM_SCRIPT !== "undefined" ? GYM_SCRIPT : [], icono: "script", portada: "images/script/gym.jpg",
+    titulo: "Script del entrenador del gym", kicker: "Gym Trainer · Estándares AAA", standardsLabel: "⭐ Estándares AAA",
+    desc: "Bienvenida, objetivos, equipos, instrucciones seguras, entrenamiento personalizado y despedida.",
+    flow: "Welcome → Recognize → Discover → Anticipate → Personalize → Explain → Deliver → Follow up → Farewell",
+    volver: "#/gym", volverTexto: "← Gym del spa",
   },
   "concierge-script": {
     stages: typeof CONCIERGE_SCRIPT !== "undefined" ? CONCIERGE_SCRIPT : [], icono: "script", portada: "images/script/concierge.jpg",
@@ -613,6 +620,32 @@ function viewValet() {
     <h2 class="section-title">Material original</h2>
     <div class="amp-docs"><a class="amp-doc" href="#/material/valet-spa"><img src="images/material/valet-spa/p01.jpg" alt="" loading="lazy">
       <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a></div>
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+}
+
+// ---------- Gym del spa (js/gym-script.js) ----------
+const GYM_VOC = typeof GYM_VOCAB !== "undefined" ? GYM_VOCAB : [];
+// Portada: la foto del gimnasio del vocabulario (cuando exista); si no, un degradado.
+const portadaGym = () => (fotoDe("Fitness Center") ? `background-image:url('${fotoDe("Fitness Center").src}')` : "background:linear-gradient(135deg,#2f6b8a,#5b3f78)");
+
+function viewGym() {
+  const G = PROGRAMAS["gym-script"];
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Inicio</a>
+    <section class="script-hero" style="${portadaGym()}">
+      <div class="script-hero-text">
+        <p class="script-kicker">Gym Trainer · Fitness Center · Estándares AAA</p>
+        <h1>Gym del spa</h1>
+        <p>Inglés para el entrenador: recibir al huésped, explicar los equipos, dar instrucciones seguras y recomendar el spa. Principio de servicio: <em>“Create a personalized wellness experience and make every guest feel cared for.”</em></p>
+      </div>
+    </section>
+    <a class="script-banner" href="#/gym-script" style="${portadaGym()}">
+      <span class="script-banner-text"><small>${esc(G.kicker)}</small><b>${esc(G.titulo)}</b><span>${G.stages.length} pasos con audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>
+    <h2 class="section-title">Vocabulario del gym · ${GYM_VOC.length} palabras</h2>
+    <p class="muted">Términos del entrenador y todo el equipo del gimnasio. Toca la foto para verla en grande y escucharla.</p>
+    ${vocabFilas(GYM_VOC)}
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
@@ -1075,6 +1108,7 @@ function viewVocabularios() {
     <h2 class="section-title">Vocabularios de las secciones</h2>
     <div class="prueba-botones">
       ${VALET_VOC.length ? tarjeta("#/vocab-valet", "🧺", "Valet de spa", `${VALET_VOC.length} palabras: servicio y artículos del spa`) : ""}
+      ${GYM_VOC.length ? tarjeta("#/gym", "🏋️", "Gym del spa", `${GYM_VOC.length} palabras: entrenamiento y equipo del gimnasio`) : ""}
       ${CONC_VOC.length ? tarjeta("#/vocab-concierge", "🛎️", "Spa Concierge", `${CONC_VOC.reduce((n, g) => n + g.words.length, 0)} palabras de ventas y técnicas de masaje`) : ""}
       ${ANAT.length ? tarjeta("#/anatomia", "🫀", "Anatomía del cuerpo humano", `${ANAT.length} láminas con partes numeradas`) : ""}
       ${PIEL_D ? tarjeta("#/la-piel", "🖐️", "La piel", "Tipos, colores y afecciones") : ""}
@@ -1105,6 +1139,7 @@ function view(catId) {
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
+  if (catId === "gym") return viewGym();
   if (catId === "anatomia") return viewAnatomia();
   if (catId === "la-piel" && PIEL_D) return viewPiel();
   if (catId.startsWith("anatomia/")) return viewLamina(catId.split("/")[1]);
@@ -1181,6 +1216,10 @@ function view(catId) {
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
+    ${GYM_VOC.length ? `<a class="script-banner" href="#/gym" style="${portadaGym()}">
+      <span class="script-banner-text"><small>Gym Trainer · Estándares AAA</small><b>Gym del spa</b><span>Script de ${PROGRAMAS["gym-script"].stages.length} pasos y ${GYM_VOC.length} palabras del equipo</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
     <a class="script-banner inicio-pruebas" href="#/pruebas">
       <span class="script-banner-text"><small>Listening · Writing</small><b>🎧✍️ Pruebas</b><span>Escucha y elige, o escribe en inglés</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -1250,8 +1289,8 @@ function render() {
     document.querySelectorAll(".anat-lista li").forEach((li) => (li.onclick = (e) => !e.target.closest("button") && marcarParte(+li.dataset.fila, true)));
     return;
   }
-  if (id === "valet" || id === "concierge") {
-    USO.track("category", { category: id === "valet" ? "Valet de spa" : "Spa Concierge" });
+  if (id === "valet" || id === "concierge" || id === "gym") {
+    USO.track("category", { category: { valet: "Valet de spa", concierge: "Spa Concierge", gym: "Gym del spa" }[id] });
     return;
   }
   if (id === "natura" || id.startsWith("natura/")) {

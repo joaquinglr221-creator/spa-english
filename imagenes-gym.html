@@ -1,0 +1,331 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imágenes · Vocabulario del gym</title>
+<style>
+  @page { size: letter; margin: 13mm 13mm 15mm; }
+  body { margin:0; background:#f6f4ef; color:#1d2422; font:15px/1.45 -apple-system, Helvetica, Arial, sans-serif; }
+  main { max-width:860px; margin:0 auto; padding:22px 16px 60px; }
+  h1 { margin:0 0 4px; color:#1f6f5c; } .sub { color:#66706c; margin:0 0 12px; }
+  .pasos { background:#e2f0eb; border-radius:12px; padding:10px 16px; margin-bottom:14px; font-size:.92rem; }
+  .pasos li { margin:4px 0; }
+  article { background:#fff; border:1px solid #e3dfd6; border-radius:12px; padding:10px 14px; margin:8px 0; break-inside:avoid; }
+  .cab { display:flex; flex-wrap:wrap; gap:10px; align-items:baseline; }
+  .n { font-weight:800; color:#1f6f5c; min-width:28px; } .en { font-weight:700; } .es { color:#66706c; }
+  .file { margin-left:auto; font:12px Menlo, monospace; color:#66706c; }
+  pre { white-space:pre-wrap; background:#faf9f6; border:1px solid #e3dfd6; border-radius:8px; padding:7px 10px; font-size:.8rem; margin:6px 0; }
+  button { font:inherit; font-size:.85rem; border:1.5px solid #1f6f5c; background:#1f6f5c; color:#fff; border-radius:99px; padding:4px 12px; cursor:pointer; }
+  button.ok { background:#2f8a4c; border-color:#2f8a4c; }
+  .acciones { display:flex; align-items:center; gap:14px; }
+  .hecho { font-size:.85rem; color:#66706c; cursor:pointer; user-select:none; }
+  article.listo { background:#eef8f1; border-color:#9fd0ae; }
+  article.listo .n::after { content:" ✓"; color:#2f8a4c; }
+  article.listo pre { opacity:.55; }
+  .avance { position:sticky; top:0; z-index:2; background:#1f6f5c; color:#fff; border-radius:12px; padding:8px 14px; margin:0 0 10px;
+    display:flex; align-items:center; gap:12px; font-weight:700; }
+  .barra { flex:1; height:10px; background:rgba(255,255,255,.3); border-radius:99px; overflow:hidden; }
+  .barra div { height:100%; background:#fff; width:0; }
+  .avance button { background:#fff; color:#1f6f5c; border-color:#fff; font-size:.75rem; padding:3px 10px; }
+  @media print { .no-print { display:none; } body { background:#fff; font-size:11px; } main { padding:0; max-width:none; } button { display:none; }
+    article { padding:6px 10px; margin:5px 0; } pre { font-size:9px; margin:3px 0 0; } }
+</style></head><body><main>
+<h1>Imágenes · Vocabulario del gym</h1>
+<p class="sub">SPA Service Excellence App · 86 imágenes por crear (las demás palabras ya tienen imagen)</p>
+<div class="pasos"><b>Cómo hacerlas en Canva</b><ol>
+  <li>Crea un diseño <b>cuadrado de 1080 × 1080 px</b> con <b>86 páginas</b>, una por palabra, <b>en el orden de esta lista</b>.</li>
+  <li>En cada página abre <b>Magic Media</b> (o "Apps → Texto a imagen"), <b>copia el prompt</b> de esa palabra, pégalo y genera.
+      Elige la imagen que mejor muestre el objeto y ajústala a toda la página.</li>
+  <li>Las imágenes deben ir <b>sin texto</b>: la persona ve la imagen y recuerda la palabra. Si Canva pone letras, vuelve a generar.</li>
+  <li>Al terminar: <b>Compartir → Descargar → PNG</b>, todas las páginas. Canva entrega un ZIP con las imágenes numeradas 1, 2, 3…;
+      ese número es el # de esta lista. Déjalo en Descargas y avísame: yo las pongo en la app.</li>
+</ol></div>
+<div class="avance no-print"><span id="cuenta">0 de 86 generadas</span><div class="barra"><div id="barra"></div></div>
+  <button id="siguiente">Ir a la siguiente</button></div>
+<article data-id="Gym Trainer"><div class="cab"><span class="n">1</span><span class="en">Gym Trainer</span>
+          <span class="es">Entrenador de gimnasio</span><span class="file">gym-trainer.png</span></div>
+          <pre>entrenador de gimnasio sonriendo con una tabla de apuntes</pre><div class="acciones"><button data-copiar="entrenador de gimnasio sonriendo con una tabla de apuntes">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Fitness Trainer"><div class="cab"><span class="n">2</span><span class="en">Fitness Trainer</span>
+          <span class="es">Entrenador físico</span><span class="file">fitness-trainer.png</span></div>
+          <pre>entrenador ayudando a una mujer a levantar mancuernas</pre><div class="acciones"><button data-copiar="entrenador ayudando a una mujer a levantar mancuernas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Fitness Center"><div class="cab"><span class="n">3</span><span class="en">Fitness Center</span>
+          <span class="es">Gimnasio</span><span class="file">fitness-center.png</span></div>
+          <pre>gimnasio de hotel de lujo con caminadoras frente al mar</pre><div class="acciones"><button data-copiar="gimnasio de hotel de lujo con caminadoras frente al mar">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Workout"><div class="cab"><span class="n">4</span><span class="en">Workout</span>
+          <span class="es">Entrenamiento</span><span class="file">workout.png</span></div>
+          <pre>mujer entrenando en el gimnasio</pre><div class="acciones"><button data-copiar="mujer entrenando en el gimnasio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Exercise"><div class="cab"><span class="n">5</span><span class="en">Exercise</span>
+          <span class="es">Ejercicio</span><span class="file">exercise.png</span></div>
+          <pre>hombre haciendo sentadillas</pre><div class="acciones"><button data-copiar="hombre haciendo sentadillas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Training session"><div class="cab"><span class="n">6</span><span class="en">Training session</span>
+          <span class="es">Sesión de entrenamiento</span><span class="file">training-session.png</span></div>
+          <pre>entrenador y huésped en una sesión de ejercicio</pre><div class="acciones"><button data-copiar="entrenador y huésped en una sesión de ejercicio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Personal training"><div class="cab"><span class="n">7</span><span class="en">Personal training</span>
+          <span class="es">Entrenamiento personalizado</span><span class="file">personal-training.png</span></div>
+          <pre>entrenador personal corrigiendo la postura de un hombre</pre><div class="acciones"><button data-copiar="entrenador personal corrigiendo la postura de un hombre">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Fitness goal"><div class="cab"><span class="n">8</span><span class="en">Fitness goal</span>
+          <span class="es">Objetivo físico</span><span class="file">fitness-goal.png</span></div>
+          <pre>tabla de objetivos de ejercicio con una meta marcada</pre><div class="acciones"><button data-copiar="tabla de objetivos de ejercicio con una meta marcada">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Strength"><div class="cab"><span class="n">9</span><span class="en">Strength</span>
+          <span class="es">Fuerza</span><span class="file">strength.png</span></div>
+          <pre>brazo fuerte levantando una mancuerna</pre><div class="acciones"><button data-copiar="brazo fuerte levantando una mancuerna">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Flexibility"><div class="cab"><span class="n">10</span><span class="en">Flexibility</span>
+          <span class="es">Flexibilidad</span><span class="file">flexibility.png</span></div>
+          <pre>mujer haciendo un estiramiento de piernas en el piso</pre><div class="acciones"><button data-copiar="mujer haciendo un estiramiento de piernas en el piso">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Endurance"><div class="cab"><span class="n">11</span><span class="en">Endurance</span>
+          <span class="es">Resistencia física</span><span class="file">endurance.png</span></div>
+          <pre>corredor en una caminadora sudando</pre><div class="acciones"><button data-copiar="corredor en una caminadora sudando">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Balance"><div class="cab"><span class="n">12</span><span class="en">Balance</span>
+          <span class="es">Equilibrio</span><span class="file">balance.png</span></div>
+          <pre>persona en equilibrio sobre una pierna</pre><div class="acciones"><button data-copiar="persona en equilibrio sobre una pierna">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Mobility"><div class="cab"><span class="n">13</span><span class="en">Mobility</span>
+          <span class="es">Movilidad</span><span class="file">mobility.png</span></div>
+          <pre>persona haciendo círculos con los hombros</pre><div class="acciones"><button data-copiar="persona haciendo círculos con los hombros">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Cardio"><div class="cab"><span class="n">14</span><span class="en">Cardio</span>
+          <span class="es">Ejercicio cardiovascular</span><span class="file">cardio.png</span></div>
+          <pre>mujer corriendo en una caminadora</pre><div class="acciones"><button data-copiar="mujer corriendo en una caminadora">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Warm-up"><div class="cab"><span class="n">15</span><span class="en">Warm-up</span>
+          <span class="es">Calentamiento</span><span class="file">warm-up.png</span></div>
+          <pre>persona trotando suave para calentar</pre><div class="acciones"><button data-copiar="persona trotando suave para calentar">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Cool-down"><div class="cab"><span class="n">16</span><span class="en">Cool-down</span>
+          <span class="es">Enfriamiento</span><span class="file">cool-down.png</span></div>
+          <pre>persona caminando despacio en la caminadora</pre><div class="acciones"><button data-copiar="persona caminando despacio en la caminadora">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Stretching"><div class="cab"><span class="n">17</span><span class="en">Stretching</span>
+          <span class="es">Estiramiento</span><span class="file">stretching.png</span></div>
+          <pre>mujer estirando los brazos sobre un tapete</pre><div class="acciones"><button data-copiar="mujer estirando los brazos sobre un tapete">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Repetition"><div class="cab"><span class="n">18</span><span class="en">Repetition</span>
+          <span class="es">Repetición</span><span class="file">repetition.png</span></div>
+          <pre>mujer subiendo y bajando una mancuerna</pre><div class="acciones"><button data-copiar="mujer subiendo y bajando una mancuerna">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Set"><div class="cab"><span class="n">19</span><span class="en">Set</span>
+          <span class="es">Serie</span><span class="file">set.png</span></div>
+          <pre>grupo de mancuernas listas para una serie</pre><div class="acciones"><button data-copiar="grupo de mancuernas listas para una serie">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Weight"><div class="cab"><span class="n">20</span><span class="en">Weight</span>
+          <span class="es">Peso</span><span class="file">weight.png</span></div>
+          <pre>disco de pesas</pre><div class="acciones"><button data-copiar="disco de pesas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Resistance"><div class="cab"><span class="n">21</span><span class="en">Resistance</span>
+          <span class="es">Resistencia (de la máquina)</span><span class="file">resistance.png</span></div>
+          <pre>perilla de resistencia de una bicicleta estacionaria</pre><div class="acciones"><button data-copiar="perilla de resistencia de una bicicleta estacionaria">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Speed"><div class="cab"><span class="n">22</span><span class="en">Speed</span>
+          <span class="es">Velocidad</span><span class="file">speed.png</span></div>
+          <pre>panel de una caminadora mostrando la velocidad</pre><div class="acciones"><button data-copiar="panel de una caminadora mostrando la velocidad">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Incline"><div class="cab"><span class="n">23</span><span class="en">Incline</span>
+          <span class="es">Inclinación</span><span class="file">incline.png</span></div>
+          <pre>caminadora inclinada</pre><div class="acciones"><button data-copiar="caminadora inclinada">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Pace"><div class="cab"><span class="n">24</span><span class="en">Pace</span>
+          <span class="es">Ritmo</span><span class="file">pace.png</span></div>
+          <pre>persona caminando a ritmo constante</pre><div class="acciones"><button data-copiar="persona caminando a ritmo constante">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Heart rate"><div class="cab"><span class="n">25</span><span class="en">Heart rate</span>
+          <span class="es">Frecuencia cardíaca</span><span class="file">heart-rate.png</span></div>
+          <pre>reloj deportivo mostrando el ritmo cardíaco</pre><div class="acciones"><button data-copiar="reloj deportivo mostrando el ritmo cardíaco">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Breathing"><div class="cab"><span class="n">26</span><span class="en">Breathing</span>
+          <span class="es">Respiración</span><span class="file">breathing.png</span></div>
+          <pre>persona respirando profundo con los ojos cerrados</pre><div class="acciones"><button data-copiar="persona respirando profundo con los ojos cerrados">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Posture"><div class="cab"><span class="n">27</span><span class="en">Posture</span>
+          <span class="es">Postura</span><span class="file">posture.png</span></div>
+          <pre>persona de perfil con la espalda recta</pre><div class="acciones"><button data-copiar="persona de perfil con la espalda recta">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Technique"><div class="cab"><span class="n">28</span><span class="en">Technique</span>
+          <span class="es">Técnica</span><span class="file">technique.png</span></div>
+          <pre>entrenador mostrando cómo levantar una mancuerna</pre><div class="acciones"><button data-copiar="entrenador mostrando cómo levantar una mancuerna">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Recovery"><div class="cab"><span class="n">29</span><span class="en">Recovery</span>
+          <span class="es">Recuperación</span><span class="file">recovery.png</span></div>
+          <pre>persona descansando en un tapete después de entrenar</pre><div class="acciones"><button data-copiar="persona descansando en un tapete después de entrenar">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Muscle"><div class="cab"><span class="n">30</span><span class="en">Muscle</span>
+          <span class="es">Músculo</span><span class="file">muscle.png</span></div>
+          <pre>músculo del brazo marcado</pre><div class="acciones"><button data-copiar="músculo del brazo marcado">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Core"><div class="cab"><span class="n">31</span><span class="en">Core</span>
+          <span class="es">Zona abdominal (core)</span><span class="file">core.png</span></div>
+          <pre>persona haciendo una plancha abdominal</pre><div class="acciones"><button data-copiar="persona haciendo una plancha abdominal">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Cardio area"><div class="cab"><span class="n">32</span><span class="en">Cardio area</span>
+          <span class="es">Área de cardio</span><span class="file">cardio-area.png</span></div>
+          <pre>fila de caminadoras y bicicletas en un gimnasio</pre><div class="acciones"><button data-copiar="fila de caminadoras y bicicletas en un gimnasio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Strength-training area"><div class="cab"><span class="n">33</span><span class="en">Strength-training area</span>
+          <span class="es">Área de fuerza</span><span class="file">strength-training-area.png</span></div>
+          <pre>zona de máquinas de fuerza en un gimnasio</pre><div class="acciones"><button data-copiar="zona de máquinas de fuerza en un gimnasio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Free weights"><div class="cab"><span class="n">34</span><span class="en">Free weights</span>
+          <span class="es">Pesas libres</span><span class="file">free-weights.png</span></div>
+          <pre>zona de mancuernas y discos</pre><div class="acciones"><button data-copiar="zona de mancuernas y discos">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Treadmill"><div class="cab"><span class="n">35</span><span class="en">Treadmill</span>
+          <span class="es">Caminadora</span><span class="file">treadmill.png</span></div>
+          <pre>caminadora</pre><div class="acciones"><button data-copiar="caminadora">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Stationary bike"><div class="cab"><span class="n">36</span><span class="en">Stationary bike</span>
+          <span class="es">Bicicleta estacionaria</span><span class="file">stationary-bike.png</span></div>
+          <pre>bicicleta estacionaria</pre><div class="acciones"><button data-copiar="bicicleta estacionaria">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Spin bike"><div class="cab"><span class="n">37</span><span class="en">Spin bike</span>
+          <span class="es">Bicicleta de spinning</span><span class="file">spin-bike.png</span></div>
+          <pre>bicicleta de spinning</pre><div class="acciones"><button data-copiar="bicicleta de spinning">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Recumbent bike"><div class="cab"><span class="n">38</span><span class="en">Recumbent bike</span>
+          <span class="es">Bicicleta reclinada</span><span class="file">recumbent-bike.png</span></div>
+          <pre>bicicleta reclinada con respaldo</pre><div class="acciones"><button data-copiar="bicicleta reclinada con respaldo">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Elliptical"><div class="cab"><span class="n">39</span><span class="en">Elliptical</span>
+          <span class="es">Elíptica</span><span class="file">elliptical.png</span></div>
+          <pre>máquina elíptica</pre><div class="acciones"><button data-copiar="máquina elíptica">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Rowing machine"><div class="cab"><span class="n">40</span><span class="en">Rowing machine</span>
+          <span class="es">Máquina de remo</span><span class="file">rowing-machine.png</span></div>
+          <pre>máquina de remo</pre><div class="acciones"><button data-copiar="máquina de remo">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Stair climber"><div class="cab"><span class="n">41</span><span class="en">Stair climber</span>
+          <span class="es">Escaladora</span><span class="file">stair-climber.png</span></div>
+          <pre>máquina escaladora</pre><div class="acciones"><button data-copiar="máquina escaladora">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Dumbbells"><div class="cab"><span class="n">42</span><span class="en">Dumbbells</span>
+          <span class="es">Mancuernas</span><span class="file">dumbbells.png</span></div>
+          <pre>par de mancuernas</pre><div class="acciones"><button data-copiar="par de mancuernas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Dumbbell rack"><div class="cab"><span class="n">43</span><span class="en">Dumbbell rack</span>
+          <span class="es">Rack de mancuernas</span><span class="file">dumbbell-rack.png</span></div>
+          <pre>rack con mancuernas ordenadas</pre><div class="acciones"><button data-copiar="rack con mancuernas ordenadas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Barbell"><div class="cab"><span class="n">44</span><span class="en">Barbell</span>
+          <span class="es">Barra olímpica</span><span class="file">barbell.png</span></div>
+          <pre>barra olímpica con discos</pre><div class="acciones"><button data-copiar="barra olímpica con discos">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Weight plates"><div class="cab"><span class="n">45</span><span class="en">Weight plates</span>
+          <span class="es">Discos de peso</span><span class="file">weight-plates.png</span></div>
+          <pre>discos de pesas apilados</pre><div class="acciones"><button data-copiar="discos de pesas apilados">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Kettlebell"><div class="cab"><span class="n">46</span><span class="en">Kettlebell</span>
+          <span class="es">Pesa rusa (kettlebell)</span><span class="file">kettlebell.png</span></div>
+          <pre>pesa rusa</pre><div class="acciones"><button data-copiar="pesa rusa">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Medicine ball"><div class="cab"><span class="n">47</span><span class="en">Medicine ball</span>
+          <span class="es">Balón medicinal</span><span class="file">medicine-ball.png</span></div>
+          <pre>balón medicinal</pre><div class="acciones"><button data-copiar="balón medicinal">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Stability ball"><div class="cab"><span class="n">48</span><span class="en">Stability ball</span>
+          <span class="es">Pelota de estabilidad (fitball)</span><span class="file">stability-ball.png</span></div>
+          <pre>pelota grande de ejercicio</pre><div class="acciones"><button data-copiar="pelota grande de ejercicio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Resistance bands"><div class="cab"><span class="n">49</span><span class="en">Resistance bands</span>
+          <span class="es">Bandas de resistencia</span><span class="file">resistance-bands.png</span></div>
+          <pre>bandas elásticas de ejercicio</pre><div class="acciones"><button data-copiar="bandas elásticas de ejercicio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Exercise mat"><div class="cab"><span class="n">50</span><span class="en">Exercise mat</span>
+          <span class="es">Tapete de ejercicio</span><span class="file">exercise-mat.png</span></div>
+          <pre>tapete de ejercicio enrollado</pre><div class="acciones"><button data-copiar="tapete de ejercicio enrollado">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Yoga mat"><div class="cab"><span class="n">51</span><span class="en">Yoga mat</span>
+          <span class="es">Tapete de yoga</span><span class="file">yoga-mat.png</span></div>
+          <pre>tapete de yoga extendido</pre><div class="acciones"><button data-copiar="tapete de yoga extendido">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Yoga block"><div class="cab"><span class="n">52</span><span class="en">Yoga block</span>
+          <span class="es">Bloque de yoga</span><span class="file">yoga-block.png</span></div>
+          <pre>bloque de yoga</pre><div class="acciones"><button data-copiar="bloque de yoga">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Foam roller"><div class="cab"><span class="n">53</span><span class="en">Foam roller</span>
+          <span class="es">Rodillo de espuma</span><span class="file">foam-roller.png</span></div>
+          <pre>rodillo de espuma</pre><div class="acciones"><button data-copiar="rodillo de espuma">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Jump rope"><div class="cab"><span class="n">54</span><span class="en">Jump rope</span>
+          <span class="es">Cuerda para saltar</span><span class="file">jump-rope.png</span></div>
+          <pre>cuerda para saltar</pre><div class="acciones"><button data-copiar="cuerda para saltar">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Step platform"><div class="cab"><span class="n">55</span><span class="en">Step platform</span>
+          <span class="es">Step (plataforma de ejercicio)</span><span class="file">step-platform.png</span></div>
+          <pre>step de aerobics</pre><div class="acciones"><button data-copiar="step de aerobics">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Plyo box"><div class="cab"><span class="n">56</span><span class="en">Plyo box</span>
+          <span class="es">Cajón pliométrico</span><span class="file">plyo-box.png</span></div>
+          <pre>cajón de saltos</pre><div class="acciones"><button data-copiar="cajón de saltos">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Flat bench"><div class="cab"><span class="n">57</span><span class="en">Flat bench</span>
+          <span class="es">Banco plano</span><span class="file">flat-bench.png</span></div>
+          <pre>banco plano de gimnasio</pre><div class="acciones"><button data-copiar="banco plano de gimnasio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Adjustable bench"><div class="cab"><span class="n">58</span><span class="en">Adjustable bench</span>
+          <span class="es">Banco ajustable</span><span class="file">adjustable-bench.png</span></div>
+          <pre>banco ajustable de gimnasio</pre><div class="acciones"><button data-copiar="banco ajustable de gimnasio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Squat rack"><div class="cab"><span class="n">59</span><span class="en">Squat rack</span>
+          <span class="es">Rack para sentadillas</span><span class="file">squat-rack.png</span></div>
+          <pre>rack para sentadillas con barra</pre><div class="acciones"><button data-copiar="rack para sentadillas con barra">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Smith machine"><div class="cab"><span class="n">60</span><span class="en">Smith machine</span>
+          <span class="es">Máquina Smith</span><span class="file">smith-machine.png</span></div>
+          <pre>máquina Smith</pre><div class="acciones"><button data-copiar="máquina Smith">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Cable machine"><div class="cab"><span class="n">61</span><span class="en">Cable machine</span>
+          <span class="es">Máquina de poleas</span><span class="file">cable-machine.png</span></div>
+          <pre>máquina de poleas</pre><div class="acciones"><button data-copiar="máquina de poleas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Leg press"><div class="cab"><span class="n">62</span><span class="en">Leg press</span>
+          <span class="es">Prensa de piernas</span><span class="file">leg-press.png</span></div>
+          <pre>prensa de piernas</pre><div class="acciones"><button data-copiar="prensa de piernas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Leg extension machine"><div class="cab"><span class="n">63</span><span class="en">Leg extension machine</span>
+          <span class="es">Máquina de extensión de piernas</span><span class="file">leg-extension-machine.png</span></div>
+          <pre>máquina de extensión de piernas</pre><div class="acciones"><button data-copiar="máquina de extensión de piernas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Leg curl machine"><div class="cab"><span class="n">64</span><span class="en">Leg curl machine</span>
+          <span class="es">Máquina de femoral</span><span class="file">leg-curl-machine.png</span></div>
+          <pre>máquina de femoral</pre><div class="acciones"><button data-copiar="máquina de femoral">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Chest press machine"><div class="cab"><span class="n">65</span><span class="en">Chest press machine</span>
+          <span class="es">Máquina de press de pecho</span><span class="file">chest-press-machine.png</span></div>
+          <pre>máquina de press de pecho</pre><div class="acciones"><button data-copiar="máquina de press de pecho">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Lat pulldown machine"><div class="cab"><span class="n">66</span><span class="en">Lat pulldown machine</span>
+          <span class="es">Máquina de jalón dorsal</span><span class="file">lat-pulldown-machine.png</span></div>
+          <pre>máquina de jalón dorsal</pre><div class="acciones"><button data-copiar="máquina de jalón dorsal">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Shoulder press machine"><div class="cab"><span class="n">67</span><span class="en">Shoulder press machine</span>
+          <span class="es">Máquina de press de hombro</span><span class="file">shoulder-press-machine.png</span></div>
+          <pre>máquina de press de hombros</pre><div class="acciones"><button data-copiar="máquina de press de hombros">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Pull-up bar"><div class="cab"><span class="n">68</span><span class="en">Pull-up bar</span>
+          <span class="es">Barra de dominadas</span><span class="file">pull-up-bar.png</span></div>
+          <pre>barra para dominadas</pre><div class="acciones"><button data-copiar="barra para dominadas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Suspension trainer"><div class="cab"><span class="n">69</span><span class="en">Suspension trainer</span>
+          <span class="es">Entrenador de suspensión (TRX)</span><span class="file">suspension-trainer.png</span></div>
+          <pre>correas de entrenamiento en suspensión</pre><div class="acciones"><button data-copiar="correas de entrenamiento en suspensión">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Battle ropes"><div class="cab"><span class="n">70</span><span class="en">Battle ropes</span>
+          <span class="es">Cuerdas de batalla</span><span class="file">battle-ropes.png</span></div>
+          <pre>cuerdas de batalla en el piso</pre><div class="acciones"><button data-copiar="cuerdas de batalla en el piso">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Punching bag"><div class="cab"><span class="n">71</span><span class="en">Punching bag</span>
+          <span class="es">Costal de box</span><span class="file">punching-bag.png</span></div>
+          <pre>costal de box colgando</pre><div class="acciones"><button data-copiar="costal de box colgando">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Boxing gloves"><div class="cab"><span class="n">72</span><span class="en">Boxing gloves</span>
+          <span class="es">Guantes de box</span><span class="file">boxing-gloves.png</span></div>
+          <pre>guantes de box</pre><div class="acciones"><button data-copiar="guantes de box">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Ab wheel"><div class="cab"><span class="n">73</span><span class="en">Ab wheel</span>
+          <span class="es">Rueda abdominal</span><span class="file">ab-wheel.png</span></div>
+          <pre>rueda abdominal</pre><div class="acciones"><button data-copiar="rueda abdominal">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Weightlifting belt"><div class="cab"><span class="n">74</span><span class="en">Weightlifting belt</span>
+          <span class="es">Cinturón para levantar pesas</span><span class="file">weightlifting-belt.png</span></div>
+          <pre>cinturón para levantar pesas</pre><div class="acciones"><button data-copiar="cinturón para levantar pesas">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Workout gloves"><div class="cab"><span class="n">75</span><span class="en">Workout gloves</span>
+          <span class="es">Guantes de entrenamiento</span><span class="file">workout-gloves.png</span></div>
+          <pre>guantes de gimnasio</pre><div class="acciones"><button data-copiar="guantes de gimnasio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Heart rate monitor"><div class="cab"><span class="n">76</span><span class="en">Heart rate monitor</span>
+          <span class="es">Monitor de frecuencia cardíaca</span><span class="file">heart-rate-monitor.png</span></div>
+          <pre>banda de pecho para medir el pulso</pre><div class="acciones"><button data-copiar="banda de pecho para medir el pulso">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Stopwatch"><div class="cab"><span class="n">77</span><span class="en">Stopwatch</span>
+          <span class="es">Cronómetro</span><span class="file">stopwatch.png</span></div>
+          <pre>cronómetro</pre><div class="acciones"><button data-copiar="cronómetro">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Body composition scale"><div class="cab"><span class="n">78</span><span class="en">Body composition scale</span>
+          <span class="es">Báscula de composición corporal</span><span class="file">body-composition-scale.png</span></div>
+          <pre>báscula digital de composición corporal</pre><div class="acciones"><button data-copiar="báscula digital de composición corporal">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Water fountain"><div class="cab"><span class="n">79</span><span class="en">Water fountain</span>
+          <span class="es">Bebedero</span><span class="file">water-fountain.png</span></div>
+          <pre>bebedero de agua</pre><div class="acciones"><button data-copiar="bebedero de agua">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Water bottle"><div class="cab"><span class="n">80</span><span class="en">Water bottle</span>
+          <span class="es">Botella de agua</span><span class="file">water-bottle.png</span></div>
+          <pre>botella de agua deportiva</pre><div class="acciones"><button data-copiar="botella de agua deportiva">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Gym towel"><div class="cab"><span class="n">81</span><span class="en">Gym towel</span>
+          <span class="es">Toalla de gimnasio</span><span class="file">gym-towel.png</span></div>
+          <pre>toalla pequeña de gimnasio</pre><div class="acciones"><button data-copiar="toalla pequeña de gimnasio">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Disinfectant wipes"><div class="cab"><span class="n">82</span><span class="en">Disinfectant wipes</span>
+          <span class="es">Toallitas desinfectantes</span><span class="file">disinfectant-wipes.png</span></div>
+          <pre>paquete de toallitas desinfectantes</pre><div class="acciones"><button data-copiar="paquete de toallitas desinfectantes">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Sneakers"><div class="cab"><span class="n">83</span><span class="en">Sneakers</span>
+          <span class="es">Tenis</span><span class="file">sneakers.png</span></div>
+          <pre>tenis deportivos</pre><div class="acciones"><button data-copiar="tenis deportivos">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Workout clothes"><div class="cab"><span class="n">84</span><span class="en">Workout clothes</span>
+          <span class="es">Ropa deportiva</span><span class="file">workout-clothes.png</span></div>
+          <pre>ropa deportiva doblada</pre><div class="acciones"><button data-copiar="ropa deportiva doblada">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Yoga class"><div class="cab"><span class="n">85</span><span class="en">Yoga class</span>
+          <span class="es">Clase de yoga</span><span class="file">yoga-class.png</span></div>
+          <pre>clase de yoga en grupo</pre><div class="acciones"><button data-copiar="clase de yoga en grupo">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article data-id="Stretching session"><div class="cab"><span class="n">86</span><span class="en">Stretching session</span>
+          <span class="es">Sesión de estiramiento</span><span class="file">stretching-session.png</span></div>
+          <pre>grupo haciendo estiramientos</pre><div class="acciones"><button data-copiar="grupo haciendo estiramientos">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article>
+</main>
+<script>
+// Marcas de avance: al copiar un prompt su imagen queda marcada como generada (se puede desmarcar).
+// Se guardan en este navegador (localStorage).
+const CLAVE = "imagenes-gym-generadas";
+let hechas = new Set();
+try { hechas = new Set(JSON.parse(localStorage.getItem(CLAVE) || "[]")); } catch (err) {}
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify([...hechas])); } catch (err) {} };
+const articulos = [...document.querySelectorAll("article[data-id]")];
+function pintar() {
+  articulos.forEach((a) => { const ok = hechas.has(a.dataset.id); a.classList.toggle("listo", ok); a.querySelector(".hecho input").checked = ok; });
+  document.getElementById("cuenta").textContent = `${hechas.size} de ${articulos.length} generadas`;
+  document.getElementById("barra").style.width = `${(100 * hechas.size) / articulos.length}%`;
+}
+function marcar(a, ok) { ok ? hechas.add(a.dataset.id) : hechas.delete(a.dataset.id); guardar(); pintar(); }
+document.addEventListener("change", (ev) => {
+  const c = ev.target.closest(".hecho input"); if (c) marcar(c.closest("article"), c.checked);
+});
+document.getElementById("siguiente").onclick = () => {
+  const a = articulos.find((x) => !hechas.has(x.dataset.id)); if (a) a.scrollIntoView({ behavior: "smooth", block: "center" });
+};
+pintar();
+document.addEventListener("click", async (ev) => {
+  const b = ev.target.closest("[data-copiar]"); if (!b) return;
+  marcar(b.closest("article"), true);
+  try { await navigator.clipboard.writeText(b.dataset.copiar); } catch (err) {
+    const t = document.createElement("textarea"); t.value = b.dataset.copiar; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
+  }
+  const txt = b.textContent; b.textContent = "✓ Copiado"; b.classList.add("ok"); setTimeout(() => { b.textContent = txt; b.classList.remove("ok"); }, 1500);
+});
+</script></body></html>
