@@ -433,7 +433,7 @@ function dialogueHtml(lines) {
 function viewAmpolletas() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Inicio</a>
+    <a class="back" href="#/productos">← Productos de belleza</a>
     <section class="script-hero" style="background-image:url('images/ampolletas/portada.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">BABOR Ampoule Bar 2026 · Español / English</p>
@@ -470,7 +470,7 @@ function viewAmpolletas() {
       ([id, m]) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
         <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`
     ).join("")}</div>
-    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+    <a class="btn ghost full center" href="#/productos">← Volver a Productos de belleza</a>`;
 }
 
 function viewAmpolleta(id) {
@@ -520,7 +520,7 @@ const titulo = (s) => s.replace(/\b([A-ZÁÉÍÓÚÑ])([A-ZÁÉÍÓÚÑ'’]+)\b
 function viewNatura() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/">← Inicio</a>
+    <a class="back" href="#/productos">← Productos de belleza</a>
     <section class="script-hero" style="background-image:url('images/natura-portada/portada.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Natura Bissé · Retail México · Español / English</p>
@@ -531,7 +531,7 @@ function viewNatura() {
     <input id="nb-search" class="search" type="search" placeholder="Buscar producto o ingrediente…" autocomplete="off">
     <div id="nb-list">${nbLista(NB.products)}</div>
     <a class="btn ghost full" href="#/material/natura-bisse">📄 Ver la guía original (PDF, en español)</a>
-    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+    <a class="btn ghost full center" href="#/productos">← Volver a Productos de belleza</a>`;
 }
 
 function nbLista(products) {
@@ -1145,6 +1145,29 @@ function viewVocabSeccion(cual) {
     <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>`;
 }
 
+// ---------- Productos de belleza · Venta (ampolletas BABOR y Natura Bissé) ----------
+function viewProductos() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Inicio</a>
+    <section class="script-hero" style="background-image:url('images/ampolletas/portada.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">BABOR · Natura Bissé · Español / English</p>
+        <h1>Productos de belleza · Venta</h1>
+        <p>Fichas de producto en español e inglés y scripts para recomendar y vender a los huéspedes.</p>
+      </div>
+    </section>
+    ${AMPS.length ? `<a class="script-banner" href="#/ampolletas" style="background-image:url('images/ampolletas/portada.jpg')">
+      <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
+    ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
+      <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+}
+
 function view(catId) {
   const [ruta0, clave0] = catId.split("/");
   if (catId === "pruebas") return viewPruebas();
@@ -1159,6 +1182,7 @@ function view(catId) {
   if (catId === "anatomia") return viewAnatomia();
   if (catId === "la-piel" && PIEL_D) return viewPiel();
   if (catId.startsWith("anatomia/")) return viewLamina(catId.split("/")[1]);
+  if (catId === "productos") return viewProductos();
   if (catId === "ampolletas") return viewAmpolletas();
   if (catId.startsWith("ampolletas/")) return viewAmpolleta(catId.split("/")[1]);
   if (catId.startsWith("material/")) return viewMaterial(catId.split("/")[1]);
@@ -1204,12 +1228,8 @@ function view(catId) {
       <span class="script-banner-text"><small>Programa de servicio · Estándares AAA</small><b>Script de servicio Terapeuta</b><span>De la bienvenida a la despedida · ${STAGES.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${AMPS.length ? `<a class="script-banner" href="#/ampolletas" style="background-image:url('images/ampolletas/portada.jpg')">
-      <span class="script-banner-text"><small>BABOR Ampoule Bar 2026 · Español / English</small><b>Venta de ampolletas</b><span>${AMPS.length} productos con ficha y script de venta</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span>
-    </a>` : ""}
-    ${NB.products.length ? `<a class="script-banner" href="#/natura" style="background-image:url('images/natura-portada/portada.jpg')">
-      <span class="script-banner-text"><small>Natura Bissé · Retail México · Español / English</small><b>Guía de producto</b><span>${NB.products.length} productos con beneficios e ingredientes</span></span>
+    ${AMPS.length || NB.products.length ? `<a class="script-banner" href="#/productos" style="background-image:url('images/ampolletas/portada.jpg')">
+      <span class="script-banner-text"><small>BABOR · Natura Bissé · Español / English</small><b>Productos de belleza · Venta</b><span>${AMPS.length} ampolletas con script de venta y ${NB.products.length} productos Natura Bissé</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     ${PROGRAMAS["valet-script"].stages.length ? `<a class="script-banner" href="#/valet" style="background-image:url('images/script/valet.jpg')">
@@ -1293,8 +1313,8 @@ function render() {
     document.querySelectorAll(".anat-lista li").forEach((li) => (li.onclick = (e) => !e.target.closest("button") && marcarParte(+li.dataset.fila, true)));
     return;
   }
-  if (id === "valet" || id === "concierge" || id === "gym") {
-    USO.track("category", { category: { valet: "Valet de spa", concierge: "Spa Concierge", gym: "Gym del spa" }[id] });
+  if (id === "valet" || id === "concierge" || id === "gym" || id === "productos") {
+    USO.track("category", { category: { valet: "Valet de spa", concierge: "Spa Concierge", gym: "Gym del spa", productos: "Productos de belleza" }[id] });
     return;
   }
   if (id === "natura" || id.startsWith("natura/")) {
