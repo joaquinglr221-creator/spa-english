@@ -91,6 +91,111 @@ const USO = (() => {
     return ACCESO.huellas.includes(await huella(numero, pin));
   }
 
+  // ---------- Acceso con Face ID / huella (passkeys de WebAuthn) ----------
+  // Después de entrar con número y PIN se puede activar; desde ahí la app lo pide cada vez que se abre.
+  // La cara o la huella nunca salen del celular: el teléfono solo confirma que es la persona que la activó.
+  // Solo funciona en la versión de internet (https). El PIN siempre sigue funcionando.
+  const KEY_LLAVES = "uso-llaves-biometricas"; // { número de colaborador: id de su llave }
+  const llaves = () => load(KEY_LLAVES, {});
+  const b64 = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const desde64 = (t) => Uint8Array.from(atob(t.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  const reto = () => crypto.getRandomValues(new Uint8Array(32));
+  let bioDisponible = null;
+  async function biometriaDisponible() {
+    if (bioDisponible === null) {
+      bioDisponible = REMOTE && window.isSecureContext && !!window.PublicKeyCredential &&
+        (await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(() => false));
+    }
+    return bioDisponible;
+  }
+
+  async function verificarHuella(numero) {
+    await navigator.credentials.get({ publicKey: {
+      challenge: reto(),
+      allowCredentials: [{ type: "public-key", id: desde64(llaves()[numero]) }],
+      userVerification: "required", timeout: 60000,
+    }});
+  }
+
+  function entrar(nuevo) {
+    user = nuevo;
+    save(KEY_USER, user);
+    document.querySelectorAll(".uso-overlay").forEach((b) => b.remove());
+    track("open");
+    flush(true);
+    window.dispatchEvent(new Event("uso-login"));
+  }
+
+  // Después de entrar con PIN: ofrecer activar Face ID / huella (si el celular lo tiene y aún no está activado).
+  async function ofrecerHuella(numero, alTerminar) {
+    if (!(await biometriaDisponible()) || llaves()[numero]) return alTerminar();
+    const box = document.createElement("div");
+    box.className = "uso-overlay";
+    box.innerHTML = `
+      <div class="uso-card">
+        <div class="uso-bio">🔐</div>
+        <h2>¿Entrar con Face ID o huella la próxima vez?</h2>
+        <p>Así no tendrás que escribir tu número ni tu PIN. Tu cara o tu huella <b>nunca salen de tu celular</b>: la app solo recibe un "sí, eres tú".</p>
+        <p class="uso-error" hidden></p>
+        <button class="btn full" type="button" data-activar>Activar Face ID / huella</button>
+        <button class="uso-link" type="button" data-ahora-no>Ahora no</button>
+      </div>`;
+    document.body.appendChild(box);
+    const error = box.querySelector(".uso-error");
+    box.querySelector("[data-ahora-no]").onclick = () => { box.remove(); alTerminar(); };
+    box.querySelector("[data-activar]").onclick = async () => {
+      error.hidden = true;
+      try {
+        const cred = await navigator.credentials.create({ publicKey: {
+          challenge: reto(),
+          rp: { name: "SPA Service Excellence App" },
+          user: { id: new TextEncoder().encode(`spa-${numero}`), name: `Colaborador ${numero}`, displayName: `Colaborador ${numero}` },
+          pubKeyCredParams: [{ type: "public-key", alg: -7 }, { type: "public-key", alg: -257 }],
+          authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required", residentKey: "preferred" },
+          timeout: 60000,
+        }});
+        save(KEY_LLAVES, { ...llaves(), [numero]: b64(cred.rawId) });
+        box.remove();
+        alTerminar();
+      } catch (err) {
+        error.textContent = err.name === "NotAllowedError" ? "Se canceló. Puedes intentarlo otra vez o tocar «Ahora no»." : "No se pudo activar en este celular.";
+        error.hidden = false;
+      }
+    };
+  }
+
+  // Al abrir la app con la sesión de alguien que activó Face ID / huella: se pide antes de entrar.
+  function pedirHuella(guardado) {
+    const box = document.createElement("div");
+    box.className = "uso-overlay";
+    box.innerHTML = `
+      <div class="uso-card">
+        <h2>¡Hola!</h2>
+        <p class="uso-app"><b>SPA Service Excellence App</b></p>
+        <p>Colaborador <b>${escape(guardado.employee_no)}</b></p>
+        <div class="uso-bio">🙂👆</div>
+        <p class="uso-error" hidden></p>
+        <button class="btn full" type="button" data-bio>Entrar con Face ID / huella</button>
+        <button class="btn ghost full" type="button" data-pin>Usar mi número y PIN</button>
+        <button class="uso-link" type="button" data-otro>No soy yo · entrar con otra cuenta</button>
+      </div>`;
+    document.body.appendChild(box);
+    const error = box.querySelector(".uso-error");
+    const probar = async () => {
+      error.hidden = true;
+      try {
+        await verificarHuella(guardado.employee_no);
+        entrar(guardado);
+      } catch (err) {
+        error.textContent = err.name === "NotAllowedError" ? "No se reconoció o se canceló. Inténtalo otra vez o usa tu PIN." : "No se pudo usar Face ID / huella. Usa tu PIN.";
+        error.hidden = false;
+      }
+    };
+    box.querySelector("[data-bio]").onclick = probar;
+    box.querySelector("[data-pin]").onclick = () => { box.remove(); askEmployeeNumber(guardado.employee_no); };
+    box.querySelector("[data-otro]").onclick = () => { box.remove(); save(KEY_USER, null); askEmployeeNumber(); };
+  }
+
   // Enlace de instructor (?instructor=<clave>, ver scripts/qr_instructor.py): entra sin número ni PIN.
   async function entrarComoInstructor() {
     const clave = new URLSearchParams(location.search).get("instructor");
@@ -103,7 +208,7 @@ const USO = (() => {
     return true;
   }
 
-  function askEmployeeNumber() {
+  async function askEmployeeNumber(numeroSugerido = "") {
     const box = document.createElement("div");
     box.className = "uso-overlay";
     box.innerHTML = `
@@ -115,12 +220,31 @@ const USO = (() => {
         <input name="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="PIN (4 dígitos)" required>
         <p class="uso-error" hidden></p>
         <button class="btn full" type="submit">Entrar</button>
+        <div class="uso-bio-lista"></div>
         <p class="uso-note">¿No tienes tu PIN? Pídelo a tu instructor de inglés. Tu avance (palabras aprendidas, tiempo de estudio y resultados de práctica) se registra para el seguimiento de tu capacitación de inglés.</p>
       </form>`;
     document.body.appendChild(box);
     const form = box.querySelector("form");
     const error = box.querySelector(".uso-error");
-    form.employee_no.focus();
+    form.employee_no.value = numeroSugerido;
+    (numeroSugerido ? form.pin : form.employee_no).focus();
+    // Quienes ya activaron Face ID / huella en este celular pueden entrar sin escribir.
+    const guardadas = Object.keys(llaves());
+    if (guardadas.length && (await biometriaDisponible())) {
+      box.querySelector(".uso-bio-lista").innerHTML = guardadas
+        .map((n) => `<button class="btn ghost full" type="button" data-bio-num="${escape(n)}">🙂👆 Entrar con Face ID / huella · ${escape(n)}</button>`)
+        .join("");
+      box.querySelectorAll("[data-bio-num]").forEach((b) => (b.onclick = async () => {
+        error.hidden = true;
+        try {
+          await verificarHuella(b.dataset.bioNum);
+          entrar({ employee_no: b.dataset.bioNum, full_name: null, v: 2 });
+        } catch (err) {
+          error.textContent = "No se reconoció o se canceló. Inténtalo otra vez o usa tu PIN.";
+          error.hidden = false;
+        }
+      }));
+    }
     form.onsubmit = async (e) => {
       e.preventDefault();
       error.hidden = true;
@@ -138,12 +262,8 @@ const USO = (() => {
           fallos++;
           return fallar("El número o el PIN no son correctos.");
         }
-        user = { employee_no: employeeNo, full_name: null, v: 2 };
-        save(KEY_USER, user);
         box.remove();
-        track("open");
-        flush(true);
-        window.dispatchEvent(new Event("uso-login"));
+        ofrecerHuella(employeeNo, () => entrar({ employee_no: employeeNo, full_name: null, v: 2 }));
         return;
       }
       try {
@@ -172,7 +292,12 @@ const USO = (() => {
     if (options.knownWords) knownWords = options.knownWords;
     if (!user && (await entrarComoInstructor())) return;
     if (!user) askEmployeeNumber();
-    else {
+    else if (!user.instructor && llaves()[user.employee_no] && (await biometriaDisponible())) {
+      // Sesión de alguien con Face ID / huella activado: se pide cada vez que se abre la app.
+      const guardado = user;
+      user = null;
+      pedirHuella(guardado);
+    } else {
       track("open");
       flush();
     }
@@ -197,7 +322,7 @@ const USO = (() => {
   // Salir: manda lo pendiente y vuelve a la pantalla de bienvenida (pide el número otra vez).
   document.addEventListener("click", async (e) => {
     if (!e.target.closest("[data-uso-logout]")) return;
-    if (!confirm("¿Quieres salir de la app?\n\nTu avance queda guardado. La próxima vez escribe tu número de colaborador para entrar.")) return;
+    if (!confirm("¿Quieres salir de la app?\n\nTu avance queda guardado. La próxima vez entra con tu número y PIN, o con Face ID / huella si lo activaste.")) return;
     await flush();
     user = null;
     save(KEY_USER, null);

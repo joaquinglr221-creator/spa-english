@@ -594,3 +594,9 @@ a.btn.center { text-align: center; }
 .inicio-grid .script-banner-go { display: none; }
 .inicio-pruebas { background: linear-gradient(135deg, #8e6aa6, #2f8a7a); }
 .inicio-pruebas::before { background: none; }
+
+/* Acceso con Face ID / huella */
+.uso-bio { font-size: 2.6rem; text-align: center; }
+.uso-link { background: none; border: 0; color: var(--muted); text-decoration: underline; font: inherit; font-size: 0.85rem; cursor: pointer; padding: 6px; }
+.uso-bio-lista { display: grid; gap: 6px; }
+.uso-bio-lista:empty { display: none; }
