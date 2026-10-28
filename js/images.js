@@ -2319,5 +2319,81 @@ const IMAGES = {
  "Ankle Rotations": {
   "src": "images/canva/ankle-rotations.jpg",
   "source": "canva"
+ },
+ "Lower back": {
+  "src": "images/canva/lower-back.jpg",
+  "source": "canva"
+ },
+ "Elbows": {
+  "src": "images/canva/elbows.jpg",
+  "source": "canva"
+ },
+ "Forearms": {
+  "src": "images/canva/forearms.jpg",
+  "source": "canva"
+ },
+ "Wrists": {
+  "src": "images/canva/wrists.jpg",
+  "source": "canva"
+ },
+ "Abs": {
+  "src": "images/canva/abs.jpg",
+  "source": "canva"
+ },
+ "Waist": {
+  "src": "images/canva/waist.jpg",
+  "source": "canva"
+ },
+ "Heels": {
+  "src": "images/canva/heels.jpg",
+  "source": "canva"
+ },
+ "Biceps": {
+  "src": "images/canva/biceps.jpg",
+  "source": "canva"
+ },
+ "Triceps": {
+  "src": "images/canva/triceps.jpg",
+  "source": "canva"
+ },
+ "Deltoids": {
+  "src": "images/canva/deltoids.jpg",
+  "source": "canva"
+ },
+ "Pecs": {
+  "src": "images/canva/pecs.jpg",
+  "source": "canva"
+ },
+ "Lats": {
+  "src": "images/canva/lats.jpg",
+  "source": "canva"
+ },
+ "Traps": {
+  "src": "images/canva/traps.jpg",
+  "source": "canva"
+ },
+ "Obliques": {
+  "src": "images/canva/obliques.jpg",
+  "source": "canva"
+ },
+ "Quadriceps": {
+  "src": "images/canva/quadriceps.jpg",
+  "source": "canva"
+ },
+ "Hamstrings": {
+  "src": "images/canva/hamstrings.jpg",
+  "source": "canva"
+ },
+ "Joints": {
+  "src": "images/canva/joints.jpg",
+  "source": "canva"
+ },
+ "Heart": {
+  "src": "images/canva/heart.jpg",
+  "source": "canva"
+ },
+ "Lungs": {
+  "src": "images/canva/lungs.jpg",
+  "source": "canva"
  }
 };
