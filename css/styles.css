@@ -617,23 +617,3 @@ a.btn.center { text-align: center; }
 .gym-eq-cab { display: flex; gap: 12px; align-items: center; }
 .gym-eq-cab .bi-audio { flex: 1; }
 .gym-pasos { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
-
-/* Cuerpo humano 3D */
-.c3d-capas { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
-.c3d {
-  position: relative; height: min(68vh, 620px); border-radius: var(--radius); overflow: hidden; touch-action: none;
-  background: radial-gradient(ellipse at 50% 35%, #ffffff 0%, #ece6f0 55%, #d9cfe0 100%); border: 1px solid var(--border);
-}
-.c3d canvas { display: block; width: 100%; height: 100%; }
-.c3d-carga { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-weight: 600; }
-.c3d-vistas { position: absolute; left: 8px; right: 8px; bottom: 8px; display: flex; justify-content: center; gap: 6px; }
-.c3d-vistas button {
-  font: inherit; font-size: 0.82rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; cursor: pointer;
-  border: 1px solid var(--border); background: rgba(255, 255, 255, 0.88); color: var(--text);
-}
-.c3d-vistas button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
-.c3d-reto { flex-wrap: wrap; }
-.c3d-reto small { flex-basis: 100%; }
-.c3d-lista { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-.c3d-lista .chip { font-size: 0.82rem; }
-.c3d-lista .chip { white-space: normal; text-align: left; }
