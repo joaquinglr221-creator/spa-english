@@ -725,7 +725,7 @@ const CONC_VOC = typeof CONCIERGE_VOCAB !== "undefined" ? CONCIERGE_VOCAB : [];
 const CONC_KPIS = typeof CONCIERGE_KPIS !== "undefined" ? CONCIERGE_KPIS : [];
 
 function viewConcierge() {
-  const C = PROGRAMAS["concierge-script"], H = PROGRAMAS.hidroterapia;
+  const C = PROGRAMAS["concierge-script"];
   const m = MATERIAL["spa-concierge"];
   return `${BRANDS}
     ${USO.badge()}
@@ -740,9 +740,6 @@ function viewConcierge() {
     <a class="script-banner" href="#/concierge-script" style="background-image:url('${C.portada}')">
       <span class="script-banner-text"><small>${esc(C.kicker)}</small><b>${esc(C.titulo)}</b><span>${C.stages.length} pasos con audio, del saludo al cierre</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span></a>
-    ${H.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('${H.portada}')">
-      <span class="script-banner-text"><small>${esc(H.kicker)}</small><b>${esc(H.titulo)}</b><span>${H.stages.length} pasos con audio</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
     ${CONC_VOC.map((g) => `<h2 class="section-title">${esc(g.titleEs)} · ${g.words.length}</h2>
     <p class="muted">🇺🇸 ${esc(g.title)}</p>
     ${vocabFilas(g.words)}`).join("")}
