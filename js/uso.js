@@ -103,8 +103,12 @@ const USO = (() => {
   let bioDisponible = null;
   async function biometriaDisponible() {
     if (bioDisponible === null) {
+      // Si el navegador no responde en 2 s, se sigue sin Face ID / huella (nunca se queda trabado el acceso).
       bioDisponible = REMOTE && window.isSecureContext && !!window.PublicKeyCredential &&
-        (await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(() => false));
+        (await Promise.race([
+          PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(() => false),
+          new Promise((ok) => setTimeout(() => ok(false), 2000)),
+        ]));
     }
     return bioDisponible;
   }
