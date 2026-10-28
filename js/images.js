@@ -1815,5 +1815,509 @@ const IMAGES = {
  "Landmine": {
   "src": "images/gym/landmine.jpg",
   "source": "presentacion-gym"
+ },
+ "Gym Trainer": {
+  "src": "images/canva/gym-trainer.jpg",
+  "source": "canva"
+ },
+ "Fitness Trainer": {
+  "src": "images/canva/fitness-trainer.jpg",
+  "source": "canva"
+ },
+ "Fitness Center": {
+  "src": "images/canva/fitness-center.jpg",
+  "source": "canva"
+ },
+ "Workout": {
+  "src": "images/canva/workout.jpg",
+  "source": "canva"
+ },
+ "Exercise": {
+  "src": "images/canva/exercise.jpg",
+  "source": "canva"
+ },
+ "Training session": {
+  "src": "images/canva/training-session.jpg",
+  "source": "canva"
+ },
+ "Personal training": {
+  "src": "images/canva/personal-training.jpg",
+  "source": "canva"
+ },
+ "Fitness goal": {
+  "src": "images/canva/fitness-goal.jpg",
+  "source": "canva"
+ },
+ "Strength": {
+  "src": "images/canva/strength.jpg",
+  "source": "canva"
+ },
+ "Flexibility": {
+  "src": "images/canva/flexibility.jpg",
+  "source": "canva"
+ },
+ "Endurance": {
+  "src": "images/canva/endurance.jpg",
+  "source": "canva"
+ },
+ "Balance": {
+  "src": "images/canva/balance.jpg",
+  "source": "canva"
+ },
+ "Mobility": {
+  "src": "images/canva/mobility.jpg",
+  "source": "canva"
+ },
+ "Cardio": {
+  "src": "images/canva/cardio.jpg",
+  "source": "canva"
+ },
+ "Warm-up": {
+  "src": "images/canva/gym-warm-up.jpg",
+  "source": "canva"
+ },
+ "Cool-down": {
+  "src": "images/canva/gym-cool-down.jpg",
+  "source": "canva"
+ },
+ "Stretching": {
+  "src": "images/canva/stretching.jpg",
+  "source": "canva"
+ },
+ "Repetition": {
+  "src": "images/canva/repetition.jpg",
+  "source": "canva"
+ },
+ "Set": {
+  "src": "images/canva/set.jpg",
+  "source": "canva"
+ },
+ "Weight": {
+  "src": "images/canva/weight.jpg",
+  "source": "canva"
+ },
+ "Resistance": {
+  "src": "images/canva/resistance.jpg",
+  "source": "canva"
+ },
+ "Speed": {
+  "src": "images/canva/speed.jpg",
+  "source": "canva"
+ },
+ "Incline": {
+  "src": "images/canva/incline.jpg",
+  "source": "canva"
+ },
+ "Pace": {
+  "src": "images/canva/pace.jpg",
+  "source": "canva"
+ },
+ "Heart rate": {
+  "src": "images/canva/heart-rate.jpg",
+  "source": "canva"
+ },
+ "Breathing": {
+  "src": "images/canva/breathing.jpg",
+  "source": "canva"
+ },
+ "Posture": {
+  "src": "images/canva/posture.jpg",
+  "source": "canva"
+ },
+ "Technique": {
+  "src": "images/canva/technique.jpg",
+  "source": "canva"
+ },
+ "Recovery": {
+  "src": "images/canva/recovery.jpg",
+  "source": "canva"
+ },
+ "Muscle": {
+  "src": "images/canva/muscle.jpg",
+  "source": "canva"
+ },
+ "Core": {
+  "src": "images/canva/core.jpg",
+  "source": "canva"
+ },
+ "Cardio area": {
+  "src": "images/canva/cardio-area.jpg",
+  "source": "canva"
+ },
+ "Strength-training area": {
+  "src": "images/canva/strength-training-area.jpg",
+  "source": "canva"
+ },
+ "Free weights": {
+  "src": "images/canva/free-weights.jpg",
+  "source": "canva"
+ },
+ "Spin bike": {
+  "src": "images/canva/spin-bike.jpg",
+  "source": "canva"
+ },
+ "Recumbent bike": {
+  "src": "images/canva/recumbent-bike.jpg",
+  "source": "canva"
+ },
+ "Dumbbell rack": {
+  "src": "images/canva/dumbbell-rack.jpg",
+  "source": "canva"
+ },
+ "Weight plates": {
+  "src": "images/canva/weight-plates.jpg",
+  "source": "canva"
+ },
+ "Stability ball": {
+  "src": "images/canva/stability-ball.jpg",
+  "source": "canva"
+ },
+ "Exercise mat": {
+  "src": "images/canva/exercise-mat.jpg",
+  "source": "canva"
+ },
+ "Yoga mat": {
+  "src": "images/canva/yoga-mat.jpg",
+  "source": "canva"
+ },
+ "Yoga block": {
+  "src": "images/canva/yoga-block.jpg",
+  "source": "canva"
+ },
+ "Flat bench": {
+  "src": "images/canva/flat-bench.jpg",
+  "source": "canva"
+ },
+ "Adjustable bench": {
+  "src": "images/canva/adjustable-bench.jpg",
+  "source": "canva"
+ },
+ "Squat rack": {
+  "src": "images/canva/squat-rack.jpg",
+  "source": "canva"
+ },
+ "Chest press machine": {
+  "src": "images/canva/chest-press-machine.jpg",
+  "source": "canva"
+ },
+ "Shoulder press machine": {
+  "src": "images/canva/shoulder-press-machine.jpg",
+  "source": "canva"
+ },
+ "Suspension trainer": {
+  "src": "images/canva/suspension-trainer.jpg",
+  "source": "canva"
+ },
+ "Punching bag": {
+  "src": "images/canva/punching-bag.jpg",
+  "source": "canva"
+ },
+ "Boxing gloves": {
+  "src": "images/canva/boxing-gloves.jpg",
+  "source": "canva"
+ },
+ "Ab wheel": {
+  "src": "images/canva/ab-wheel.jpg",
+  "source": "canva"
+ },
+ "Weightlifting belt": {
+  "src": "images/canva/weightlifting-belt.jpg",
+  "source": "canva"
+ },
+ "Workout gloves": {
+  "src": "images/canva/workout-gloves.jpg",
+  "source": "canva"
+ },
+ "Heart rate monitor": {
+  "src": "images/canva/heart-rate-monitor.jpg",
+  "source": "canva"
+ },
+ "Stopwatch": {
+  "src": "images/canva/stopwatch.jpg",
+  "source": "canva"
+ },
+ "Body composition scale": {
+  "src": "images/canva/body-composition-scale.jpg",
+  "source": "canva"
+ },
+ "Water fountain": {
+  "src": "images/canva/water-fountain.jpg",
+  "source": "canva"
+ },
+ "Water bottle": {
+  "src": "images/canva/water-bottle.jpg",
+  "source": "canva"
+ },
+ "Gym towel": {
+  "src": "images/canva/gym-towel.jpg",
+  "source": "canva"
+ },
+ "Disinfectant wipes": {
+  "src": "images/canva/disinfectant-wipes.jpg",
+  "source": "canva"
+ },
+ "Sneakers": {
+  "src": "images/canva/sneakers.jpg",
+  "source": "canva"
+ },
+ "Workout clothes": {
+  "src": "images/canva/workout-clothes.jpg",
+  "source": "canva"
+ },
+ "Yoga class": {
+  "src": "images/canva/yoga-class.jpg",
+  "source": "canva"
+ },
+ "Stretching session": {
+  "src": "images/canva/stretching-session.jpg",
+  "source": "canva"
+ },
+ "Push-ups": {
+  "src": "images/canva/push-ups.jpg",
+  "source": "canva"
+ },
+ "Pull-ups": {
+  "src": "images/canva/pull-ups.jpg",
+  "source": "canva"
+ },
+ "Lunges": {
+  "src": "images/canva/lunges.jpg",
+  "source": "canva"
+ },
+ "Deadlifts": {
+  "src": "images/canva/deadlifts.jpg",
+  "source": "canva"
+ },
+ "Bicep Curls": {
+  "src": "images/canva/bicep-curls.jpg",
+  "source": "canva"
+ },
+ "Tricep Dips": {
+  "src": "images/canva/tricep-dips.jpg",
+  "source": "canva"
+ },
+ "Shoulder Press": {
+  "src": "images/canva/shoulder-press.jpg",
+  "source": "canva"
+ },
+ "Calf Raises": {
+  "src": "images/canva/calf-raises.jpg",
+  "source": "canva"
+ },
+ "Plank": {
+  "src": "images/canva/plank.jpg",
+  "source": "canva"
+ },
+ "Crunches": {
+  "src": "images/canva/crunches.jpg",
+  "source": "canva"
+ },
+ "Mountain Climbers": {
+  "src": "images/canva/mountain-climbers.jpg",
+  "source": "canva"
+ },
+ "Lat Pulldown": {
+  "src": "images/canva/lat-pulldown.jpg",
+  "source": "canva"
+ },
+ "Seated Row": {
+  "src": "images/canva/seated-row.jpg",
+  "source": "canva"
+ },
+ "Chest Fly": {
+  "src": "images/canva/chest-fly.jpg",
+  "source": "canva"
+ },
+ "Leg Extension": {
+  "src": "images/canva/leg-extension.jpg",
+  "source": "canva"
+ },
+ "Hammer Curls": {
+  "src": "images/canva/hammer-curls.jpg",
+  "source": "canva"
+ },
+ "Leg Curl": {
+  "src": "images/canva/leg-curl.jpg",
+  "source": "canva"
+ },
+ "Hip Thrust": {
+  "src": "images/canva/hip-thrust.jpg",
+  "source": "canva"
+ },
+ "Step-ups": {
+  "src": "images/canva/step-ups.jpg",
+  "source": "canva"
+ },
+ "Russian Twists": {
+  "src": "images/canva/russian-twists.jpg",
+  "source": "canva"
+ },
+ "Farmer’s Walk": {
+  "src": "images/canva/farmer-s-walk.jpg",
+  "source": "canva"
+ },
+ "Overhead Triceps Extension": {
+  "src": "images/canva/overhead-triceps-extension.jpg",
+  "source": "canva"
+ },
+ "Calf Raise Machine": {
+  "src": "images/canva/calf-raise-machine.jpg",
+  "source": "canva"
+ },
+ "Stretch": {
+  "src": "images/canva/stretch.jpg",
+  "source": "canva"
+ },
+ "Lift": {
+  "src": "images/canva/lift.jpg",
+  "source": "canva"
+ },
+ "Push": {
+  "src": "images/canva/push.jpg",
+  "source": "canva"
+ },
+ "Pull": {
+  "src": "images/canva/pull.jpg",
+  "source": "canva"
+ },
+ "Squats": {
+  "src": "images/canva/squat.jpg",
+  "source": "canva"
+ },
+ "Squat": {
+  "src": "images/canva/squat.jpg",
+  "source": "canva"
+ },
+ "Jump": {
+  "src": "images/canva/jump.jpg",
+  "source": "canva"
+ },
+ "Run": {
+  "src": "images/canva/run.jpg",
+  "source": "canva"
+ },
+ "Row": {
+  "src": "images/canva/row.jpg",
+  "source": "canva"
+ },
+ "Crunch": {
+  "src": "images/canva/crunch.jpg",
+  "source": "canva"
+ },
+ "Swing": {
+  "src": "images/canva/swing.jpg",
+  "source": "canva"
+ },
+ "Pull-up": {
+  "src": "images/canva/pull-up.jpg",
+  "source": "canva"
+ },
+ "Press": {
+  "src": "images/canva/press.jpg",
+  "source": "canva"
+ },
+ "Rotate": {
+  "src": "images/canva/rotate.jpg",
+  "source": "canva"
+ },
+ "Dip": {
+  "src": "images/canva/dip.jpg",
+  "source": "canva"
+ },
+ "Step": {
+  "src": "images/canva/step.jpg",
+  "source": "canva"
+ },
+ "Curl": {
+  "src": "images/canva/curl.jpg",
+  "source": "canva"
+ },
+ "Hold": {
+  "src": "images/canva/hold.jpg",
+  "source": "canva"
+ },
+ "Breathe": {
+  "src": "images/canva/breathe.jpg",
+  "source": "canva"
+ },
+ "Rest": {
+  "src": "images/canva/rest.jpg",
+  "source": "canva"
+ },
+ "Lunge": {
+  "src": "images/canva/lunge.jpg",
+  "source": "canva"
+ },
+ "Twist": {
+  "src": "images/canva/twist.jpg",
+  "source": "canva"
+ },
+ "Roll": {
+  "src": "images/canva/roll.jpg",
+  "source": "canva"
+ },
+ "Slide": {
+  "src": "images/canva/slide.jpg",
+  "source": "canva"
+ },
+ "Hinge": {
+  "src": "images/canva/hinge.jpg",
+  "source": "canva"
+ },
+ "Lower": {
+  "src": "images/canva/lower.jpg",
+  "source": "canva"
+ },
+ "Raise": {
+  "src": "images/canva/raise.jpg",
+  "source": "canva"
+ },
+ "Squeeze": {
+  "src": "images/canva/squeeze.jpg",
+  "source": "canva"
+ },
+ "Brace": {
+  "src": "images/canva/brace.jpg",
+  "source": "canva"
+ },
+ "Shoulder Shrugs": {
+  "src": "images/canva/shoulder-shrugs.jpg",
+  "source": "canva"
+ },
+ "Jumping Jacks": {
+  "src": "images/canva/jumping-jacks.jpg",
+  "source": "canva"
+ },
+ "Arm Circles": {
+  "src": "images/canva/arm-circles.jpg",
+  "source": "canva"
+ },
+ "High Knees": {
+  "src": "images/canva/high-knees.jpg",
+  "source": "canva"
+ },
+ "Butt Kicks": {
+  "src": "images/canva/butt-kicks.jpg",
+  "source": "canva"
+ },
+ "Side Steps": {
+  "src": "images/canva/side-steps.jpg",
+  "source": "canva"
+ },
+ "Leg Swings": {
+  "src": "images/canva/leg-swings.jpg",
+  "source": "canva"
+ },
+ "Toe Touches": {
+  "src": "images/canva/toe-touches.jpg",
+  "source": "canva"
+ },
+ "Hip Circles": {
+  "src": "images/canva/hip-circles.jpg",
+  "source": "canva"
+ },
+ "Ankle Rotations": {
+  "src": "images/canva/ankle-rotations.jpg",
+  "source": "canva"
  }
 };
