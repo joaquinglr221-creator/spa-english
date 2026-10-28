@@ -601,7 +601,8 @@ a.btn.center { text-align: center; }
 .uso-bio-lista { display: grid; gap: 6px; }
 .uso-bio-lista:empty { display: none; }
 
-/* Productos de belleza: animación de la ampolleta */
-.prod-video { margin: 0 0 12px; }
-.prod-video video { display: block; width: 100%; max-width: 520px; margin: 0 auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: #dceff4; }
-.prod-video figcaption { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+/* Recuadros y portadas con video de fondo (Productos de belleza) */
+.con-video { background: #dceff4; }
+.con-video .banner-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.con-video::before { z-index: 1; }
+.con-video > :not(.banner-video) { z-index: 2; }
