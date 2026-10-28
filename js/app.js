@@ -761,7 +761,7 @@ function viewAnatomia() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/vocabularios">← Vocabularios</a>
-    <section class="script-hero anat-hero" style="background-image:url('images/anatomia/musculos.jpg')">
+    <section class="script-hero anat-hero" style="background-image:url('images/canva/traps.jpg')">
       <div class="script-hero-text">
         <p class="script-kicker">Human anatomy · Inglés / Español</p>
         <h1>Anatomía del cuerpo humano</h1>
@@ -1174,7 +1174,7 @@ function viewVocabularios() {
         <h1>📚 Vocabularios</h1><p>${VOCAB.length} categorías con audio, ejemplos e imágenes. Toca una para estudiarla.</p></div>
     </section>
     <div class="inicio-grid">
-      ${ANAT.length ? `<a class="script-banner" href="#/anatomia" style="background-image:url('images/anatomia/musculos.jpg')">
+      ${ANAT.length ? `<a class="script-banner" href="#/anatomia" style="background-image:url('images/canva/traps.jpg')">
         <span class="script-banner-text"><b>🫀 Anatomía del cuerpo humano</b><span>${ANAT.length} láminas con partes numeradas</span></span></a>` : ""}
       ${PIEL_D ? `<a class="script-banner piel-banner" href="#/la-piel" style="background-image:url('images/anatomia/piel.jpg')">
         <span class="script-banner-text"><b>🖐️ La piel</b><span>Capas, tipos, colores y ${PIEL_D.afecciones.length} afecciones</span></span></a>` : ""}
