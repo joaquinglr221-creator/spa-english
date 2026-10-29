@@ -1151,6 +1151,7 @@ function pintarPrueba() {
         const r = { aciertos: P.aciertos, total: P.preguntas.length };
         guardarMejor(P.clave, r);
         USO.track("quiz", { category: P.cat.title, item: MODOS[P.modo].nombre, score: r.aciertos, total: r.total });
+        TAREAS.alTerminarPrueba(P.cat.id, P.modo, r); // entrega la tarea de esta prueba, si la tiene
       }
       pintarPrueba();
       window.scrollTo(0, 0);
@@ -1251,6 +1252,7 @@ function viewProductos() {
 function view(catId) {
   const [ruta0, clave0] = catId.split("/");
   if (catId === "pruebas") return viewPruebas();
+  if (ruta0 === "tareas" || catId === "tareas-instructor") return TAREAS.view(catId);
   if (catId === "vocabularios") return viewVocabularios();
   if (catId === "vocab-valet") return viewVocabSeccion("valet");
   if (catId === "vocab-concierge") return viewVocabSeccion("concierge");
@@ -1301,6 +1303,7 @@ function view(catId) {
     </section>
 
     <div class="inicio-grid">
+    ${TAREAS.recuadro()}
     <a class="script-banner vocab-banner con-video" href="#/vocabularios">${vidFondo("vocabularios")}
       <span class="script-banner-text"><small>Inglés / Español · Audio e imágenes</small><b>📚 Vocabularios</b><span>${VOCAB.length} categorías · ${ALL_WORDS.length} palabras, más el vocabulario del Valet y del Spa Concierge</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
@@ -1346,6 +1349,7 @@ function render() {
     return;
   }
   if (id === "pruebas") return;
+  if (id === "tareas" || id.startsWith("tareas/") || id === "tareas-instructor") return TAREAS.montar(id);
   const viewed = VOCAB.find((c) => c.id === id);
   if (viewed) USO.track("category", { category: viewed.title });
   window.scrollTo(0, 0);

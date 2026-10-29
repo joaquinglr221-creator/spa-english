@@ -208,6 +208,7 @@ const USO = (() => {
     if ((await huella("instructor", clave)) !== ACCESO.instructor) return false;
     user = { employee_no: "instructor", full_name: "Instructor", v: 2, instructor: true };
     save(KEY_USER, user);
+    save("tareas-clave-instructor", clave); // para asignar y calificar tareas (js/tareas.js)
     window.dispatchEvent(new Event("uso-login"));
     return true;
   }
@@ -294,7 +295,7 @@ const USO = (() => {
   async function start(options = {}) {
     if (!ACTIVE) return;
     if (options.knownWords) knownWords = options.knownWords;
-    if (!user && (await entrarComoInstructor())) return;
+    if (await entrarComoInstructor()) return; // el enlace de instructor entra aunque hubiera otra sesión
     if (!user) askEmployeeNumber();
     else if (!user.instructor && llaves()[user.employee_no] && (await biometriaDisponible())) {
       // Sesión de alguien con Face ID / huella activado: se pide cada vez que se abre la app.
@@ -334,5 +335,7 @@ const USO = (() => {
     askEmployeeNumber();
   });
 
-  return { active: ACTIVE, hotel: HOTEL, track, start, badge };
+  // Para las tareas (js/tareas.js): quién usa la app y a dónde se mandan.
+  const usuario = () => user;
+  return { active: ACTIVE, hotel: HOTEL, remoteUrl: REMOTE_URL, track, start, badge, usuario };
 })();

@@ -632,3 +632,41 @@ a.btn.center { text-align: center; }
   background: #fff; color: #2b1a38; cursor: pointer;
 }
 @keyframes aviso-sube { from { transform: translateY(20px); opacity: 0; } }
+
+/* Tareas asignadas por el instructor (js/tareas.js) */
+.tareas-banner { background: linear-gradient(135deg, #8e6aa6 0%, #5a3f73 100%); }
+.tareas-banner::before { display: none; }
+.tareas-globo {
+  position: absolute; top: 10px; right: 10px; z-index: 2; min-width: 28px; height: 28px; padding: 0 8px; border-radius: 14px;
+  background: #e5484d; color: #fff; font-weight: 800; font-size: 0.9rem; display: grid; place-items: center; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55);
+}
+.tareas-globo[hidden] { display: none; }
+.tarea-item { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.tarea-ic { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 1.4rem; background: var(--accent-soft, #efe8f3); }
+.tarea-txt { flex: 1; min-width: 0; } .tarea-txt b, .tarea-txt small { display: block; } .tarea-txt small { color: var(--muted); }
+.tarea-estado { flex-shrink: 0; font-size: 0.74rem; font-weight: 700; padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+.e-pend { background: #fff1d6; color: #9a6510; } .e-ent { background: #e3f3e8; color: #2f8a4c; } .e-cal { background: #efe3f7; color: #5b3f78; } .e-ven { background: #fde4e1; color: #c0392b; }
+.tarea-nota { background: #fff7e3; border-left: 4px solid #f2c96b; padding: 8px 10px; border-radius: 8px; font-size: 0.92rem; margin: 8px 0; }
+.tarea-hecha { display: flex; flex-direction: column; gap: 4px; }
+.tarea-palabra { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.tarea-palabra:last-child { border-bottom: 0; } .tarea-palabra b, .tarea-palabra span { display: block; }
+.tarea-chk { font: inherit; font-size: 0.8rem; font-weight: 700; padding: 6px 10px; border-radius: 999px; border: 1.5px solid #2f8a4c; color: #2f8a4c; background: #fff; cursor: pointer; white-space: nowrap; }
+.tarea-chk.on { background: #2f8a4c; color: #fff; }
+.tarea-linea { padding: 8px 10px; border-radius: 10px; margin: 6px 0; background: #f4f2ee; } .tarea-linea.therapist, .tarea-linea.valet, .tarea-linea.concierge, .tarea-linea.trainer { background: var(--accent-soft, #efe8f3); }
+.tarea-linea small, .tarea-linea b, .tarea-linea span { display: block; } .tarea-linea small { color: var(--muted); font-weight: 700; font-size: 0.72rem; } .tarea-linea span { color: var(--muted); font-size: 0.88rem; }
+.tarea-frase { font-size: 1.05rem; font-weight: 700; }
+.tarea-grabar { width: 84px; height: 84px; border-radius: 50%; border: 0; background: #e5484d; color: #fff; font-size: 2rem; cursor: pointer; display: block; margin: 14px auto 6px; box-shadow: 0 6px 18px rgba(229, 72, 77, 0.35); }
+.tarea-grabar.on { animation: tarea-pulso 1s infinite; } @keyframes tarea-pulso { 50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(229, 72, 77, 0.15); } }
+.tarea-texto { min-height: 110px; resize: vertical; font: inherit; }
+.center { text-align: center; } audio { width: 100%; margin-top: 8px; }
+.tareas-form label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--muted); margin: 10px 0 4px; }
+.tareas-form select, .tareas-form input, .tareas-form textarea { width: 100%; }
+.tareas-form select { font: inherit; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+.tareas-form h3 { margin: 0 0 4px; }
+.tarea-avance summary { cursor: pointer; list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.tarea-avance summary .progress { display: block; margin-top: 4px; } .tarea-avance summary .progress span { display: block; height: 100%; background: var(--accent); }
+.tarea-entrega p { margin: 6px 0; } .tarea-respuesta { font-style: italic; background: #f6f4ef; padding: 8px 10px; border-radius: 8px; }
+.tarea-calificar { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 8px; }
+.tareas-toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60; background: #2b1a38; color: #fff; padding: 10px 16px; border-radius: 12px; font-size: 0.9rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); max-width: calc(100% - 32px); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+.tarea-texto { border-radius: 12px; }
