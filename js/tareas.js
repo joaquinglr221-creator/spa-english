@@ -1,10 +1,12 @@
 // Tareas asignadas por el instructor.
 // - El instructor (entra con su enlace/QR, ver scripts/qr_instructor.py) asigna tareas y califica las entregas.
 // - Cada colaborador ve "Mis tareas" en el inicio, las resuelve en la app y las entrega.
-// Todo se guarda en la hoja de Google del instructor (hojas "Tareas", "Entregas" y "Grupos"), por medio del
-// mismo Apps Script del registro de uso (scripts/google-apps-script/registro-uso.gs, función tareas_).
+// Todo se guarda en una hoja de Google del instructor (hojas "Tareas", "Entregas" y "Grupos"), por medio de un
+// Apps Script con el mismo código del registro de uso (scripts/google-apps-script/registro-uso.gs, función tareas_).
 // Usa funciones de js/app.js (esc, speak, speakButtons, toggleKnown, VOCAB, PROGRAMAS…), que se cargan después.
 const TAREAS = (() => {
+  // App web de Apps Script de las tareas (un proyecto aparte del registro de uso; mismo código, registro-uso.gs).
+  const URL_TAREAS = "https://script.google.com/macros/s/AKfycbzef8AwRXaJU2Ro7UcwC4-0s6WiCURF_pRoDvRw-0TLD48h-b58eWL5nCOThqdxYSVtmQ/exec";
   const TIPOS = {
     vocab: { icono: "📚", nombre: "Estudiar vocabulario" },
     prueba: { icono: "🎧", nombre: "Prueba de listening / writing" },
@@ -25,13 +27,13 @@ const TAREAS = (() => {
       localStorage.setItem(k, JSON.stringify(v));
     } catch {}
   };
-  const yo = () => (typeof USO !== "undefined" && USO.active && USO.remoteUrl ? USO.usuario() : null);
+  const yo = () => (typeof USO !== "undefined" && USO.active ? USO.usuario() : null);
   const esInstructor = () => !!(yo() && yo().instructor);
   const hoy = () => new Date().toLocaleDateString("en-CA"); // AAAA-MM-DD en la hora del celular
   const fecha = (f) => (f ? new Date(`${f}T12:00`).toLocaleDateString("es-MX", { day: "numeric", month: "short" }) : "");
 
   async function enviar(datos) {
-    const res = await fetch(USO.remoteUrl, { method: "POST", body: JSON.stringify(datos) });
+    const res = await fetch(URL_TAREAS, { method: "POST", body: JSON.stringify(datos) });
     const r = await res.json();
     if (!r.ok) throw new Error(r.error || "No se pudo completar.");
     return r;
