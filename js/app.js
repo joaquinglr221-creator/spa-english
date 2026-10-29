@@ -761,6 +761,28 @@ function viewGymSub(cual) {
 const RECEP = typeof RECEPCION !== "undefined" ? RECEPCION : null;
 const recepHotel = (id) => RECEP.hoteles.find((h) => h.id === id) || RECEP.hoteles[0];
 
+// Cómo se dice el precio en inglés ("three thousand eight hundred ninety-five pesos, or two hundred five dollars").
+const NUM_EN = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+  "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+const DECENAS_EN = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+function numIngles(n) {
+  if (n < 20) return NUM_EN[n];
+  if (n < 100) return DECENAS_EN[Math.floor(n / 10)] + (n % 10 ? `-${NUM_EN[n % 10]}` : "");
+  if (n < 1000) return `${NUM_EN[Math.floor(n / 100)]} hundred${n % 100 ? ` ${numIngles(n % 100)}` : ""}`;
+  return `${numIngles(Math.floor(n / 1000))} thousand${n % 1000 ? ` ${numIngles(n % 1000)}` : ""}`;
+}
+function precioIngles(it) {
+  const partes = (t) => (t || "").split("|").map((x) => x.trim());
+  const mxn = partes(it.mxn), usd = partes(it.usd), dur = partes(it.dur);
+  const cant = (t, moneda) => (/\d/.test(t) ? `${numIngles(+t.replace(/[^\d]/g, ""))} ${moneda}` : "");
+  const frases = usd.map((u, k) => {
+    const precio = [cant(mxn[k] || "", "pesos"), cant(u, "dollars")].filter(Boolean).join(", or ");
+    const m = usd.length > 1 && (dur[k] || "").match(/\d+/);
+    return m ? `${numIngles(+m[0])} minutes: ${precio}` : precio;
+  });
+  return frases.map((t) => t.charAt(0).toUpperCase() + t.slice(1) + ".").join(" ");
+}
+
 function recepItem(it) {
   const desc = it.descEs || it.descEn
     ? `<details class="recep-desc"><summary>Descripción para el huésped</summary>
@@ -772,6 +794,7 @@ function recepItem(it) {
     ${bilingueAudio(it.es, it.en)}
     <div class="recep-precio">${it.dur ? `<span>⏱ ${esc(it.dur)}</span>` : ""}
       <span><b>${it.mxn === "—" ? "Por confirmar" : esc(it.mxn)}</b> MXN</span><span>${esc(it.usd)} USD</span></div>
+    <div class="recep-pron"><span>🗣️ <i>${esc(precioIngles(it))}</i></span><div class="row">${speakButtons(precioIngles(it))}</div></div>
     ${it.nota ? `<p class="recep-nota">⚠️ ${esc(it.nota)}</p>` : ""}
     ${desc}
   </div>`;
