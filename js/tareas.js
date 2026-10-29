@@ -6,7 +6,7 @@
 // Usa funciones de js/app.js (esc, speak, speakButtons, toggleKnown, VOCAB, PROGRAMAS…), que se cargan después.
 const TAREAS = (() => {
   // App web de Apps Script de las tareas (un proyecto aparte del registro de uso; mismo código, registro-uso.gs).
-  const URL_TAREAS = "https://script.google.com/macros/s/AKfycbzef8AwRXaJU2Ro7UcwC4-0s6WiCURF_pRoDvRw-0TLD48h-b58eWL5nCOThqdxYSVtmQ/exec";
+  const URL_TAREAS = "https://script.google.com/macros/s/AKfycbwcWG8fq1A4pbNZvqrHGBhNL6SYdNR3jJPTi6QKB_DhFRnDOUH8Vy4ogMXD55TccE4lFQ/exec";
   const TIPOS = {
     vocab: { icono: "📚", nombre: "Estudiar vocabulario" },
     prueba: { icono: "🎧", nombre: "Prueba de listening / writing" },
