@@ -668,3 +668,17 @@ a.btn.center { text-align: center; }
 .tareas-toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60; background: #2b1a38; color: #fff; padding: 10px 16px; border-radius: 12px; font-size: 0.9rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); max-width: calc(100% - 32px); }
 .btn:disabled { opacity: 0.5; cursor: default; }
 .tarea-texto { border-radius: 12px; }
+
+/* Avance de las tareas (panel del instructor) */
+.avance-fila { display: flex; align-items: center; gap: 12px; }
+.avance-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.avance-anillo { flex-shrink: 0; }
+.avance-anillo text { font: 700 13px/1 inherit; fill: var(--text); }
+.avance-anillo.grande text { font-size: 17px; }
+.avance-barra { display: flex; gap: 2px; height: 10px; margin-top: 4px; border-radius: 99px; overflow: hidden; background: var(--border); }
+.avance-barra span { min-width: 4px; }
+.s-cal { background: #5b3f78; } .s-ent { background: #a58bb6; } .s-falta { background: var(--border); }
+.avance-leyenda { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.78rem; color: var(--muted); }
+.avance-leyenda i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; }
+.avance-leyenda .s-falta { box-shadow: inset 0 0 0 1px #c9c3b8; }
+.tarea-avance summary::-webkit-details-marker { display: none; }

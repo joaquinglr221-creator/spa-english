@@ -275,24 +275,59 @@ const TAREAS = (() => {
         <button class="btn full center" id="ti-asignar">📤 Asignar tarea</button>
       </section>
 
-      <h3 class="piel-sub">📥 Entregas por calificar · ${porRevisar.length}</h3>
-      ${porRevisar.length ? porRevisar.map((e) => entregaHtml(e, tituloDe(e.tarea))).join("") : `<p class="muted">No hay entregas pendientes de calificar.</p>`}
-
       <h3 class="piel-sub">📊 Tareas activas · ${activas.length}</h3>
+      ${activas.length ? avanceGeneral(activas) : ""}
       ${activas.map((t) => {
-        const quienes = panel.personas.filter((p) => leToca(t, p));
-        const hechas = panel.entregas.filter((e) => e.tarea === t.id);
-        const faltan = quienes.filter((p) => !hechas.some((e) => e.num === p.num));
-        return `<details class="card tarea-avance"><summary><b>${TIPOS[t.tipo].icono} ${esc(t.titulo)}</b>
-            <span class="muted">${esc(paraTexto(t.para))}${t.limite ? ` · vence ${fecha(t.limite)}` : ""} · ${hechas.length}/${quienes.length} entregadas</span>
-            <span class="progress"><span style="width:${quienes.length ? (100 * hechas.length) / quienes.length : 0}%"></span></span></summary>
+        const A = avance(t), hechas = panel.entregas.filter((e) => e.tarea === t.id);
+        return `<details class="card tarea-avance"><summary>
+            <div class="avance-fila">${anillo(A.pct)}
+              <div class="avance-info"><b>${TIPOS[t.tipo].icono} ${esc(t.titulo)}</b>
+                <span class="muted">${esc(paraTexto(t.para))}${t.limite ? ` · vence ${fecha(t.limite)}` : ""}</span>
+                ${barraAvance(A)}</div></div></summary>
           ${t.indicacion ? `<p class="muted">📝 ${esc(t.indicacion)}</p>` : ""}
           ${hechas.map((e) => entregaHtml(e)).join("")}
-          ${faltan.length ? `<p class="muted"><b>Faltan:</b> ${faltan.map((p) => esc(p.nombre)).join(", ")}</p>` : ""}
+          ${A.faltan.length ? `<p class="muted"><b>Faltan:</b> ${A.faltan.map((p) => esc(p.nombre)).join(", ")}</p>` : ""}
           <button class="btn ghost small" data-archivar="${esc(t.id)}">Quitar la tarea</button></details>`;
       }).join("") || `<p class="muted">Aún no hay tareas.</p>`}
+
+      <h3 class="piel-sub">📥 Entregas por calificar · ${porRevisar.length}</h3>
+      ${porRevisar.length ? porRevisar.map((e) => entregaHtml(e, tituloDe(e.tarea))).join("") : `<p class="muted">No hay entregas pendientes de calificar.</p>`}
       <button class="btn ghost full center" id="ti-recargar">🔄 Actualizar</button>
       <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+  }
+
+  // Avance de una tarea: de las personas a quienes les toca, cuántas ya la entregaron (y cuántas están calificadas).
+  function avance(t) {
+    const quienes = panel.personas.filter((p) => leToca(t, p));
+    const entregas = panel.entregas.filter((e) => e.tarea === t.id && quienes.some((p) => p.num === e.num));
+    const cal = entregas.filter((e) => e.calificacion).length;
+    return { total: quienes.length, cal, porCal: entregas.length - cal, entregadas: entregas.length,
+      faltan: quienes.filter((p) => !entregas.some((e) => e.num === p.num)), pct: quienes.length ? Math.round((100 * entregas.length) / quienes.length) : 0 };
+  }
+
+  // Anillo de 0 % a 100 % (entregadas sobre asignadas).
+  function anillo(pct, grande = false) {
+    const r = grande ? 34 : 24, w = grande ? 9 : 7, c = 2 * Math.PI * r, lado = 2 * (r + w);
+    return `<svg class="avance-anillo${grande ? " grande" : ""}" viewBox="0 0 ${lado} ${lado}" width="${lado}" height="${lado}" role="img" aria-label="${pct} % entregado">
+      <circle cx="${lado / 2}" cy="${lado / 2}" r="${r}" fill="none" stroke="var(--border)" stroke-width="${w}"/>
+      ${pct ? `<circle cx="${lado / 2}" cy="${lado / 2}" r="${r}" fill="none" stroke="var(--accent)" stroke-width="${w}" stroke-linecap="round"
+        stroke-dasharray="${(c * Math.min(pct, 100)) / 100} ${c}" transform="rotate(-90 ${lado / 2} ${lado / 2})"/>` : ""}
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central">${pct}%</text></svg>`;
+  }
+
+  // Barra dividida: calificadas · por calificar · faltan (con sus números, no solo el color).
+  function barraAvance(A) {
+    const seg = (n, cls, txt) => (n ? `<span class="${cls}" style="flex:${n}" title="${txt}: ${n} de ${A.total}"></span>` : "");
+    return `<span class="avance-barra">${seg(A.cal, "s-cal", "Calificadas")}${seg(A.porCal, "s-ent", "Por calificar")}${seg(A.faltan.length, "s-falta", "Faltan")}</span>
+      <span class="avance-leyenda"><span><i class="s-cal"></i>${A.cal} ${A.cal === 1 ? "calificada" : "calificadas"}</span><span><i class="s-ent"></i>${A.porCal} por calificar</span><span><i class="s-falta"></i>${A.faltan.length} ${A.faltan.length === 1 ? "falta" : "faltan"}</span></span>`;
+  }
+
+  function avanceGeneral(activas) {
+    const T = activas.map(avance).reduce((s, A) => ({ total: s.total + A.total, cal: s.cal + A.cal, porCal: s.porCal + A.porCal, faltan: [...s.faltan, ...A.faltan] }), { total: 0, cal: 0, porCal: 0, faltan: [] });
+    const pct = T.total ? Math.round((100 * (T.cal + T.porCal)) / T.total) : 0;
+    return `<section class="card avance-general"><div class="avance-fila">${anillo(pct, true)}
+      <div class="avance-info"><b>Avance general</b><span class="muted">${T.cal + T.porCal} de ${T.total} entregas en ${activas.length} ${activas.length === 1 ? "tarea" : "tareas"}</span>
+      ${barraAvance(T)}</div></div></section>`;
   }
 
   function entregaHtml(e, titulo) {
