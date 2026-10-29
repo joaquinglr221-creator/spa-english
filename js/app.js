@@ -240,7 +240,8 @@ function menu() {
 // Logotipos del hotel: solo cuando la app se abre desde el servidor del hotel (/apps/spa/).
 // La versión de internet no los muestra ni los incluye
 // (scripts/publicar.py deja fuera images/logos/).
-const BRANDS = USO.hotel || location.protocol === "file:" // en el hotel o abierta como archivo en la computadora; nunca en internet
+const EN_HOTEL = USO.hotel || location.protocol === "file:"; // en el hotel o abierta como archivo en la computadora; nunca en internet
+const BRANDS = EN_HOTEL
   ? `
     <header class="brands">
       <img src="images/logos/secrets-riviera-cancun.png" alt="Secrets Riviera Cancún Resort & Spa">
@@ -416,6 +417,22 @@ const MATERIAL = {
   "gym-verbs": { title: "Gym Verbs", subtitle: "Verbos del entrenamiento", pages: 8, volver: "#/gym", volverTexto: "← Gym del spa" },
   "valet-spa": { title: "Valet Spa Script", subtitle: "Presentación de vocabulario para valets", pages: 14, volver: "#/valet", volverTexto: "← Valet de spa" },
 };
+// Listas de precios y menús originales de la recepción: traen los logotipos del hotel, así que sus páginas
+// están en images/solo-hotel/ (scripts/publicar.py no las publica) y solo se ven en la app del hotel.
+[
+  ["bre-precios-es", "Lista de precios · Breathless", "Original en español", 2],
+  ["bre-precios-en", "Spa Price List · Breathless", "Original en inglés", 2],
+  ["bre-menu-es", "Menú del spa · Breathless", "Original en español, con la descripción de cada servicio", 8],
+  ["bre-menu-en", "Spa Menu · Breathless", "Original en inglés, con la descripción de cada servicio", 8],
+  ["sec-precios-es", "Lista de precios 2025 · Secrets", "Original en español", 2],
+  ["sec-precios-en", "Price List 2025 · Secrets", "Original en inglés", 2],
+  ["sec-experiencias-es", "Experiencias 2025 · Secrets", "Original en español, con la descripción de cada servicio", 19],
+  ["sec-experiencias-en", "The Spa Experiences 2026 · Secrets", "Original en inglés, con la descripción de cada servicio", 18],
+].forEach(([id, title, subtitle, pages]) => {
+  const hotel = id.startsWith("bre") ? "breathless" : "secrets";
+  MATERIAL[id] = { title, subtitle, pages, dir: `images/solo-hotel/material/${id}`, soloHotel: true, hotel,
+    volver: `#/recepcion/${hotel}`, volverTexto: `← Recepción · ${hotel === "breathless" ? "Breathless" : "Secrets"}` };
+});
 
 const VENTA_ESTANDARES = [
   ["Recomienda después de escuchar: usa lo que el huésped te contó en la consulta.", "Recommend after listening: use what the guest told you in the consultation."],
@@ -740,6 +757,81 @@ function viewGymSub(cual) {
     }).join("")}${pie}`;
 }
 
+// ---------- Recepción del spa: precios de Breathless y Secrets (js/recepcion.js) ----------
+const RECEP = typeof RECEPCION !== "undefined" ? RECEPCION : null;
+const recepHotel = (id) => RECEP.hoteles.find((h) => h.id === id) || RECEP.hoteles[0];
+
+function recepItem(it) {
+  const desc = it.descEs || it.descEn
+    ? `<details class="recep-desc"><summary>Descripción para el huésped</summary>
+        ${it.descEs ? `<p>🇲🇽 ${esc(it.descEs)}</p>` : ""}
+        ${it.descEn ? `<div class="bi-audio"><span class="bi"><span class="bi-en">🇺🇸 ${esc(it.descEn)}</span></span><div class="row">${speakButtons(it.descEn)}</div></div>` : ""}
+      </details>`
+    : "";
+  return `<div class="recep-item">
+    ${bilingueAudio(it.es, it.en)}
+    <div class="recep-precio">${it.dur ? `<span>⏱ ${esc(it.dur)}</span>` : ""}
+      <span><b>${it.mxn === "—" ? "Por confirmar" : esc(it.mxn)}</b> MXN</span><span>${esc(it.usd)} USD</span></div>
+    ${it.nota ? `<p class="recep-nota">⚠️ ${esc(it.nota)}</p>` : ""}
+    ${desc}
+  </div>`;
+}
+
+function recepLista(H, q) {
+  const hit = (it) => !q || [it.es, it.en, it.descEs, it.descEn].some((t) => t && t.toLowerCase().includes(q));
+  const html = H.categorias
+    .map((c) => {
+      const items = c.items.filter(hit);
+      if (!items.length) return "";
+      return `<h3 class="piel-sub">${esc(c.es)} · ${items.length}</h3><p class="muted">🇺🇸 ${esc(c.en)}</p>
+        ${c.infoEs ? `<p class="muted">ℹ️ ${esc(c.infoEs)}</p>` : ""}
+        ${c.notaEs ? `<p class="recep-nota">⚠️ ${esc(c.notaEs)}</p>` : ""}${items.map(recepItem).join("")}`;
+    })
+    .join("");
+  return html || `<p class="muted">No se encontró ese servicio.</p>`;
+}
+
+function viewRecepcion(hotelId) {
+  const H = recepHotel(hotelId);
+  const total = H.categorias.reduce((n, c) => n + c.items.length, 0);
+  const docs = Object.entries(MATERIAL).filter(([, m]) => m.hotel === H.id);
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Inicio</a>
+    <section class="script-hero" style="background-image:url('images/recepcion/portada.jpg')">
+      <div class="script-hero-text">
+        <p class="script-kicker">Recepción del spa · Español / English</p>
+        <h1>Recepción del spa</h1>
+        <p>Precio, duración y descripción de cada servicio en español e inglés, para informar al huésped y reservar.</p>
+      </div>
+    </section>
+    <div class="recep-hoteles">${RECEP.hoteles.map((h) => `<a class="${h.id === H.id ? "on" : ""}" href="#/recepcion/${h.id}"><b>${esc(h.nombre)}</b><small>${esc(h.marca)}</small></a>`).join("")}</div>
+    <a class="btn ghost full" href="#/recepcion-politicas">🛎️ Políticas del spa y preguntas de los huéspedes</a>
+    <input id="recep-buscar" class="search" type="search" placeholder="Buscar un servicio en español o inglés…" autocomplete="off">
+    <p class="muted">${total} servicios de ${esc(H.nombre)}. Toca «Descripción» para explicarle el servicio al huésped.</p>
+    <div id="recep-lista">${recepLista(H, "")}</div>
+    <p class="muted center">${esc(H.pieEs)}<br><em>${esc(H.pieEn)}</em></p>
+    <h2 class="section-title">Documentos originales</h2>
+    ${EN_HOTEL
+      ? `<div class="amp-docs">${docs.map(([id, m]) => `<a class="amp-doc" href="#/material/${id}"><img src="${m.dir}/p01.jpg" alt="" loading="lazy">
+          <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`).join("")}</div>`
+      : `<p class="muted">Las listas de precios y los menús originales se pueden ver en la app del hotel.</p>`}
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+}
+
+function viewRecepPoliticas() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/recepcion">← Recepción del spa</a>
+    <h2 class="section-title">🛎️ Políticas del spa · Spa policies</h2>
+    <p class="muted">Lo que la recepción le explica al huésped, en español e inglés (del menú del spa).</p>
+    ${RECEP.politicas.map((x) => `<section class="card recep-politica">
+      <h3>${esc(x.tEs)} <span class="muted">· ${esc(x.tEn)}</span></h3>
+      ${bilingueAudio(x.es, x.en)}
+    </section>`).join("")}
+    <a class="btn ghost full center" href="#/recepcion">← Volver a Recepción del spa</a>`;
+}
+
 // ---------- Spa Concierge ----------
 const CONC_VOC = typeof CONCIERGE_VOCAB !== "undefined" ? CONCIERGE_VOCAB : [];
 const CONC_KPIS = typeof CONCIERGE_KPIS !== "undefined" ? CONCIERGE_KPIS : [];
@@ -934,7 +1026,10 @@ function marcarParte(n, desdeLista) {
 function viewMaterial(id) {
   const m = MATERIAL[id];
   if (!m) return viewAmpolletas();
-  const pages = Array.from({ length: m.pages }, (_, k) => `images/material/${id}/p${String(k + 1).padStart(2, "0")}.jpg`);
+  if (m.soloHotel && !EN_HOTEL)
+    return `${USO.badge()}<a class="back" href="${m.volver}">${m.volverTexto}</a>
+      <h2 class="section-title">${esc(m.title)}</h2><p class="muted">Este documento solo se puede ver en la app del hotel.</p>`;
+  const pages = Array.from({ length: m.pages }, (_, k) => `${m.dir || `images/material/${id}`}/p${String(k + 1).padStart(2, "0")}.jpg`);
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="${m.volver || "#/ampolletas"}">${m.volverTexto || "← Venta de ampolletas"}</a>
@@ -1260,6 +1355,8 @@ function view(catId) {
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
+  if (RECEP && (ruta0 === "recepcion")) return viewRecepcion(clave0);
+  if (RECEP && catId === "recepcion-politicas") return viewRecepPoliticas();
   if (catId === "gym") return viewGym();
   if (["gym-equipo", "gym-instrucciones", "gym-cuerpo", "gym-vocab"].includes(catId)) return viewGymSub(catId.slice(4));
   if (catId === "anatomia") return viewAnatomia();
@@ -1323,6 +1420,10 @@ function view(catId) {
     </a>` : ""}
     ${PROGRAMAS["concierge-script"].stages.length ? `<a class="script-banner con-video" href="#/concierge">${vidFondo("concierge")}
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
+    ${RECEP ? `<a class="script-banner" href="#/recepcion" style="background-image:url('images/recepcion/portada.jpg')">
+      <span class="script-banner-text"><small>Breathless · Secrets · Español / English</small><b>🛎️ Recepción del spa</b><span>Precios y descripción de ${RECEP.hoteles.reduce((n, h) => n + h.categorias.reduce((k, c) => k + c.items.length, 0), 0)} servicios en los dos hoteles</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     ${GYM_VOC.length ? `<a class="script-banner con-video" href="#/gym">${vidFondo("gym")}
@@ -1401,6 +1502,17 @@ function render() {
   }
   if (id.startsWith("gym-") && !id.startsWith("gym-script")) {
     USO.track("category", { category: `Gym del spa: ${{ "gym-equipo": "Equipo", "gym-instrucciones": "Instrucciones de uso", "gym-cuerpo": "Partes del cuerpo", "gym-vocab": "Vocabulario" }[id]}` });
+    return;
+  }
+  if (RECEP && (id === "recepcion" || id.startsWith("recepcion/"))) {
+    const H = recepHotel(id.split("/")[1]);
+    USO.track("category", { category: `Recepción del spa: precios ${H.nombre}` });
+    const s = $("#recep-buscar");
+    s.oninput = () => ($("#recep-lista").innerHTML = recepLista(H, s.value.trim().toLowerCase()));
+    return;
+  }
+  if (id === "recepcion-politicas") {
+    USO.track("category", { category: "Recepción del spa: políticas" });
     return;
   }
   if (id === "valet" || id === "concierge" || id === "gym" || id === "productos-belleza") {
