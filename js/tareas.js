@@ -32,6 +32,9 @@ const TAREAS = (() => {
   const hoy = () => new Date().toLocaleDateString("en-CA"); // AAAA-MM-DD en la hora del celular
   const fecha = (f) => (f ? new Date(`${f}T12:00`).toLocaleDateString("es-MX", { day: "numeric", month: "short" }) : "");
 
+  // Con apóstrofo al inicio, la hoja de Google guarda el texto tal cual (si no, "10/10" se vuelve fecha y "1001,1002" número).
+  const plano = (s) => (s ? `'${s}` : s);
+
   async function enviar(datos) {
     const res = await fetch(URL_TAREAS, { method: "POST", body: JSON.stringify(datos) });
     const r = await res.json();
@@ -105,7 +108,7 @@ const TAREAS = (() => {
 
   async function entregar(t, resultado, extra = {}) {
     const u = yo();
-    await enviar({ accion: "entregar", employee_no: u.employee_no, tarea: t.id, resultado, ...extra });
+    await enviar({ accion: "entregar", employee_no: u.employee_no, tarea: t.id, ...extra, resultado: plano(resultado), respuesta: plano(extra.respuesta) });
     const d = datos();
     d.entregas = d.entregas.filter((e) => e.tarea !== t.id);
     d.entregas.push({ tarea: t.id, num: u.employee_no, recibido: new Date().toISOString(), resultado, respuesta: extra.respuesta || "", audio: extra.audio ? "1" : "", calificacion: "", comentario: "" });
@@ -414,7 +417,7 @@ const TAREAS = (() => {
       asignar.disabled = true;
       asignar.textContent = "Asignando…";
       try {
-        await enviar({ accion: "asignar", clave: claveInstructor(), para: v("ti-para"), tipo: tp, contenido, titulo, limite: v("ti-limite"), indicacion: v("ti-indicacion") });
+        await enviar({ accion: "asignar", clave: claveInstructor(), para: plano(v("ti-para")), tipo: tp, contenido: plano(contenido), titulo: plano(titulo), limite: v("ti-limite"), indicacion: plano(v("ti-indicacion")) });
         aviso("📤 Tarea asignada. Ya aparece en la app de cada colaborador.");
         panel = null;
         cargarPanel();
@@ -430,7 +433,7 @@ const TAREAS = (() => {
       if (!calificacion) return aviso("Escribe la calificación.");
       b.disabled = true;
       try {
-        await enviar({ accion: "calificar", clave: claveInstructor(), fila: caja.dataset.fila, calificacion, comentario: caja.querySelector("[data-com]").value.trim() });
+        await enviar({ accion: "calificar", clave: claveInstructor(), fila: caja.dataset.fila, calificacion: plano(calificacion), comentario: plano(caja.querySelector("[data-com]").value.trim()) });
         aviso("⭐ Calificación guardada.");
         panel = null;
         cargarPanel();
