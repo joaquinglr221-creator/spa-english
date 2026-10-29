@@ -36,8 +36,18 @@ const TAREAS = (() => {
   const plano = (s) => (s ? `'${s}` : s);
 
   async function enviar(datos) {
-    const res = await fetch(URL_TAREAS, { method: "POST", body: JSON.stringify(datos) });
-    const r = await res.json();
+    // Si la hoja no contesta en 30 s, se avisa (en vez de quedarse "cargando" para siempre).
+    const corte = new AbortController(), reloj = setTimeout(() => corte.abort(), 30000);
+    let r;
+    try {
+      const res = await fetch(URL_TAREAS, { method: "POST", body: JSON.stringify(datos), signal: corte.signal });
+      r = await res.json();
+    } catch (err) {
+      throw new Error(err.name === "AbortError" ? "La hoja de tareas tardó demasiado en responder." : "Sin conexión.");
+    } finally {
+      clearTimeout(reloj);
+    }
+    if (!r.ok && /candado|bloqueo|lock/i.test(r.error || "")) throw new Error("La hoja de tareas está ocupada en este momento.");
     if (!r.ok) throw new Error(r.error || "No se pudo completar.");
     return r;
   }
@@ -224,7 +234,7 @@ const TAREAS = (() => {
     try {
       panel = await enviar({ accion: "panel", clave: claveInstructor() });
     } catch (err) {
-      panelError = err.message === "Failed to fetch" ? "Sin conexión. Intenta de nuevo." : err.message;
+      panelError = `${err.message} Intenta de nuevo.`;
     }
     if (location.hash === "#/tareas-instructor") window.dispatchEvent(new HashChangeEvent("hashchange"));
   }
@@ -238,7 +248,7 @@ const TAREAS = (() => {
         <section class="card"><p>Para asignar tareas, abre una vez más tu <b>enlace o QR de instructor</b> en este celular.</p></section>`;
     if (!panel && !panelError) {
       cargarPanel();
-      return `${BRANDS}${USO.badge()}<a class="back" href="#/">← Inicio</a><h2 class="section-title">👩‍🏫 Tareas del equipo</h2><p class="muted">Cargando las tareas…</p>`;
+      return `${BRANDS}${USO.badge()}<a class="back" href="#/">← Inicio</a><h2 class="section-title">👩‍🏫 Tareas del equipo</h2><p class="muted">Cargando las tareas… (puede tardar unos segundos)</p>`;
     }
     if (panelError)
       return `${BRANDS}${USO.badge()}<a class="back" href="#/">← Inicio</a><h2 class="section-title">👩‍🏫 Tareas del equipo</h2>
@@ -321,7 +331,7 @@ const TAREAS = (() => {
     if (act) act.onclick = () => { act.textContent = "Buscando…"; cargar(true).then(() => (act.textContent = "🔄 Buscar tareas nuevas")); };
     const id = ruta.split("/")[1], t = id && datos().tareas.find((x) => x.id === id);
     if (!t) return cargar();
-    const fallo = (b, txt) => (err) => { b.disabled = false; b.textContent = txt; aviso(err.message === "Failed to fetch" ? "No se pudo enviar. Revisa tu conexión." : err.message); };
+    const fallo = (b, txt) => (err) => { b.disabled = false; b.textContent = txt; aviso(`No se pudo enviar: ${err.message} Intenta de nuevo.`); };
     const listo = () => (location.hash = "#/tareas");
     if (t.tipo === "vocab") {
       const l = listaVocab(t.contenido), b = document.getElementById("tarea-entregar");
