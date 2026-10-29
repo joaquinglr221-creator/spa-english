@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Prueba · Tareas asignadas</title>
+<style>
+  :root { --bg:#f6f4ef; --surface:#fff; --text:#1d2422; --muted:#66706c; --border:#e3dfd6; --accent:#7b5e8c; --accent-dark:#5b3f78; --soft:#efe8f3; --ok:#2f8a4c; --warn:#b7791f; --bad:#c0392b; --gold:#f2c96b; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width:520px; margin:0 auto; padding:14px 16px 60px; }
+  .aviso { background:#fff7e3; border:1px solid #f0d99a; border-radius:12px; padding:8px 12px; font-size:.82rem; margin-bottom:12px; }
+  .vistas { display:flex; gap:6px; background:var(--soft); padding:5px; border-radius:14px; margin-bottom:14px; }
+  .vistas button { flex:1; font:inherit; font-weight:700; padding:10px; border:0; border-radius:10px; background:transparent; color:var(--accent-dark); cursor:pointer; }
+  .vistas button.on { background:var(--accent); color:#fff; }
+  h1 { font-size:1.3rem; margin:4px 0 2px; color:var(--accent-dark); } h2 { font-size:1.05rem; margin:18px 0 8px; color:var(--accent-dark); }
+  .muted { color:var(--muted); font-size:.88rem; } p { margin:0 0 10px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:14px; margin-bottom:10px; box-shadow:0 3px 12px rgba(40,25,50,.06); }
+  label { display:block; font-size:.82rem; font-weight:700; color:var(--muted); margin:8px 0 4px; }
+  select, input, textarea { width:100%; font:inherit; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:#fff; }
+  textarea { min-height:90px; resize:vertical; }
+  .btn { display:block; width:100%; font:inherit; font-weight:700; padding:12px 14px; border-radius:12px; border:0; background:var(--accent); color:#fff; cursor:pointer; margin-top:10px; text-align:center; }
+  .btn.ghost { background:transparent; color:var(--accent); border:1.5px solid var(--accent); }
+  .btn.small { display:inline-block; width:auto; padding:7px 12px; font-size:.85rem; margin:0; }
+  .btn:disabled { opacity:.45; cursor:default; }
+  .row { display:flex; gap:8px; align-items:center; } .between { justify-content:space-between; }
+  .barra { display:flex; align-items:center; gap:10px; background:var(--accent); color:#fff; border-radius:14px; padding:10px 14px; margin-bottom:12px; }
+  .barra small { opacity:.85; display:block; } .barra select { width:auto; margin-left:auto; padding:6px 8px; font-size:.85rem; }
+  .tile { position:relative; display:flex; align-items:flex-end; min-height:110px; padding:14px; border-radius:16px; color:#fff; cursor:pointer;
+    background:linear-gradient(160deg,#a58bb6,#5b3f78); font-weight:800; font-size:1.1rem; box-shadow:0 6px 18px rgba(40,25,50,.18); margin-bottom:14px; }
+  .tile small { display:block; font-weight:500; font-size:.85rem; opacity:.9; }
+  .globo { position:absolute; top:10px; right:10px; min-width:28px; height:28px; padding:0 8px; border-radius:14px; background:#e5484d; color:#fff; font-size:.9rem; display:grid; place-items:center; box-shadow:0 0 0 3px rgba(255,255,255,.6); }
+  .tarea { display:flex; gap:12px; align-items:center; cursor:pointer; }
+  .tarea .ic { flex-shrink:0; width:44px; height:44px; border-radius:12px; display:grid; place-items:center; font-size:1.4rem; background:var(--soft); }
+  .tarea b { display:block; } .tarea .txt { flex:1; min-width:0; }
+  .estado { flex-shrink:0; font-size:.75rem; font-weight:700; padding:4px 8px; border-radius:999px; white-space:nowrap; }
+  .e-pend { background:#fff1d6; color:var(--warn); } .e-ent { background:#e3f3e8; color:var(--ok); } .e-cal { background:#efe3f7; color:var(--accent-dark); } .e-ven { background:#fde4e1; color:var(--bad); }
+  .volver { background:none; border:0; color:var(--accent); font:inherit; font-weight:700; cursor:pointer; padding:0; margin-bottom:8px; }
+  .palabra { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); }
+  .palabra:last-child { border-bottom:0; } .palabra .txt { flex:1; } .palabra b { display:block; }
+  .play { flex-shrink:0; width:38px; height:38px; border-radius:50%; border:1px solid var(--border); background:#fff; cursor:pointer; font-size:1rem; }
+  .chk { flex-shrink:0; font:inherit; font-size:.8rem; font-weight:700; padding:6px 10px; border-radius:999px; border:1.5px solid var(--ok); color:var(--ok); background:#fff; cursor:pointer; }
+  .chk.on { background:var(--ok); color:#fff; }
+  .opciones { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; }
+  .opciones button { font:inherit; padding:10px; border-radius:10px; border:1.5px solid var(--border); background:#fff; cursor:pointer; }
+  .opciones button.bien { border-color:var(--ok); background:#e3f3e8; } .opciones button.mal { border-color:var(--bad); background:#fde4e1; }
+  .linea { padding:8px 10px; border-radius:10px; margin:6px 0; } .linea.t { background:var(--soft); } .linea.h { background:#f1f1ee; }
+  .linea small { font-weight:700; color:var(--muted); display:block; font-size:.72rem; } .linea .es { color:var(--muted); font-size:.85rem; }
+  .grabar { width:88px; height:88px; border-radius:50%; border:0; background:#e5484d; color:#fff; font-size:2rem; cursor:pointer; display:block; margin:10px auto; box-shadow:0 6px 18px rgba(229,72,77,.35); }
+  .grabar.on { animation:pulso 1s infinite; } @keyframes pulso { 50% { transform:scale(1.08); box-shadow:0 0 0 12px rgba(229,72,77,.15); } }
+  .resultado { text-align:center; padding:8px 0; } .resultado .grande { font-size:2.4rem; font-weight:800; color:var(--accent-dark); }
+  .nota { background:#fff7e3; border-left:4px solid var(--gold); padding:8px 10px; border-radius:8px; font-size:.9rem; margin-top:8px; }
+  table { width:100%; border-collapse:collapse; font-size:.82rem; } th { text-align:left; color:var(--muted); font-size:.72rem; padding:6px 4px; border-bottom:2px solid var(--border); }
+  td { padding:8px 4px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .prog { height:8px; background:var(--soft); border-radius:4px; overflow:hidden; margin-top:6px; } .prog i { display:block; height:100%; background:var(--accent); }
+  .toast { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:#2b1a38; color:#fff; padding:10px 16px; border-radius:12px; font-size:.9rem; z-index:9; box-shadow:0 8px 24px rgba(0,0,0,.3); }
+  audio { width:100%; margin-top:6px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="aviso">🧪 <b>Página de prueba.</b> Así funcionarían las tareas en la app. Los datos son de ejemplo y se guardan solo en este navegador.</div>
+  <div class="vistas"><button data-vista="colab" class="on">🧖 Colaborador</button><button data-vista="inst">👩‍🏫 Instructor</button></div>
+  <div id="pantalla"></div>
+</main>
+<script>
+// ---------- Datos de ejemplo ----------
+const PERSONAS = [
+  { num: "1001", nombre: "María López", grupo: "Terapeutas" },
+  { num: "1002", nombre: "Ana Torres", grupo: "Terapeutas" },
+  { num: "2001", nombre: "Luis Pérez", grupo: "Valets" },
+  { num: "3001", nombre: "Carlos Ruiz", grupo: "Gym" },
+];
+const CONTENIDO = {
+  vocab: { icono: "📚", tipo: "Estudiar vocabulario", opciones: {
+    "Productos y aceites": [["Massage oil", "Aceite de masaje"], ["Body lotion", "Crema corporal"], ["Essential oil", "Aceite esencial"], ["Scrub", "Exfoliante"], ["Face mask", "Mascarilla facial"]],
+    "Partes del cuerpo": [["Shoulders", "Hombros"], ["Lower back", "Espalda baja"], ["Neck", "Cuello"], ["Calves", "Pantorrillas"], ["Feet", "Pies"]],
+  } },
+  prueba: { icono: "🎧", tipo: "Prueba de listening", opciones: {
+    "Técnicas de masaje": [["Deep tissue", ["Tejido profundo", "Piedras calientes", "Reflexología", "Drenaje"]], ["Hot stones", ["Piedras calientes", "Toallas calientes", "Aromaterapia", "Exfoliación"]], ["Pressure", ["Presión", "Postura", "Pausa", "Pulso"]], ["Relaxing", ["Relajante", "Refrescante", "Revitalizante", "Reafirmante"]]],
+  } },
+  script: { icono: "🎭", tipo: "Practicar el script", opciones: {
+    "Paso 3: Consulta de salud": [["t", "Before we begin, do you have any injuries or allergies I should know about?", "Antes de empezar, ¿tiene alguna lesión o alergia que deba saber?"], ["h", "I have a little pain in my lower back.", "Tengo un poco de dolor en la espalda baja."], ["t", "Thank you for telling me. I will be very careful with that area.", "Gracias por decírmelo. Tendré mucho cuidado con esa zona."]],
+  } },
+  voz: { icono: "🎙️", tipo: "Grabar tu voz", opciones: {
+    "Bienvenida al huésped": "Good afternoon, Mrs. Smith. Welcome to the spa. My name is María and I will be your therapist today.",
+    "Despedida": "Thank you for visiting us today. Please drink some water and enjoy the rest of your day.",
+  } },
+  pregunta: { icono: "✍️", tipo: "Pregunta abierta", opciones: {
+    "Huésped que llega tarde": "A guest arrives 15 minutes late for a 60-minute massage. What do you say to the guest? Write it in English.",
+    "Recomendar una ampolleta": "A guest says her skin feels very dry after the sun. Which ampoule do you recommend and how do you explain it?",
+  } },
+};
+const hoy = new Date(); const dia = (n) => { const d = new Date(hoy); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+const SEMILLA = {
+  tareas: [
+    { id: 1, para: "Terapeutas", tipo: "vocab", cont: "Productos y aceites", limite: dia(3), nota: "Repasen antes del lunes." },
+    { id: 2, para: "1001", tipo: "voz", cont: "Bienvenida al huésped", limite: dia(2), nota: "Cuida la pronunciación de 'therapist'." },
+    { id: 3, para: "Todos", tipo: "prueba", cont: "Técnicas de masaje", limite: dia(5), nota: "Mínimo 80 %." },
+    { id: 4, para: "Terapeutas", tipo: "script", cont: "Paso 3: Consulta de salud", limite: dia(-1), nota: "" },
+    { id: 5, para: "1001", tipo: "pregunta", cont: "Huésped que llega tarde", limite: dia(4), nota: "" },
+  ],
+  entregas: [
+    { tarea: 1, num: "1002", fecha: dia(0), resultado: "5 de 5 palabras", cal: null },
+    { tarea: 3, num: "2001", fecha: dia(-1), resultado: "75 %", cal: null },
+  ],
+};
+const CLAVE = "demo-tareas-v1";
+let D; try { D = JSON.parse(localStorage.getItem(CLAVE)) || structuredClone(SEMILLA); } catch { D = structuredClone(SEMILLA); }
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(D)); } catch {} };
+const audios = {}; // grabaciones de esta sesión (no se guardan)
+
+// ---------- Utilidades ----------
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const persona = (num) => PERSONAS.find((p) => p.num === num);
+const fecha = (f) => new Date(f + "T12:00").toLocaleDateString("es-MX", { day: "numeric", month: "short" });
+const decir = (t, lento) => { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-US"; u.rate = lento ? 0.7 : 0.95; speechSynthesis.speak(u); };
+const toast = (t) => { const d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2400); };
+const paraMi = (t, num) => t.para === "Todos" || t.para === num || t.para === persona(num).grupo;
+const entregaDe = (id, num) => D.entregas.find((e) => e.tarea === id && e.num === num);
+function estado(t, num) {
+  const e = entregaDe(t.id, num);
+  if (e && e.cal) return ["e-cal", "⭐ Calificada"];
+  if (e) return ["e-ent", "✅ Entregada"];
+  if (t.limite < dia(0)) return ["e-ven", "⚠️ Vencida"];
+  return ["e-pend", "⏳ Pendiente"];
+}
+const paraTexto = (p) => (persona(p) ? persona(p).nombre : p);
+
+// ---------- Vista del colaborador ----------
+let yo = "1001", abierta = null;
+function vistaColab() {
+  const mias = D.tareas.filter((t) => paraMi(t, yo));
+  const pend = mias.filter((t) => !entregaDe(t.id, yo)).length;
+  if (abierta) return vistaTarea(D.tareas.find((t) => t.id === abierta));
+  $("#pantalla").innerHTML = `
+    <div class="barra"><div><small>Estás estudiando como</small><b>${esc(persona(yo).nombre)}</b></div>
+      <select id="yo">${PERSONAS.map((p) => `<option value="${p.num}"${p.num === yo ? " selected" : ""}>${esc(p.nombre)} · ${p.grupo}</option>`).join("")}</select></div>
+    <p class="muted">Así se vería el inicio de la app con el recuadro nuevo:</p>
+    <div class="tile" id="ir-tareas">${pend ? `<span class="globo">${pend}</span>` : ""}<div>📋 Mis tareas<small>${pend ? `Tienes ${pend} ${pend === 1 ? "tarea pendiente" : "tareas pendientes"}` : "¡Estás al día!"}</small></div></div>
+    <h2>📋 Mis tareas</h2>
+    ${mias.length ? mias.sort((a, b) => a.limite.localeCompare(b.limite)).map((t) => {
+      const [c, txt] = estado(t, yo), C = CONTENIDO[t.tipo];
+      return `<div class="card tarea" data-t="${t.id}"><span class="ic">${C.icono}</span>
+        <div class="txt"><b>${esc(t.cont)}</b><span class="muted">${C.tipo} · vence ${fecha(t.limite)}</span></div><span class="estado ${c}">${txt}</span></div>`;
+    }).join("") : `<p class="muted">No tienes tareas asignadas.</p>`}`;
+  $("#yo").onchange = (e) => { yo = e.target.value; pintar(); };
+  $("#ir-tareas").onclick = () => document.querySelector("h2").scrollIntoView({ behavior: "smooth" });
+  document.querySelectorAll("[data-t]").forEach((el) => (el.onclick = () => { abierta = +el.dataset.t; pintar(); }));
+}
+
+function entregar(t, resultado, extra = {}) {
+  D.entregas = D.entregas.filter((e) => !(e.tarea === t.id && e.num === yo));
+  D.entregas.push({ tarea: t.id, num: yo, fecha: dia(0), resultado, cal: null, ...extra });
+  guardar();
+  toast("✅ Tarea entregada. Tu instructor ya la puede ver.");
+  abierta = null;
+  pintar();
+}
+
+function vistaTarea(t) {
+  const C = CONTENIDO[t.tipo], datos = C.opciones[t.cont], e = entregaDe(t.id, yo);
+  let cuerpo = "";
+  if (t.tipo === "vocab")
+    cuerpo = `<p class="muted">Escucha cada palabra y márcala cuando ya la sepas. Al marcar todas, la tarea se entrega sola.</p><div class="card">${datos.map(([en, es], i) => `
+      <div class="palabra"><button class="play" data-decir="${esc(en)}">🔊</button><div class="txt"><b>${esc(en)}</b><span class="muted">${esc(es)}</span></div>
+      <button class="chk" data-chk="${i}">✓ La sé</button></div>`).join("")}</div>`;
+  if (t.tipo === "prueba")
+    cuerpo = `<p class="muted">Escucha la palabra y elige su significado. ${esc(t.nota)}</p><div id="prueba"></div>`;
+  if (t.tipo === "script")
+    cuerpo = `<p class="muted">Escucha el diálogo, repítelo en voz alta y márcalo como practicado.</p><div class="card">${datos.map(([w, en, es]) => `
+      <div class="linea ${w}"><small>${w === "t" ? "🧖 Terapeuta" : "👤 Huésped"}</small><div class="row between"><b>${esc(en)}</b><button class="play" data-decir="${esc(en)}">🔊</button></div><span class="es">${esc(es)}</span></div>`).join("")}
+      <button class="btn" id="practicado">✓ Ya lo practiqué</button></div>`;
+  if (t.tipo === "voz")
+    cuerpo = `<p class="muted">Escucha el modelo, luego graba tu voz diciendo la frase.</p><div class="card">
+      <div class="row between"><b>${esc(datos)}</b><button class="play" data-decir="${esc(datos)}">🔊</button></div>
+      <button class="grabar" id="grabar" title="Grabar">🎙️</button><p class="muted" id="g-estado" style="text-align:center">Toca el micrófono para grabar</p>
+      <audio id="g-audio" controls hidden></audio><button class="btn" id="g-enviar" disabled>Enviar mi grabación</button></div>`;
+  if (t.tipo === "pregunta")
+    cuerpo = `<div class="card"><b>${esc(datos)}</b><label>Tu respuesta en inglés</label><textarea id="resp" placeholder="Write your answer here…"></textarea>
+      <button class="btn" id="enviar-resp">Enviar respuesta</button></div>`;
+  $("#pantalla").innerHTML = `<button class="volver" id="volver">← Mis tareas</button>
+    <h1>${C.icono} ${esc(t.cont)}</h1><p class="muted">${C.tipo} · vence ${fecha(t.limite)} · asignada a ${esc(paraTexto(t.para))}</p>
+    ${t.nota ? `<div class="nota">📝 <b>Indicación del instructor:</b> ${esc(t.nota)}</div>` : ""}
+    ${e ? `<div class="card" style="margin-top:10px"><b>✅ Entregada el ${fecha(e.fecha)}</b><p class="muted" style="margin:4px 0 0">Resultado: ${esc(e.resultado)}</p>
+      ${e.cal ? `<div class="nota">⭐ <b>Calificación: ${esc(e.cal)}</b>${e.coment ? `<br>💬 ${esc(e.coment)}` : ""}</div>` : `<p class="muted" style="margin:6px 0 0">Tu instructor todavía no la califica.</p>`}
+      <p class="muted" style="margin:8px 0 0">Puedes volver a hacerla abajo; se reemplaza tu entrega.</p></div>` : ""}
+    <div style="margin-top:12px">${cuerpo}</div>`;
+  $("#volver").onclick = () => { abierta = null; pintar(); };
+  document.querySelectorAll("[data-decir]").forEach((b) => (b.onclick = () => decir(b.dataset.decir)));
+  if (t.tipo === "vocab")
+    document.querySelectorAll("[data-chk]").forEach((b) => (b.onclick = () => {
+      b.classList.toggle("on");
+      const n = document.querySelectorAll(".chk.on").length;
+      if (n === datos.length) setTimeout(() => entregar(t, `${n} de ${n} palabras`), 400);
+    }));
+  if (t.tipo === "prueba") prueba(t, datos);
+  if (t.tipo === "script") $("#practicado").onclick = () => entregar(t, "Diálogo practicado");
+  if (t.tipo === "pregunta") $("#enviar-resp").onclick = () => {
+    const r = $("#resp").value.trim(); if (!r) return toast("Escribe tu respuesta primero.");
+    entregar(t, "Respuesta escrita", { texto: r });
+  };
+  if (t.tipo === "voz") grabadora(t);
+}
+
+function prueba(t, datos) {
+  let i = 0, bien = 0;
+  const paso = () => {
+    if (i === datos.length) {
+      const pct = Math.round((100 * bien) / datos.length);
+      $("#prueba").innerHTML = `<div class="card resultado"><div class="grande">${pct} %</div><p>${bien} de ${datos.length} correctas</p>
+        <p class="muted">${pct >= 80 ? "¡Aprobada! 🎉" : "Te faltó poco: el mínimo es 80 %."}</p><button class="btn" id="fin">Entregar resultado</button></div>`;
+      $("#fin").onclick = () => entregar(t, `${pct} %`);
+      return;
+    }
+    const [en, ops] = datos[i], mezcla = [...ops].sort(() => Math.random() - 0.5);
+    $("#prueba").innerHTML = `<div class="card"><div class="row between"><b>Pregunta ${i + 1} de ${datos.length}</b><button class="play" id="oir">🔊</button></div>
+      <div class="opciones">${mezcla.map((o) => `<button data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`;
+    $("#oir").onclick = () => decir(en);
+    decir(en);
+    document.querySelectorAll("[data-o]").forEach((b) => (b.onclick = () => {
+      const ok = b.dataset.o === ops[0]; if (ok) bien++;
+      b.classList.add(ok ? "bien" : "mal");
+      if (!ok) document.querySelector(`[data-o="${CSS.escape(ops[0])}"]`).classList.add("bien");
+      setTimeout(() => { i++; paso(); }, 900);
+    }));
+  };
+  paso();
+}
+
+function grabadora(t) {
+  let rec = null, partes = [], url = null;
+  const est = $("#g-estado"), boton = $("#grabar");
+  boton.onclick = async () => {
+    if (rec && rec.state === "recording") return rec.stop();
+    try {
+      const flujo = await navigator.mediaDevices.getUserMedia({ audio: true });
+      rec = new MediaRecorder(flujo); partes = [];
+      rec.ondataavailable = (e) => partes.push(e.data);
+      rec.onstop = () => {
+        flujo.getTracks().forEach((x) => x.stop());
+        url = URL.createObjectURL(new Blob(partes, { type: rec.mimeType }));
+        $("#g-audio").src = url; $("#g-audio").hidden = false; $("#g-enviar").disabled = false;
+        boton.classList.remove("on"); boton.textContent = "🎙️"; est.textContent = "Escúchate. Si no te gustó, vuelve a grabar.";
+      };
+      rec.start(); boton.classList.add("on"); boton.textContent = "⏹"; est.textContent = "Grabando… toca para terminar";
+    } catch {
+      est.textContent = "No se pudo usar el micrófono. Revisa el permiso del navegador.";
+    }
+  };
+  $("#g-enviar").onclick = () => { audios[`${t.id}-${yo}`] = url; entregar(t, "Grabación de voz", { audio: true }); };
+}
+
+// ---------- Vista del instructor ----------
+function vistaInst() {
+  const opcionesPara = ["Todos", "Terapeutas", "Valets", "Gym", ...PERSONAS.map((p) => p.num)];
+  $("#pantalla").innerHTML = `
+    <h1>👩‍🏫 Asignar una tarea</h1><p class="muted">En la app real esto también se podría hacer desde tu Google Sheet.</p>
+    <div class="card">
+      <label>Para</label><select id="a-para">${opcionesPara.map((p) => `<option value="${p}">${esc(persona(p) ? `${persona(p).nombre} (${persona(p).grupo})` : p === "Todos" ? "Todos los colaboradores" : `Grupo: ${p}`)}</option>`).join("")}</select>
+      <label>Tipo de tarea</label><select id="a-tipo">${Object.entries(CONTENIDO).map(([k, c]) => `<option value="${k}">${c.icono} ${c.tipo}</option>`).join("")}</select>
+      <label>Contenido</label><select id="a-cont"></select>
+      <label>Fecha límite</label><input type="date" id="a-lim" value="${dia(7)}">
+      <label>Indicación (opcional)</label><input id="a-nota" placeholder="Ej. Mínimo 80 %">
+      <button class="btn" id="asignar">📤 Asignar tarea</button>
+    </div>
+    <h2>📊 Avance de las tareas</h2>
+    ${D.tareas.map((t) => {
+      const quienes = PERSONAS.filter((p) => paraMi(t, p.num)), hechas = quienes.filter((p) => entregaDe(t.id, p.num)).length;
+      return `<div class="card"><div class="row between"><b>${CONTENIDO[t.tipo].icono} ${esc(t.cont)}</b><span class="muted">${hechas}/${quienes.length}</span></div>
+        <span class="muted">${esc(paraTexto(t.para))} · vence ${fecha(t.limite)}</span><div class="prog"><i style="width:${quienes.length ? (100 * hechas) / quienes.length : 0}%"></i></div></div>`;
+    }).join("")}
+    <h2>📥 Entregas por revisar</h2>
+    <div class="card"><table><tr><th>Colaborador</th><th>Tarea</th><th>Resultado</th><th></th></tr>
+    ${[...D.entregas].reverse().map((e) => {
+      const t = D.tareas.find((x) => x.id === e.tarea), p = persona(e.num); if (!t) return "";
+      const k = `${e.tarea}-${e.num}`;
+      return `<tr><td><b>${esc(p.nombre)}</b><br><span class="muted">${p.grupo} · ${fecha(e.fecha)}</span></td><td>${CONTENIDO[t.tipo].icono} ${esc(t.cont)}</td>
+        <td>${esc(e.resultado)}${e.texto ? `<br><i>“${esc(e.texto)}”</i>` : ""}${e.audio ? (audios[k] ? `<audio controls src="${audios[k]}"></audio>` : `<br><span class="muted">(audio de ejemplo)</span>`) : ""}
+        ${e.cal ? `<br>⭐ <b>${esc(e.cal)}</b>${e.coment ? ` · ${esc(e.coment)}` : ""}` : ""}</td>
+        <td><button class="btn small ghost" data-cal="${k}">${e.cal ? "Editar" : "Calificar"}</button></td></tr>`;
+    }).join("") || `<tr><td colspan="4" class="muted">Aún no hay entregas.</td></tr>`}</table></div>
+    <button class="btn ghost" id="reiniciar">Reiniciar la prueba</button>`;
+  const llenar = () => { $("#a-cont").innerHTML = Object.keys(CONTENIDO[$("#a-tipo").value].opciones).map((o) => `<option>${esc(o)}</option>`).join(""); };
+  $("#a-tipo").onchange = llenar; llenar();
+  $("#asignar").onclick = () => {
+    D.tareas.push({ id: Date.now(), para: $("#a-para").value, tipo: $("#a-tipo").value, cont: $("#a-cont").value, limite: $("#a-lim").value, nota: $("#a-nota").value.trim() });
+    guardar(); toast("📤 Tarea asignada. Ya aparece en la app de cada colaborador."); pintar();
+  };
+  document.querySelectorAll("[data-cal]").forEach((b) => (b.onclick = () => {
+    const [id, num] = b.dataset.cal.split("-"), e = entregaDe(+id, num);
+    const cal = prompt("Calificación (ej. 9/10 o Excelente):", e.cal || ""); if (cal === null) return;
+    const coment = prompt("Comentario para el colaborador (opcional):", e.coment || "");
+    e.cal = cal.trim() || null; e.coment = (coment || "").trim(); guardar(); toast("⭐ Calificación enviada."); pintar();
+  }));
+  $("#reiniciar").onclick = () => { D = structuredClone(SEMILLA); guardar(); toast("Prueba reiniciada."); pintar(); };
+}
+
+// ---------- Cambiar de vista ----------
+let vista = "colab";
+function pintar() { (vista === "colab" ? vistaColab : vistaInst)(); window.scrollTo(0, 0); }
+document.querySelectorAll("[data-vista]").forEach((b) => (b.onclick = () => {
+  vista = b.dataset.vista; abierta = null;
+  document.querySelectorAll("[data-vista]").forEach((x) => x.classList.toggle("on", x === b));
+  pintar();
+}));
+pintar();
+</script>
+</body>
+</html>
