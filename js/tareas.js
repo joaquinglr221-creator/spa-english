@@ -130,18 +130,20 @@ const TAREAS = (() => {
   function recuadro() {
     if (!yo()) return "";
     if (esInstructor())
-      return `<a class="script-banner tareas-banner" href="#/tareas-instructor">
+      return `<a class="script-banner con-video" href="#/tareas-instructor">${vidFondo("tareas")}
         <span class="script-banner-text"><small>Instructor</small><b>👩‍🏫 Tareas del equipo</b><span>Asigna tareas, revisa entregas y califica</span></span>
         <span class="script-banner-go" aria-hidden="true">→</span></a>`;
     cargar();
     const n = pendientes();
-    return `<a class="script-banner tareas-banner" href="#/tareas">
+    return `<a class="script-banner con-video" href="#/tareas">${vidFondo("tareas")}
       <span class="tareas-globo" data-tareas-globo ${n ? "" : "hidden"}>${n}</span>
       <span class="script-banner-text"><small>De tu instructor de inglés</small><b>📋 Mis tareas</b><span data-tareas-sub>${textoPendientes(n)}</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span></a>`;
   }
 
   // ---------- Vistas ----------
+  const portada = (titulo, kicker, texto) => `<section class="script-hero con-video">${vidFondo("tareas")}
+    <div class="script-hero-text"><p class="script-kicker">${kicker}</p><h1>${titulo}</h1><p>${texto}</p></div></section>`;
   function view(ruta) {
     if (!yo()) return `${BRANDS}<a class="back" href="#/">← Inicio</a><p class="muted">Entra a la app con tu número y PIN para ver tus tareas.</p>`;
     if (ruta === "tareas-instructor") return esInstructor() ? viewInstructor() : view("tareas");
@@ -156,8 +158,7 @@ const TAREAS = (() => {
     return `${BRANDS}
       ${USO.badge()}
       <a class="back" href="#/">← Inicio</a>
-      <h2 class="section-title">📋 Mis tareas</h2>
-      <p class="muted">Las tareas que te asigna tu instructor de inglés. Resuélvelas aquí y se entregan solas.</p>
+      ${portada("📋 Mis tareas", "De tu instructor de inglés", "Las tareas que te asigna tu instructor. Resuélvelas aquí y se entregan solas.")}
       ${lista.length ? lista.map((t) => {
         const [c, txt] = estado(t);
         return `<a class="card tarea-item" href="#/tareas/${esc(t.id)}"><span class="tarea-ic">${TIPOS[t.tipo].icono}</span>
@@ -249,7 +250,7 @@ const TAREAS = (() => {
     return `${BRANDS}
       ${USO.badge()}
       <a class="back" href="#/">← Inicio</a>
-      <h2 class="section-title">👩‍🏫 Tareas del equipo</h2>
+      ${portada("👩‍🏫 Tareas del equipo", "Instructor", "Asigna tareas, revisa las entregas y califica.")}
       <section class="card tareas-form">
         <h3>Asignar una tarea</h3>
         <label>Para</label>

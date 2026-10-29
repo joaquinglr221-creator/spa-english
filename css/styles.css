@@ -634,8 +634,6 @@ a.btn.center { text-align: center; }
 @keyframes aviso-sube { from { transform: translateY(20px); opacity: 0; } }
 
 /* Tareas asignadas por el instructor (js/tareas.js) */
-.tareas-banner { background: linear-gradient(135deg, #8e6aa6 0%, #5a3f73 100%); }
-.tareas-banner::before { display: none; }
 .tareas-globo {
   position: absolute; top: 10px; right: 10px; z-index: 2; min-width: 28px; height: 28px; padding: 0 8px; border-radius: 14px;
   background: #e5484d; color: #fff; font-weight: 800; font-size: 0.9rem; display: grid; place-items: center; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55);
