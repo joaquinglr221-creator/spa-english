@@ -260,7 +260,7 @@ const vidFondo = (n) =>
 const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
 const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/videos.js (solo el script de servicio)
 let practiceScript = false;
-const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", valet: "Spa Valet · Valet de spa", concierge: "Spa Concierge · Concierge del spa", trainer: "Gym Trainer · Entrenador" };
+const WHO = { therapist: "Therapist · Terapeuta", guest: "Guest · Huésped", valet: "Spa Valet · Valet de spa", concierge: "Spa Concierge · Concierge del spa", trainer: "Gym Trainer · Entrenador", recep: "Spa Reception · Recepción del spa" };
 
 const PROGRAMAS = {
   script: {
@@ -783,7 +783,7 @@ function precioIngles(it) {
   return frases.map((t) => t.charAt(0).toUpperCase() + t.slice(1) + ".").join(" ");
 }
 
-function recepItem(it) {
+function recepItem(it, guion) {
   const desc = it.descEs || it.descEn
     ? `<details class="recep-desc"><summary>Descripción para el huésped</summary>
         ${it.descEs ? `<p>🇲🇽 ${esc(it.descEs)}</p>` : ""}
@@ -797,18 +797,19 @@ function recepItem(it) {
     <div class="recep-pron"><span>🗣️ <i>${esc(precioIngles(it))}</i></span><div class="row">${speakButtons(precioIngles(it))}</div></div>
     ${it.nota ? `<p class="recep-nota">⚠️ ${esc(it.nota)}</p>` : ""}
     ${desc}
+    <a class="btn small recep-guion-btn" href="${guion}">🗣️ Script de venta</a>
   </div>`;
 }
 
 function recepLista(H, q) {
   const hit = (it) => !q || [it.es, it.en, it.descEs, it.descEn].some((t) => t && t.toLowerCase().includes(q));
   const html = H.categorias
-    .map((c) => {
-      const items = c.items.filter(hit);
+    .map((c, ci) => {
+      const items = c.items.map((it, ii) => [it, ii]).filter(([it]) => hit(it));
       if (!items.length) return "";
       return `<h3 class="piel-sub">${esc(c.es)} · ${items.length}</h3><p class="muted">🇺🇸 ${esc(c.en)}</p>
         ${c.infoEs ? `<p class="muted">ℹ️ ${esc(c.infoEs)}</p>` : ""}
-        ${c.notaEs ? `<p class="recep-nota">⚠️ ${esc(c.notaEs)}</p>` : ""}${items.map(recepItem).join("")}`;
+        ${c.notaEs ? `<p class="recep-nota">⚠️ ${esc(c.notaEs)}</p>` : ""}${items.map(([it, ii]) => recepItem(it, `#/recepcion/${H.id}/${ci}-${ii}`)).join("")}`;
     })
     .join("");
   return html || `<p class="muted">No se encontró ese servicio.</p>`;
@@ -840,6 +841,92 @@ function viewRecepcion(hotelId) {
           <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`).join("")}</div>`
       : `<p class="muted">Las listas de precios y los menús originales se pueden ver en la app del hotel.</p>`}
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
+}
+
+// Script de venta de un servicio: el tipo de servicio (RECEPCION.guiones) da la pregunta, los beneficios y el
+// complemento; el servicio da su nombre, descripción, duración y precio; el hotel, sus políticas.
+function recepGuion(H, c, it) {
+  const G = RECEP.guiones[c.tipo];
+  const r = (es, en) => ({ who: "recep", es, en }), g = (es, en) => ({ who: "guest", es, en });
+  const largo = (t) => !!t && t.length > 60;
+  const sinLema = (t) => t.replace(/^[^.]*·[^.]*\.\s*/, ""); // quita "Repara · Ilumina · Revitaliza."
+  const conDesc = largo(it.descEs) && largo(it.descEn);
+  const partes = (t) => (t || "").split("|").map((x) => x.trim());
+  const mxn = partes(it.mxn), usd = partes(it.usd), dur = partes(it.dur).map((d) => (/^\d+$/.test(d) ? `${d} min` : d)); // "50 | 80 min"
+  const minutos = (it.dur.match(/\d+/g) || []).map(Number);
+  const bajo = (t) => t.charAt(0).toLowerCase() + t.slice(1);
+  const precioEs = (k) => (mxn[k] && mxn[k] !== "—" ? `${mxn[k]} pesos o ${usd[k]} dólares` : `${usd[k]} dólares`);
+  let costoEn, costoEs;
+  if (usd.length > 1) {
+    costoEn = `We offer it in ${minutos.map(numIngles).join(" or ")} minutes. ${precioIngles(it)}`;
+    costoEs = `Lo tenemos de ${dur.join(" y ")}: ${usd.map((_, k) => `${dur[k]}, ${precioEs(k)}`).join("; ")}.`;
+  } else if (/día/.test(it.dur)) {
+    costoEn = `It's valid for ${numIngles(minutos[0])} days, and the price is ${bajo(precioIngles(it))}`;
+    costoEs = `Es válido por ${it.dur} y su precio es de ${precioEs(0)}.`;
+  } else if (minutos.length) {
+    costoEn = `It lasts ${numIngles(minutos[0])} minutes, and the price is ${bajo(precioIngles(it))}`;
+    costoEs = `Dura ${it.dur} y su precio es de ${precioEs(0)}.`;
+  } else {
+    costoEn = `The price is ${bajo(precioIngles(it))}`;
+    costoEs = `Su precio es de ${precioEs(0)}.`;
+  }
+  if (H.impuestosEn) [costoEn, costoEs] = [`${costoEn} ${H.impuestosEn}`, `${costoEs} ${H.impuestosEs}`];
+  if (H.pagoEn) [costoEn, costoEs] = [`${costoEn} ${H.pagoEn}`, `${costoEs} ${H.pagoEs}`];
+  return [
+    r(`¡Buenos días! Bienvenido al spa. ${G.preguntaEs}`, `Good morning! Welcome to the spa. ${G.preguntaEn}`),
+    g(G.respuestaEs, G.respuestaEn),
+    r(`Le recomiendo «${it.es}». ${conDesc ? sinLema(it.descEs) : G.beneficioEs}`, `I'd recommend our ${it.en}. ${conDesc ? sinLema(it.descEn) : G.beneficioEn}`),
+    ...(it.descEs && it.descEn && !conDesc && !largo(it.descEn) ? [r(`Le comento: ${it.descEs}`, `Please note: ${it.descEn}`)] : []),
+    g("Suena muy bien. ¿Cuánto dura y cuánto cuesta?", "That sounds great. How long is it, and how much is it?"),
+    r(costoEs, costoEn),
+    ...(G.salud ? [
+      r("Antes de reservarlo, ¿tiene alguna alergia, condición médica o embarazo que debamos saber?",
+        "Before I book it, do you have any allergies, medical conditions or pregnancy we should know about?"),
+      g("No, ninguna. Gracias por preguntar.", "No, none. Thank you for asking."),
+    ] : []),
+    r(`${G.complementoEs} ¿Le gustaría que se lo reserve? ¿Qué horario le queda mejor?`,
+      `${G.complementoEn} Would you like me to book it for you? What time works best for you?`),
+    g("Sí, por favor. Mañana a las diez.", "Yes, please. Tomorrow at ten."),
+    r(`¡Perfecto! Queda reservado para mañana a las diez. ${H.citaEs}`, `Wonderful! You're all set for tomorrow at ten. ${H.citaEn}`),
+    g("Muchas gracias.", "Thank you so much."),
+    r("Con mucho gusto. ¡Que disfrute su experiencia!", "It's my pleasure. Enjoy your experience!"),
+  ];
+}
+
+// Los servicios de un hotel en orden, con la dirección de su script ("#/recepcion/breathless/0-0").
+const recepServicios = (H) => H.categorias.flatMap((c, ci) => c.items.map((it, ii) => ({ c, it, clave: `${ci}-${ii}` })));
+
+function viewRecepGuion(hotelId, clave) {
+  const H = recepHotel(hotelId);
+  const S = recepServicios(H);
+  const i = S.findIndex((x) => x.clave === clave);
+  if (i < 0) return viewRecepcion(H.id);
+  const { c, it } = S[i], prev = S[i - 1], next = S[i + 1];
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/recepcion/${H.id}">← Recepción · ${esc(H.nombre)}</a>
+    <section class="card">
+      <p class="label">Script de venta · ${esc(H.nombre)} · ${esc(c.es)}</p>
+      <h2 class="stage-title">${esc(it.en)}</h2>
+      <p class="muted">${esc(it.es)}</p>
+      <div class="recep-precio">${it.dur ? `<span>⏱ ${esc(it.dur)}</span>` : ""}
+        <span><b>${it.mxn === "—" ? "Por confirmar" : esc(it.mxn)}</b> MXN</span><span>${esc(it.usd)} USD</span></div>
+      ${it.nota ? `<p class="recep-nota">⚠️ ${esc(it.nota)}</p>` : ""}
+      <p class="muted">Descubre la necesidad → Recomienda → Duración y precio → ${RECEP.guiones[c.tipo].salud ? "Salud → " : ""}Complemento → Reserva → Confirma</p>
+    </section>
+    <div class="row between">
+      <button class="btn small" id="play-stage">▶ Escuchar todo el diálogo</button>
+      <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>
+    </div>
+    <div class="dialogue ${practiceScript ? "practice" : ""}">${dialogueHtml(recepGuion(H, c, it))}</div>
+    <section class="card recep-politica">
+      <h3>Si el huésped dice que no <span class="muted">· If the guest says no</span></h3>
+      ${bilingueAudio(VENTA_NO[1], VENTA_NO[0])}
+    </section>
+    <div class="row between stage-nav">
+      ${prev ? `<a class="btn ghost small" href="#/recepcion/${H.id}/${prev.clave}">← ${esc(prev.it.es)}</a>` : "<span></span>"}
+      ${next ? `<a class="btn small" href="#/recepcion/${H.id}/${next.clave}">${esc(next.it.es)} →</a>` : `<a class="btn small" href="#/recepcion/${H.id}">Terminar ✓</a>`}
+    </div>`;
 }
 
 function viewRecepPoliticas() {
@@ -1378,7 +1465,7 @@ function view(catId) {
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
-  if (RECEP && (ruta0 === "recepcion")) return viewRecepcion(clave0);
+  if (RECEP && ruta0 === "recepcion") return catId.split("/")[2] ? viewRecepGuion(clave0, catId.split("/")[2]) : viewRecepcion(clave0);
   if (RECEP && catId === "recepcion-politicas") return viewRecepPoliticas();
   if (catId === "gym") return viewGym();
   if (["gym-equipo", "gym-instrucciones", "gym-cuerpo", "gym-vocab"].includes(catId)) return viewGymSub(catId.slice(4));
@@ -1529,6 +1616,16 @@ function render() {
   }
   if (RECEP && (id === "recepcion" || id.startsWith("recepcion/"))) {
     const H = recepHotel(id.split("/")[1]);
+    const g = recepServicios(H).find((x) => x.clave === id.split("/")[2]);
+    if (g) {
+      USO.track("script", { category: `Recepción ${H.nombre}: script de venta de ${g.it.es}` });
+      $("#play-stage").onclick = () => speakAll(recepGuion(H, g.c, g.it).map((l) => l.en));
+      $("#practice-toggle").onchange = (e) => {
+        practiceScript = e.target.checked;
+        $(".dialogue").classList.toggle("practice", practiceScript);
+      };
+      return;
+    }
     USO.track("category", { category: `Recepción del spa: precios ${H.nombre}` });
     const s = $("#recep-buscar");
     s.oninput = () => ($("#recep-lista").innerHTML = recepLista(H, s.value.trim().toLowerCase()));

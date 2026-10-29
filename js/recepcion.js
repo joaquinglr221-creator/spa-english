@@ -11,9 +11,14 @@ const RECEPCION = {
       marca: "BABOR",
       pieEs: "Los precios están sujetos a cambios sin previo aviso. Impuestos incluidos.",
       pieEn: "Prices are subject to change without notice. Taxes included.",
+      // Para cerrar los scripts de venta: lo que dice el menú del spa de Breathless.
+      impuestosEs: "Los impuestos están incluidos.", impuestosEn: "Taxes are included.",
+      pagoEs: "Lo puede cargar a su habitación o pagar con tarjeta de crédito.", pagoEn: "You can charge it to your room or pay with a credit card.",
+      citaEs: "Le pedimos llegar 20 minutos antes de su cita. Si necesita cancelar o cambiarla, avísenos con al menos 4 horas de anticipación para evitar un cargo del 50 %.",
+      citaEn: "Please arrive twenty minutes before your appointment. If you need to cancel or change it, please let us know at least four hours in advance to avoid a fifty percent charge.",
       categorias: [
         {
-          es: "Circuito de hidroterapia", en: "Hydrotherapy Circuit",
+          tipo: "hidro", es: "Circuito de hidroterapia", en: "Hydrotherapy Circuit",
           items: [
             { es: "Day pass circuito de hidroterapia", en: "Water Journey Day Pass", dur: "50 min", mxn: "$749", usd: "$39" },
             { es: "Hidroterapia de lujo Breathless", en: "Breathless Blissful Water Journey", dur: "80 min", mxn: "$1,889", usd: "$99" },
@@ -21,7 +26,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Placeres spa", en: "Spa Delights",
+          tipo: "express", es: "Placeres spa", en: "Spa Delights",
           items: [
             { es: "Mini Facial", en: "Mini Facial", dur: "25 min", mxn: "$2,265", usd: "$119",
               descEs: "Renueva y mantén una piel saludable con este tratamiento que hidrata profundamente y aporta un glow instantáneo, dejando la piel fresca y radiante en minutos.",
@@ -55,12 +60,16 @@ const RECEPCION = {
             { es: "Tratamiento de Ojos Awakening, Revitalizante o Antiedad", en: "Awakening Eye Treatment, Revitalizing or Anti-aging", dur: "25 min", mxn: "$1,699", usd: "$89",
               descEs: "Dos opciones: un tratamiento antiarrugas que suaviza las líneas finas, o un tratamiento drenante que alivia la hinchazón y las ojeras.",
               descEn: "Choose between two options: an anti-wrinkle treatment that smooths fine lines, or a draining treatment that alleviates puffiness and dark circles." },
-            { es: "BABOR Ampoule Bar", en: "BABOR Ampoule Bar", dur: "", mxn: "$479", usd: "$25" },
-            { es: "BABOR Mask Bar", en: "BABOR Mask Bar", dur: "", mxn: "$479", usd: "$25" },
+            { es: "BABOR Ampoule Bar", en: "BABOR Ampoule Bar", dur: "", mxn: "$479", usd: "$25",
+              descEs: "Una ampolleta concentrada de BABOR, elegida según las necesidades de la piel, que se agrega al tratamiento para un efecto inmediato.",
+              descEn: "A concentrated BABOR ampoule, chosen for your skin's needs and added to your treatment for an instant boost." },
+            { es: "BABOR Mask Bar", en: "BABOR Mask Bar", dur: "", mxn: "$479", usd: "$25",
+              descEs: "Una mascarilla BABOR elegida según las necesidades de la piel, que se agrega al tratamiento para potenciar sus resultados.",
+              descEn: "A BABOR mask chosen for your skin's needs and added to your treatment to enhance the results." },
           ],
         },
         {
-          es: "Experiencias faciales", en: "Facial Experiences",
+          tipo: "facial", es: "Experiencias faciales", en: "Facial Experiences",
           items: [
             { es: "Breathless Doble Exfoliación", en: "Breathless Double Scrub", dur: "50 | 80 min", mxn: "$3,599 | $4,545", usd: "$189 | $239",
               descEs: "Purifica tu piel con un ritual de limpieza profunda, con detoxificantes botánicos y un masaje refrescante con guasha para restaurar el equilibrio y la luminosidad.",
@@ -83,7 +92,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Tratamientos corporales", en: "Body Experiences",
+          tipo: "corporal", es: "Tratamientos corporales", en: "Body Experiences",
           items: [
             { es: "Exfoliación Nutritiva Cremosa", en: "Nourishing Creamy Scrub", dur: "25 min", mxn: "$2,379", usd: "$125",
               descEs: "Exfoliación de textura cremosa con un complejo reafirmante. Ideal para pieles sensibles: deja la piel suave e hidratada en profundidad.",
@@ -106,7 +115,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Masajes · Massage Therapy®", en: "Massage Therapy®",
+          tipo: "masaje", es: "Masajes · Massage Therapy®", en: "Massage Therapy®",
           items: [
             { es: "Masaje Re Connect – Relajante", en: "Re Connect Massage – Relaxing", dur: "50 | 80 min", mxn: "$3,895 | $4,739", usd: "$205 | $249",
               descEs: "Un clásico masaje sueco para aliviar la tensión y lograr un estado de profunda relajación.",
@@ -130,7 +139,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Manos y pies", en: "Hands & Feet",
+          tipo: "manos", es: "Manos y pies", en: "Hands & Feet",
           items: [
             { es: "Manicura Spa Alivio para Manos", en: "Hand Relief Spa Manicure", dur: "50 min", mxn: "$1,315", usd: "$69",
               descEs: "Manicura lujosa con hidratación profunda y cuidado exquisito de las uñas.",
@@ -150,7 +159,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Cabello y maquillaje", en: "Hair & Makeup",
+          tipo: "salon", es: "Cabello y maquillaje", en: "Hair & Makeup",
           items: [
             { es: "Lavado y Secado", en: "Shampoo & Blow Dry", dur: "50 min", mxn: "$1,615", usd: "$85" },
             { es: "Peinado para Novia", en: "Bridal Style", dur: "75 min", mxn: "$1,889", usd: "$99",
@@ -167,7 +176,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Depilación", en: "Waxing",
+          tipo: "depilacion", es: "Depilación", en: "Waxing",
           notaEs: "Duraciones del menú del spa. La lista de precios en español trae algunas duraciones distintas.",
           items: [
             { es: "Labio Superior", en: "Upper Lip", dur: "25 min", mxn: "$939", usd: "$49" },
@@ -192,20 +201,25 @@ const RECEPCION = {
       marca: "Natura Bissé",
       pieEs: "Precios de la lista 2025.",
       pieEn: "2025 price list.",
+      // Los documentos de Secrets no traen políticas de cita: una indicación general (confirmar con la gerencia).
+      citaEs: "Le sugerimos llegar unos minutos antes para relajarse antes de su tratamiento. Si necesita hacer algún cambio, con gusto le ayudamos en la recepción del spa.",
+      citaEn: "We suggest arriving a few minutes early so you can relax before your treatment. If you need to make any changes, we will be happy to help you at Spa Reception.",
       categorias: [
         {
-          es: "Circuito de hidroterapia", en: "Water Journey",
+          tipo: "hidro", es: "Circuito de hidroterapia", en: "Water Journey",
           items: [
             { es: "Uso de Hidroterapia", en: "Water Journey", dur: "50 min", mxn: "$1,962", usd: "$109" },
             { es: "Uso de Hidroterapia · Una semana", en: "Water Journey Week Pass", dur: "7 días", mxn: "$6,642", usd: "$369" },
             { es: "Hidroterapia de Lujo", en: "Luxe Water Journey", dur: "80 min", mxn: "$2,502", usd: "$139" },
             { es: "Hidroterapia de Lujo con Piscina de Vitalidad", en: "The Luxe Water Journey with Vitality Pool", dur: "120 min", mxn: "$3,042", usd: "$169" },
             { es: "Mascarilla Redensificante Efecto Tensor", en: "Plumping and Firming Mask", dur: "15 min", mxn: "$989", usd: "$59",
+              descEs: "Una mascarilla redensificante con efecto tensor que deja la piel más firme y luminosa en solo 15 minutos.",
+              descEn: "A plumping and firming mask with a tightening effect that leaves the skin firmer and brighter in just fifteen minutes.",
               nota: "$59 USD equivale a ≈ $1,062 MXN con el tipo de cambio de la lista; en pesos dice $989. Confirmar el precio." },
           ],
         },
         {
-          es: "Rituales express", en: "Express Rituals",
+          tipo: "express", es: "Rituales express", en: "Express Rituals",
           infoEs: "Todos los tratamientos incluyen técnicas de aromaterapia y logoterapia.",
           items: [
             { es: "Masaje Intuitivo de Manos", en: "Intuitive Hand Massage", dur: "25 min", mxn: "$2,430", usd: "$135",
@@ -232,7 +246,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Faciales Natura Bissé", en: "Natura Bissé Facials",
+          tipo: "facial", es: "Faciales Natura Bissé", en: "Natura Bissé Facials",
           items: [
             { es: "The Cure", en: "The Cure", dur: "50 min", mxn: "$4,482", usd: "$249",
               descEs: "Limpia · Purifica · Revitaliza. Elimina la polución y la suciedad, purifica los poros y restaura la hidratación.",
@@ -258,7 +272,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Masajes sensoriales · Bar de aceites", en: "Sensory Massages · Oil Bar",
+          tipo: "masaje", es: "Masajes sensoriales · Bar de aceites", en: "Sensory Massages · Oil Bar",
           items: [
             { es: "Masaje Quirosport", en: "Quirosport Massage", dur: "50 | 80 min", mxn: "$4,842 | $5,382", usd: "$259 | $299",
               descEs: "Calma · Fortalece · Restaura. Masaje deportivo ideal para dolores musculares: reduce el dolor, aumenta la flexibilidad y previene lesiones.",
@@ -284,7 +298,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Clase maestra del cuidado de la piel", en: "Skincare Master Class",
+          tipo: "clase", es: "Clase maestra del cuidado de la piel", en: "Skincare Master Class",
           items: [
             { es: "Clase de Cuidado de la Piel", en: "Skincare Master Class", dur: "60 min", mxn: "$2,900", usd: "$169",
               descEs: "Los pasos esenciales del cuidado de la piel, con técnicas y tips para una rutina personalizada.",
@@ -293,7 +307,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Diamond Well-Living Moments · Tratamientos corporales", en: "Diamond Well-Living Moments",
+          tipo: "corporal", es: "Diamond Well-Living Moments · Tratamientos corporales", en: "Diamond Well-Living Moments",
           items: [
             { es: "Exfoliación Corporal + Masaje", en: "Body Scrub + Massage", dur: "60 min", mxn: "$3,762", usd: "$209",
               descEs: "Renovar mente y cuerpo. La exfoliación se completa con un masaje personalizado de aromaterapia.",
@@ -310,7 +324,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Manos y pies", en: "Hands and Feet",
+          tipo: "manos", es: "Manos y pies", en: "Hands and Feet",
           items: [
             { es: "Manicura Spa", en: "Royal Hands Manicure", dur: "50 min", mxn: "$1,530", usd: "$85" },
             { es: "Aroma de Vitamina C · Manicura Terapéutica", en: "Vitamin C Aroma Therapeutic Manicure", dur: "80 min", mxn: "$1,962", usd: "$109",
@@ -327,7 +341,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Salón de belleza", en: "Beauty Salon",
+          tipo: "salon", es: "Salón de belleza", en: "Beauty Salon",
           items: [
             { es: "Peinado de Novia", en: "Bridal Style", dur: "120 min", mxn: "$3,420", usd: "$189" },
             { es: "Maquillaje", en: "Make Up", dur: "50 min", mxn: "$2,322", usd: "$129" },
@@ -342,7 +356,7 @@ const RECEPCION = {
           ],
         },
         {
-          es: "Depilaciones", en: "Waxing",
+          tipo: "depilacion", es: "Depilaciones", en: "Waxing",
           notaEs: "En esta sección los precios en dólares no corresponden a los de pesos (cejas: $1,062 MXN ≈ $59 USD, pero la lista en inglés dice $119 USD). Confirmar con la gerencia antes de cotizar.",
           items: [
             { es: "Cejas", en: "Eyebrows", dur: "25 min", mxn: "$1,062", usd: "$119" },
@@ -388,4 +402,86 @@ const RECEPCION = {
       es: "Le recomendamos beber mucha agua antes de su cita para estar bien hidratado.",
       en: "We recommend drinking plenty of water before your appointment to be well hydrated." },
   ],
+};
+
+// Scripts de venta de la recepción: lo que cambia según el tipo de servicio. Cada script toma además el nombre,
+// la descripción, la duración y el precio del servicio (ver recepGuion() en js/app.js).
+RECEPCION.guiones = {
+  hidro: {
+    preguntaEs: "¿Ya tuvo oportunidad de disfrutar nuestro circuito de hidroterapia?",
+    preguntaEn: "Have you had a chance to enjoy our hydrotherapy circuit yet?",
+    respuestaEs: "No, todavía no. ¿Cómo es?", respuestaEn: "No, not yet. What is it like?",
+    beneficioEs: "Es un recorrido de calor y frío: sauna, vapor, tina fría e hidromasaje. Relaja los músculos, mejora la circulación y lo deja como nuevo.",
+    beneficioEn: "It's a journey of heat and cold: sauna, steam room, cold plunge and whirlpool. It relaxes your muscles, improves your circulation and leaves you feeling renewed.",
+    complementoEs: "Es la forma perfecta de preparar el cuerpo antes de un masaje o un facial.",
+    complementoEn: "It's the perfect way to prepare your body before a massage or a facial.",
+    salud: true,
+  },
+  express: {
+    preguntaEs: "¿Busca algo corto y relajante para hoy?", preguntaEn: "Are you looking for something short and relaxing today?",
+    respuestaEs: "Sí, no tengo mucho tiempo.", respuestaEn: "Yes, I don't have much time.",
+    beneficioEs: "Es un tratamiento corto que lo deja relajado y renovado.",
+    beneficioEn: "It's a short treatment that leaves you relaxed and refreshed.",
+    complementoEs: "También es un complemento ideal para cualquier masaje o facial.",
+    complementoEn: "It's also a great add-on to any massage or facial.",
+  },
+  facial: {
+    preguntaEs: "¿Cómo siente su piel después de unos días de sol?", preguntaEn: "How does your skin feel after a few days in the sun?",
+    respuestaEs: "Un poco seca, la verdad.", respuestaEn: "A little dry, to be honest.",
+    beneficioEs: "Es un facial que cuida su piel y la deja luminosa.", beneficioEn: "It's a facial that takes care of your skin and leaves it glowing.",
+    complementoEs: "Antes de empezar, la terapeuta hace una evaluación de su piel para personalizarlo.",
+    complementoEn: "Before we begin, your therapist will do a skin evaluation to personalize it for you.",
+    salud: true,
+  },
+  corporal: {
+    preguntaEs: "¿Le gustaría consentir su piel de pies a cabeza?", preguntaEn: "Would you like to pamper your skin from head to toe?",
+    respuestaEs: "Sí, mi piel necesita cuidado después de la playa.", respuestaEn: "Yes, my skin needs some care after the beach.",
+    beneficioEs: "Es un tratamiento corporal que deja la piel suave, hidratada y radiante.",
+    beneficioEn: "It's a body treatment that leaves your skin soft, hydrated and radiant.",
+    complementoEs: "Es un gran complemento del circuito de hidroterapia.", complementoEn: "It's a great complement to the hydrotherapy circuit.",
+    salud: true,
+  },
+  masaje: {
+    preguntaEs: "¿Cómo se siente hoy? ¿Tiene tensión en la espalda o los hombros?",
+    preguntaEn: "How are you feeling today? Do you have any tension in your back or shoulders?",
+    respuestaEs: "Sí, tengo los hombros muy tensos.", respuestaEn: "Yes, my shoulders are very tense.",
+    beneficioEs: "Es un masaje que libera la tensión y lo deja profundamente relajado.",
+    beneficioEn: "It's a massage that releases tension and leaves you deeply relaxed.",
+    complementoEs: "También puede personalizar su masaje con nuestro bar de aceites.",
+    complementoEn: "You can also personalize your massage with our oil bar upgrade.",
+    salud: true,
+  },
+  manos: {
+    preguntaEs: "¿Le gustaría consentir sus manos y pies durante su estancia?",
+    preguntaEn: "Would you like to treat your hands and feet during your stay?",
+    respuestaEs: "Sí, mis uñas necesitan atención.", respuestaEn: "Yes, my nails need some attention.",
+    beneficioEs: "Cuidamos sus uñas y su piel con productos premium, y quedan suaves y perfectamente pulidas.",
+    beneficioEn: "We take care of your nails and skin with premium products, leaving them soft and beautifully polished.",
+    complementoEs: "Muchos huéspedes lo combinan con un masaje para una experiencia completa.",
+    complementoEn: "Many guests combine it with a massage for a complete experience.",
+  },
+  salon: {
+    preguntaEs: "¿Tiene algún evento o cena especial durante su estancia?", preguntaEn: "Do you have a special event or dinner planned during your stay?",
+    respuestaEs: "Sí, tenemos una cena el sábado.", respuestaEn: "Yes, we have a dinner on Saturday.",
+    beneficioEs: "Nuestras estilistas la ayudarán a verse y sentirse increíble en su momento especial.",
+    beneficioEn: "Our stylists will help you look and feel your best for your special moment.",
+    complementoEs: "Para bodas y eventos le recomendamos reservar con anticipación.",
+    complementoEn: "For weddings and events, we recommend booking in advance.",
+  },
+  depilacion: {
+    preguntaEs: "¿Le gustaría reservar una depilación para disfrutar la playa sin preocupaciones?",
+    preguntaEn: "Would you like to book a waxing service so you can enjoy the beach worry-free?",
+    respuestaEs: "Sí, sería perfecto.", respuestaEn: "Yes, that would be perfect.",
+    beneficioEs: "Nuestras terapeutas usan técnicas suaves para un resultado limpio y duradero.",
+    beneficioEn: "Our therapists use gentle techniques for smooth, long-lasting results.",
+    complementoEs: "Muchos huéspedes lo reservan al inicio de su estancia.",
+    complementoEn: "Many guests book it at the beginning of their stay.",
+  },
+  clase: {
+    preguntaEs: "¿Le gustaría aprender a cuidar su piel en casa?", preguntaEn: "Would you like to learn how to take care of your skin at home?",
+    respuestaEs: "Sí, me encantaría.", respuestaEn: "Yes, I'd love that.",
+    beneficioEs: "Es una clase con los pasos esenciales del cuidado de la piel.", beneficioEn: "It's a class with the essential steps of skin care.",
+    complementoEs: "Es la forma perfecta de llevarse la experiencia del spa a casa.",
+    complementoEn: "It's the perfect way to take the spa experience home with you.",
+  },
 };

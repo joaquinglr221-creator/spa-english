@@ -373,7 +373,7 @@ a.btn.center { text-align: center; }
 .script-cta .cat-icon { width: 52px; height: 52px; }
 .script-cta-go { margin-left: auto; font-size: 1.3rem; color: var(--accent); }
 .tile .step-num { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); }
-.line.therapist, .line.valet, .line.concierge, .line.trainer { align-self: flex-start; border-left: 4px solid var(--accent); }
+.line.therapist, .line.valet, .line.concierge, .line.trainer, .line.recep { align-self: flex-start; border-left: 4px solid var(--accent); }
 .stage-video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); margin: 0 0 12px; }
 
 /* Menú a color: cada recuadro trae su color en --c (js/app.js, PALETA) */
@@ -701,3 +701,4 @@ a.btn.center { text-align: center; }
 .recep-pron { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; padding: 6px 10px;
   background: var(--accent-soft); border-radius: 10px; font-size: 0.88rem; }
 .recep-pron .row { flex-wrap: nowrap; margin: 0; flex-shrink: 0; }
+.recep-guion-btn { margin-top: 10px; }
