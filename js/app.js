@@ -206,7 +206,7 @@ const colorPorIndice = (i) => PALETA[i % PALETA.length];
 
 // Secciones del menú de inicio; una categoría nueva que no esté aquí aparece en "Otras".
 const MENU_GROUPS = [
-  { title: "Spa y cabina", ids: ["cuerpo", "tratamientos", "masajes", "tecnicas", "verbos", "posiciones", "posturas", "productos", "aromas", "instalaciones", "amenidades", "bienestar"] },
+  { title: "Spa y cabina", ids: ["cuerpo", "tratamientos", "masajes", "tecnicas", "verbos", "posiciones", "posturas", "productos", "aromas", "instalaciones", "amenidades", "cabina", "bienestar"] },
   { title: "Salud y seguridad", ids: ["salud", "encuesta", "malestares", "piel"] },
   { title: "Salón y barbería", ids: ["barberia", "peinados", "coloracion"] },
   { title: "Recepción y hotel", ids: ["recepcion", "hotel"] },

@@ -1608,10 +1608,6 @@ const IMAGES = {
   "src": "images/canva/lounge-chair.jpg",
   "source": "canva"
  },
- "Massage table": {
-  "src": "images/canva/massage-table.jpg",
-  "source": "canva"
- },
  "Water dispenser": {
   "src": "images/canva/water-dispenser.jpg",
   "source": "canva"
@@ -2394,6 +2390,66 @@ const IMAGES = {
  },
  "Lungs": {
   "src": "images/canva/lungs.jpg",
+  "source": "canva"
+ },
+ "bolster": {
+  "src": "images/canva/massage-table.jpg",
+  "source": "canva"
+ },
+ "towel warmer": {
+  "src": "images/canva/towel-warmer.jpg",
+  "source": "canva"
+ },
+ "aroma diffuser": {
+  "src": "images/canva/aroma-diffuser.jpg",
+  "source": "canva"
+ },
+ "blanket": {
+  "src": "images/canva/blanket.jpg",
+  "source": "canva"
+ },
+ "hand towel": {
+  "src": "images/canva/hand-towel.jpg",
+  "source": "canva"
+ },
+ "bath towel": {
+  "src": "images/canva/bath-towel.jpg",
+  "source": "canva"
+ },
+ "pillow": {
+  "src": "images/canva/pillow.jpg",
+  "source": "canva"
+ },
+ "robe": {
+  "src": "images/canva/robe.jpg",
+  "source": "canva"
+ },
+ "slippers": {
+  "src": "images/canva/slippers.jpg",
+  "source": "canva"
+ },
+ "hand sanitizer": {
+  "src": "images/canva/hand-sanitizer.jpg",
+  "source": "canva"
+ },
+ "cotton pads": {
+  "src": "images/canva/cotton-pads.jpg",
+  "source": "canva"
+ },
+ "cotton swabs": {
+  "src": "images/canva/cotton-swabs.jpg",
+  "source": "canva"
+ },
+ "tissues": {
+  "src": "images/canva/tissues.jpg",
+  "source": "canva"
+ },
+ "candles": {
+  "src": "images/canva/candle.jpg",
+  "source": "canva"
+ },
+ "footbath": {
+  "src": "images/canva/footbath.jpg",
   "source": "canva"
  }
 };
