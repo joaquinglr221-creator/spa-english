@@ -953,7 +953,7 @@ function viewPosturas() {
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
-    <section class="script-hero" style="background:linear-gradient(135deg,#7b5e8c,#2f8a7a)">
+    <section class="script-hero con-video">${vidFondo("posturas")}
       <div class="script-hero-text"><p class="script-kicker">Masaje · Instrucciones al huésped · English / Español</p>
         <h1>🧘 Posturas del masaje</h1>
         <p>${POST.length} posturas para pedirle al huésped que se acomode en la camilla, con la frase, un diálogo y audio.</p></div>
@@ -1564,7 +1564,7 @@ function view(catId) {
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${POST.length ? `<a class="script-banner" href="#/posturas-masaje" style="background:linear-gradient(135deg,#7b5e8c,#2f8a7a)">
+    ${POST.length ? `<a class="script-banner con-video" href="#/posturas-masaje">${vidFondo("posturas")}
       <span class="script-banner-text"><small>Masaje · Instrucciones al huésped</small><b>🧘 Posturas del masaje</b><span>${POST.length} posturas con frases, diálogo y audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
