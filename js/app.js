@@ -206,7 +206,7 @@ const colorPorIndice = (i) => PALETA[i % PALETA.length];
 
 // Secciones del menú de inicio; una categoría nueva que no esté aquí aparece en "Otras".
 const MENU_GROUPS = [
-  { title: "Spa y cabina", ids: ["cuerpo", "tratamientos", "masajes", "tecnicas", "verbos", "posiciones", "productos", "aromas", "instalaciones", "amenidades", "bienestar"] },
+  { title: "Spa y cabina", ids: ["cuerpo", "tratamientos", "masajes", "tecnicas", "verbos", "posiciones", "posturas", "productos", "aromas", "instalaciones", "amenidades", "bienestar"] },
   { title: "Salud y seguridad", ids: ["salud", "encuesta", "malestares", "piel"] },
   { title: "Salón y barbería", ids: ["barberia", "peinados", "coloracion"] },
   { title: "Recepción y hotel", ids: ["recepcion", "hotel"] },
@@ -431,7 +431,7 @@ const MATERIAL = {
 ].forEach(([id, title, subtitle, pages]) => {
   const hotel = id.startsWith("bre") ? "breathless" : "secrets";
   MATERIAL[id] = { title, subtitle, pages, dir: `images/solo-hotel/material/${id}`, soloHotel: true, hotel,
-    volver: `#/recepcion/${hotel}`, volverTexto: `← Recepción · ${hotel === "breathless" ? "Breathless" : "Secrets"}` };
+    volver: `#/recepcion-spa/${hotel}`, volverTexto: `← Recepción · ${hotel === "breathless" ? "Breathless" : "Secrets"}` };
 });
 
 const VENTA_ESTANDARES = [
@@ -809,7 +809,7 @@ function recepLista(H, q) {
       if (!items.length) return "";
       return `<h3 class="piel-sub">${esc(c.es)} · ${items.length}</h3><p class="muted">🇺🇸 ${esc(c.en)}</p>
         ${c.infoEs ? `<p class="muted">ℹ️ ${esc(c.infoEs)}</p>` : ""}
-        ${c.notaEs ? `<p class="recep-nota">⚠️ ${esc(c.notaEs)}</p>` : ""}${items.map(([it, ii]) => recepItem(it, `#/recepcion/${H.id}/${ci}-${ii}`)).join("")}`;
+        ${c.notaEs ? `<p class="recep-nota">⚠️ ${esc(c.notaEs)}</p>` : ""}${items.map(([it, ii]) => recepItem(it, `#/recepcion-spa/${H.id}/${ci}-${ii}`)).join("")}`;
     })
     .join("");
   return html || `<p class="muted">No se encontró ese servicio.</p>`;
@@ -829,7 +829,7 @@ function viewRecepcion(hotelId) {
         <p>Precio, duración y descripción de cada servicio en español e inglés, para informar al huésped y reservar.</p>
       </div>
     </section>
-    <div class="recep-hoteles">${RECEP.hoteles.map((h) => `<a class="${h.id === H.id ? "on" : ""}" href="#/recepcion/${h.id}"><b>${esc(h.nombre)}</b><small>${esc(h.marca)}</small></a>`).join("")}</div>
+    <div class="recep-hoteles">${RECEP.hoteles.map((h) => `<a class="${h.id === H.id ? "on" : ""}" href="#/recepcion-spa/${h.id}"><b>${esc(h.nombre)}</b><small>${esc(h.marca)}</small></a>`).join("")}</div>
     <a class="btn ghost full" href="#/recepcion-politicas">🛎️ Políticas del spa y preguntas de los huéspedes</a>
     <input id="recep-buscar" class="search" type="search" placeholder="Buscar un servicio en español o inglés…" autocomplete="off">
     <p class="muted">${total} servicios de ${esc(H.nombre)}. Toca «Descripción» para explicarle el servicio al huésped.</p>
@@ -893,7 +893,7 @@ function recepGuion(H, c, it) {
   ];
 }
 
-// Los servicios de un hotel en orden, con la dirección de su script ("#/recepcion/breathless/0-0").
+// Los servicios de un hotel en orden, con la dirección de su script ("#/recepcion-spa/breathless/0-0"; "#/recepcion" es la categoría Reservación y recepción).
 const recepServicios = (H) => H.categorias.flatMap((c, ci) => c.items.map((it, ii) => ({ c, it, clave: `${ci}-${ii}` })));
 
 function viewRecepGuion(hotelId, clave) {
@@ -904,7 +904,7 @@ function viewRecepGuion(hotelId, clave) {
   const { c, it } = S[i], prev = S[i - 1], next = S[i + 1];
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/recepcion/${H.id}">← Recepción · ${esc(H.nombre)}</a>
+    <a class="back" href="#/recepcion-spa/${H.id}">← Recepción · ${esc(H.nombre)}</a>
     <section class="card">
       <p class="label">Script de venta · ${esc(H.nombre)} · ${esc(c.es)}</p>
       <h2 class="stage-title">${esc(it.en)}</h2>
@@ -924,22 +924,53 @@ function viewRecepGuion(hotelId, clave) {
       ${bilingueAudio(VENTA_NO[1], VENTA_NO[0])}
     </section>
     <div class="row between stage-nav">
-      ${prev ? `<a class="btn ghost small" href="#/recepcion/${H.id}/${prev.clave}">← ${esc(prev.it.es)}</a>` : "<span></span>"}
-      ${next ? `<a class="btn small" href="#/recepcion/${H.id}/${next.clave}">${esc(next.it.es)} →</a>` : `<a class="btn small" href="#/recepcion/${H.id}">Terminar ✓</a>`}
+      ${prev ? `<a class="btn ghost small" href="#/recepcion-spa/${H.id}/${prev.clave}">← ${esc(prev.it.es)}</a>` : "<span></span>"}
+      ${next ? `<a class="btn small" href="#/recepcion-spa/${H.id}/${next.clave}">${esc(next.it.es)} →</a>` : `<a class="btn small" href="#/recepcion-spa/${H.id}">Terminar ✓</a>`}
     </div>`;
 }
 
 function viewRecepPoliticas() {
   return `${BRANDS}
     ${USO.badge()}
-    <a class="back" href="#/recepcion">← Recepción del spa</a>
+    <a class="back" href="#/recepcion-spa">← Recepción del spa</a>
     <h2 class="section-title">🛎️ Políticas del spa · Spa policies</h2>
     <p class="muted">Lo que la recepción le explica al huésped, en español e inglés (del menú del spa).</p>
     ${RECEP.politicas.map((x) => `<section class="card recep-politica">
       <h3>${esc(x.tEs)} <span class="muted">· ${esc(x.tEn)}</span></h3>
       ${bilingueAudio(x.es, x.en)}
     </section>`).join("")}
-    <a class="btn ghost full center" href="#/recepcion">← Volver a Recepción del spa</a>`;
+    <a class="btn ghost full center" href="#/recepcion-spa">← Volver a Recepción del spa</a>`;
+}
+
+// ---------- Posturas del masaje (js/posturas.js) ----------
+// Cada postura con su instrucción y un mini diálogo con el huésped; su video, si ya está (js/videos-posturas.js).
+// La dirección es "posturas-masaje": "posturas" es la categoría de vocabulario con las mismas palabras.
+const POST = typeof POSTURAS !== "undefined" ? POSTURAS : [];
+const POST_VID = typeof POSTURA_VIDEOS !== "undefined" ? POSTURA_VIDEOS : {};
+
+function viewPosturas() {
+  const cat = VOCAB.find((c) => c.id === "posturas");
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/">← Inicio</a>
+    <section class="script-hero" style="background:linear-gradient(135deg,#7b5e8c,#2f8a7a)">
+      <div class="script-hero-text"><p class="script-kicker">Masaje · Instrucciones al huésped · English / Español</p>
+        <h1>🧘 Posturas del masaje</h1>
+        <p>${POST.length} posturas para pedirle al huésped que se acomode en la camilla, con la frase, un diálogo y audio.</p></div>
+    </section>
+    ${botonesPrueba(cat)}
+    <div class="row between">
+      <a class="btn ghost small" href="#/posturas">📚 Marcar las aprendidas</a>
+      <label class="toggle"><input type="checkbox" id="practice-toggle" ${practiceScript ? "checked" : ""}> Modo práctica (ocultar inglés)</label>
+    </div>
+    ${POST.map((p, i) => `<section class="card postura">
+      ${POST_VID[p.id] ? `<video class="stage-video" controls playsinline preload="metadata" src="${esc(POST_VID[p.id])}#t=0.5"></video>` : ""}
+      <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(p.en)} <span class="muted">/${esc(p.pron)}/</span></b><span>🇲🇽 ${esc(p.es)}</span></span>
+        <div class="row">${speakButtons(p.en)}</div></div>
+      <div class="dialogue ${practiceScript ? "practice" : ""}">${dialogueHtml(p.dialogo)}</div>
+      <button class="btn small" type="button" data-postura="${i}">▶ Escuchar el diálogo</button>
+    </section>`).join("")}
+    <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
 // ---------- Spa Concierge ----------
@@ -1465,7 +1496,8 @@ function view(catId) {
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
   if (catId === "concierge") return viewConcierge();
-  if (RECEP && ruta0 === "recepcion") return catId.split("/")[2] ? viewRecepGuion(clave0, catId.split("/")[2]) : viewRecepcion(clave0);
+  if (catId === "posturas-masaje" && POST.length) return viewPosturas();
+  if (RECEP && ruta0 === "recepcion-spa") return catId.split("/")[2] ? viewRecepGuion(clave0, catId.split("/")[2]) : viewRecepcion(clave0);
   if (RECEP && catId === "recepcion-politicas") return viewRecepPoliticas();
   if (catId === "gym") return viewGym();
   if (["gym-equipo", "gym-instrucciones", "gym-cuerpo", "gym-vocab"].includes(catId)) return viewGymSub(catId.slice(4));
@@ -1532,7 +1564,11 @@ function view(catId) {
       <span class="script-banner-text"><small>Spa Concierge · Ventas y bienestar</small><b>Spa Concierge</b><span>Script de ${PROGRAMAS["concierge-script"].stages.length} pasos, vocabulario de ventas y KPI</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${RECEP ? `<a class="script-banner" href="#/recepcion" style="background-image:url('images/recepcion/portada.jpg')">
+    ${POST.length ? `<a class="script-banner" href="#/posturas-masaje" style="background:linear-gradient(135deg,#7b5e8c,#2f8a7a)">
+      <span class="script-banner-text"><small>Masaje · Instrucciones al huésped</small><b>🧘 Posturas del masaje</b><span>${POST.length} posturas con frases, diálogo y audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span>
+    </a>` : ""}
+    ${RECEP ? `<a class="script-banner" href="#/recepcion-spa" style="background-image:url('images/recepcion/portada.jpg')">
       <span class="script-banner-text"><small>Breathless · Secrets · Español / English</small><b>🛎️ Recepción del spa</b><span>Precios y descripción de ${RECEP.hoteles.reduce((n, h) => n + h.categorias.reduce((k, c) => k + c.items.length, 0), 0)} servicios en los dos hoteles</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
@@ -1614,7 +1650,7 @@ function render() {
     USO.track("category", { category: `Gym del spa: ${{ "gym-equipo": "Equipo", "gym-instrucciones": "Instrucciones de uso", "gym-cuerpo": "Partes del cuerpo", "gym-vocab": "Vocabulario" }[id]}` });
     return;
   }
-  if (RECEP && (id === "recepcion" || id.startsWith("recepcion/"))) {
+  if (RECEP && (id === "recepcion-spa" || id.startsWith("recepcion-spa/"))) {
     const H = recepHotel(id.split("/")[1]);
     const g = recepServicios(H).find((x) => x.clave === id.split("/")[2]);
     if (g) {
@@ -1629,6 +1665,15 @@ function render() {
     USO.track("category", { category: `Recepción del spa: precios ${H.nombre}` });
     const s = $("#recep-buscar");
     s.oninput = () => ($("#recep-lista").innerHTML = recepLista(H, s.value.trim().toLowerCase()));
+    return;
+  }
+  if (id === "posturas-masaje") {
+    USO.track("category", { category: "Posturas del masaje" });
+    document.querySelectorAll("[data-postura]").forEach((b) => (b.onclick = () => speakAll(POST[+b.dataset.postura].dialogo.map((l) => l.en))));
+    $("#practice-toggle").onchange = (e) => {
+      practiceScript = e.target.checked;
+      document.querySelectorAll(".dialogue").forEach((d) => d.classList.toggle("practice", practiceScript));
+    };
     return;
   }
   if (id === "recepcion-politicas") {
