@@ -1,2 +1,26 @@
 // Generado por scripts/generar_videos_posturas.py — no editar a mano. Videos de las posturas del masaje.
-const POSTURA_VIDEOS = {};
+const POSTURA_VIDEOS = {
+ "arms-by-your-sides": "videos/posturas/arms-by-your-sides.mp4",
+ "bend-your-knees": "videos/posturas/bend-your-knees.mp4",
+ "bolster-under-your-ankles": "videos/posturas/bolster-under-your-ankles.mp4",
+ "bolster-under-your-knees": "videos/posturas/bolster-under-your-knees.mp4",
+ "face-down": "videos/posturas/face-down.mp4",
+ "face-up": "videos/posturas/face-up.mp4",
+ "head-to-the-side": "videos/posturas/head-to-the-side.mp4",
+ "let-your-arm-go": "videos/posturas/let-your-arm-go.mp4",
+ "lie-still": "videos/posturas/lie-still.mp4",
+ "lift-your-head": "videos/posturas/lift-your-head.mp4",
+ "lift-your-hips": "videos/posturas/lift-your-hips.mp4",
+ "palms-down": "videos/posturas/palms-down.mp4",
+ "palms-up": "videos/posturas/palms-up.mp4",
+ "pillow-between-your-knees": "videos/posturas/pillow-between-your-knees.mp4",
+ "relax-your-shoulders": "videos/posturas/relax-your-shoulders.mp4",
+ "scoot-down": "videos/posturas/scoot-down.mp4",
+ "scoot-up": "videos/posturas/scoot-up.mp4",
+ "side-lying": "videos/posturas/side-lying.mp4",
+ "sit-up-slowly": "videos/posturas/sit-up-slowly.mp4",
+ "sitting-up": "videos/posturas/sitting-up.mp4",
+ "straighten-your-legs": "videos/posturas/straighten-your-legs.mp4",
+ "tuck-your-chin": "videos/posturas/tuck-your-chin.mp4",
+ "turn-over": "videos/posturas/turn-over.mp4"
+};
