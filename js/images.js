@@ -2393,7 +2393,7 @@ const IMAGES = {
   "source": "canva"
  },
  "bolster": {
-  "src": "images/canva/massage-table.jpg",
+  "src": "images/canva/bolster.jpg",
   "source": "canva"
  },
  "towel warmer": {
@@ -2450,6 +2450,206 @@ const IMAGES = {
  },
  "footbath": {
   "src": "images/canva/footbath.jpg",
+  "source": "canva"
+ },
+ "massage table": {
+  "src": "images/canva/massage-table.jpg",
+  "source": "canva"
+ },
+ "face cradle": {
+  "src": "images/canva/face-cradle.jpg",
+  "source": "canva"
+ },
+ "arm rest": {
+  "src": "images/canva/arm-rest.jpg",
+  "source": "canva"
+ },
+ "table warmer": {
+  "src": "images/canva/table-warmer.jpg",
+  "source": "canva"
+ },
+ "massage chair": {
+  "src": "images/canva/massage-chair.jpg",
+  "source": "canva"
+ },
+ "step stool": {
+  "src": "images/canva/step-stool.jpg",
+  "source": "canva"
+ },
+ "rolling stool": {
+  "src": "images/canva/rolling-stool.jpg",
+  "source": "canva"
+ },
+ "trolley": {
+  "src": "images/canva/trolley.jpg",
+  "source": "canva"
+ },
+ "tray": {
+  "src": "images/canva/tray.jpg",
+  "source": "canva"
+ },
+ "hot stone heater": {
+  "src": "images/canva/hot-stone-heater.jpg",
+  "source": "canva"
+ },
+ "oil warmer": {
+  "src": "images/canva/oil-warmer.jpg",
+  "source": "canva"
+ },
+ "facial steamer": {
+  "src": "images/canva/facial-steamer.jpg",
+  "source": "canva"
+ },
+ "magnifying lamp": {
+  "src": "images/canva/magnifying-lamp.jpg",
+  "source": "canva"
+ },
+ "dimmer switch": {
+  "src": "images/canva/dimmer-switch.jpg",
+  "source": "canva"
+ },
+ "speaker": {
+  "src": "images/canva/speaker.jpg",
+  "source": "canva"
+ },
+ "thermostat": {
+  "src": "images/canva/thermostat.jpg",
+  "source": "canva"
+ },
+ "sink": {
+  "src": "images/canva/sink.jpg",
+  "source": "canva"
+ },
+ "clothes hook": {
+  "src": "images/canva/clothes-hook.jpg",
+  "source": "canva"
+ },
+ "hanger": {
+  "src": "images/canva/hanger.jpg",
+  "source": "canva"
+ },
+ "basket": {
+  "src": "images/canva/basket.jpg",
+  "source": "canva"
+ },
+ "laundry hamper": {
+  "src": "images/canva/laundry-hamper.jpg",
+  "source": "canva"
+ },
+ "fitted sheet": {
+  "src": "images/canva/fitted-sheet.jpg",
+  "source": "canva"
+ },
+ "flat sheet": {
+  "src": "images/canva/flat-sheet.jpg",
+  "source": "canva"
+ },
+ "face cradle cover": {
+  "src": "images/canva/face-cradle-cover.jpg",
+  "source": "canva"
+ },
+ "pillowcase": {
+  "src": "images/canva/pillowcase.jpg",
+  "source": "canva"
+ },
+ "eye pillow": {
+  "src": "images/canva/eye-pillow.jpg",
+  "source": "canva"
+ },
+ "thermal blanket": {
+  "src": "images/canva/thermal-blanket.jpg",
+  "source": "canva"
+ },
+ "plastic wrap": {
+  "src": "images/canva/plastic-wrap.jpg",
+  "source": "canva"
+ },
+ "hair band": {
+  "src": "images/canva/hair-band.jpg",
+  "source": "canva"
+ },
+ "hair clips": {
+  "src": "images/canva/hair-clips.jpg",
+  "source": "canva"
+ },
+ "glass of water": {
+  "src": "images/canva/glass-of-water.jpg",
+  "source": "canva"
+ },
+ "basalt stones": {
+  "src": "images/canva/basalt-stones.jpg",
+  "source": "canva"
+ },
+ "bamboo sticks": {
+  "src": "images/canva/bamboo-sticks.jpg",
+  "source": "canva"
+ },
+ "cupping cups": {
+  "src": "images/canva/cupping-cups.jpg",
+  "source": "canva"
+ },
+ "gua sha": {
+  "src": "images/canva/gua-sha.jpg",
+  "source": "canva"
+ },
+ "jade roller": {
+  "src": "images/canva/jade-roller.jpg",
+  "source": "canva"
+ },
+ "herbal compress": {
+  "src": "images/canva/herbal-compress.jpg",
+  "source": "canva"
+ },
+ "singing bowl": {
+  "src": "images/canva/singing-bowl.jpg",
+  "source": "canva"
+ },
+ "body brush": {
+  "src": "images/canva/body-brush.jpg",
+  "source": "canva"
+ },
+ "exfoliating mitt": {
+  "src": "images/canva/exfoliating-mitt.jpg",
+  "source": "canva"
+ },
+ "mixing bowl": {
+  "src": "images/canva/mixing-bowl.jpg",
+  "source": "canva"
+ },
+ "spatula": {
+  "src": "images/canva/spatula.jpg",
+  "source": "canva"
+ },
+ "mask brush": {
+  "src": "images/canva/mask-brush.jpg",
+  "source": "canva"
+ },
+ "sponges": {
+  "src": "images/canva/sponges.jpg",
+  "source": "canva"
+ },
+ "pump bottle": {
+  "src": "images/canva/pump-bottle.jpg",
+  "source": "canva"
+ },
+ "oil holster": {
+  "src": "images/canva/oil-holster.jpg",
+  "source": "canva"
+ },
+ "timer": {
+  "src": "images/canva/timer.jpg",
+  "source": "canva"
+ },
+ "disposable gloves": {
+  "src": "images/canva/disposable-gloves.jpg",
+  "source": "canva"
+ },
+ "incense": {
+  "src": "images/canva/incense.jpg",
+  "source": "canva"
+ },
+ "fresh flowers": {
+  "src": "images/canva/fresh-flowers.jpg",
   "source": "canva"
  }
 };
