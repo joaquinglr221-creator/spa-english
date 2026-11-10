@@ -2651,5 +2651,61 @@ const IMAGES = {
  "fresh flowers": {
   "src": "images/canva/fresh-flowers.jpg",
   "source": "canva"
+ },
+ "face down": {
+  "src": "images/canva/face-down.jpg",
+  "source": "canva"
+ },
+ "face up": {
+  "src": "images/canva/face-up.jpg",
+  "source": "canva"
+ },
+ "on your back": {
+  "src": "images/canva/on-your-back.jpg",
+  "source": "canva"
+ },
+ "on your side": {
+  "src": "images/canva/on-your-side.jpg",
+  "source": "canva"
+ },
+ "prone position": {
+  "src": "images/canva/prone-position.jpg",
+  "source": "canva"
+ },
+ "supine position": {
+  "src": "images/canva/supine-position.jpg",
+  "source": "canva"
+ },
+ "seated position": {
+  "src": "images/canva/seated-position.jpg",
+  "source": "canva"
+ },
+ "to turn over": {
+  "src": "images/canva/to-turn-over.jpg",
+  "source": "canva"
+ },
+ "to undress": {
+  "src": "images/canva/to-undress.jpg",
+  "source": "canva"
+ },
+ "belongings": {
+  "src": "images/canva/belongings.jpg",
+  "source": "canva"
+ },
+ "breathe in": {
+  "src": "images/canva/breathe-in.jpg",
+  "source": "canva"
+ },
+ "breathe out": {
+  "src": "images/canva/breathe-out.jpg",
+  "source": "canva"
+ },
+ "to relax": {
+  "src": "images/canva/to-relax.jpg",
+  "source": "canva"
+ },
+ "take your time": {
+  "src": "images/canva/take-your-time.jpg",
+  "source": "canva"
  }
 };
