@@ -2707,5 +2707,9 @@ const IMAGES = {
  "take your time": {
   "src": "images/canva/take-your-time.jpg",
   "source": "canva"
+ },
+ "to lie down": {
+  "src": "images/canva/to-lie-down.jpg",
+  "source": "canva"
  }
 };
