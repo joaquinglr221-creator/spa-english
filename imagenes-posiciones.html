@@ -1,0 +1,121 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imágenes · Posiciones e instrucciones</title>
+<style>
+  @page { size: letter; margin: 13mm 13mm 15mm; }
+  body { margin:0; background:#f6f4ef; color:#1d2422; font:15px/1.45 -apple-system, Helvetica, Arial, sans-serif; }
+  main { max-width:860px; margin:0 auto; padding:22px 16px 60px; }
+  h1 { margin:0 0 4px; color:#1f6f5c; } .sub { color:#66706c; margin:0 0 12px; }
+  .pasos { background:#e2f0eb; border-radius:12px; padding:10px 16px; margin-bottom:14px; font-size:.92rem; }
+  .pasos li { margin:4px 0; }
+  article { background:#fff; border:1px solid #e3dfd6; border-radius:12px; padding:10px 14px; margin:8px 0; break-inside:avoid; }
+  .cab { display:flex; flex-wrap:wrap; gap:10px; align-items:baseline; }
+  .n { font-weight:800; color:#1f6f5c; min-width:28px; } .en { font-weight:700; } .es { color:#66706c; }
+  .file { margin-left:auto; font:12px Menlo, monospace; color:#66706c; }
+  pre { white-space:pre-wrap; background:#faf9f6; border:1px solid #e3dfd6; border-radius:8px; padding:7px 10px; font-size:.8rem; margin:6px 0; }
+  button { font:inherit; font-size:.85rem; border:1.5px solid #1f6f5c; background:#1f6f5c; color:#fff; border-radius:99px; padding:4px 12px; cursor:pointer; }
+  button.ok { background:#2f8a4c; border-color:#2f8a4c; }
+  .acciones { display:flex; align-items:center; gap:14px; }
+  .hecho { font-size:.85rem; color:#66706c; cursor:pointer; user-select:none; }
+  article.listo { background:#eef8f1; border-color:#9fd0ae; }
+  article.listo .n::after { content:" ✓"; color:#2f8a4c; }
+  article.listo pre { opacity:.55; }
+  .avance { position:sticky; top:0; z-index:2; background:#1f6f5c; color:#fff; border-radius:12px; padding:8px 14px; margin:0 0 10px;
+    display:flex; align-items:center; gap:12px; font-weight:700; }
+  .barra { flex:1; height:10px; background:rgba(255,255,255,.3); border-radius:99px; overflow:hidden; }
+  .barra div { height:100%; background:#fff; width:0; }
+  .avance button { background:#fff; color:#1f6f5c; border-color:#fff; font-size:.75rem; padding:3px 10px; }
+  .solo-pdf { display:none; }
+  @media print { .solo-pdf { display:inline-block; margin:4px 0 2px; padding:4px 10px; border-radius:6px; background:#e2f0eb; color:#1f6f5c;
+      font-weight:700; font-size:10px; text-decoration:none; } .hecho { display:none; }
+    .no-print { display:none; } body { background:#fff; font-size:11px; } main { padding:0; max-width:none; } button { display:none; }
+    article { padding:6px 10px; margin:5px 0; } pre { font-size:9px; margin:3px 0 0; } }
+</style></head><body><main>
+<h1>Imágenes · Posiciones e instrucciones</h1>
+<p class="sub">SPA Service Excellence App · 15 imágenes por crear (las demás palabras ya tienen imagen)</p>
+<div class="pasos"><b>Cómo hacerlas en Canva</b><ol>
+  <li>Crea un diseño <b>cuadrado de 1080 × 1080 px</b> con <b>15 páginas</b>, una por palabra, <b>en el orden de esta lista</b>.</li>
+  <li>En cada página abre <b>Magic Media</b> (o "Apps → Texto a imagen"), <b>copia el prompt</b> de esa palabra, pégalo y genera.
+      Elige la imagen que mejor muestre el objeto y ajústala a toda la página.</li>
+  <li>Las imágenes deben ir <b>sin texto</b>: la persona ve la imagen y recuerda la palabra. Si Canva pone letras, vuelve a generar.</li>
+  <li>Al terminar: <b>Compartir → Descargar → PNG</b>, todas las páginas. Canva entrega un ZIP con las imágenes numeradas 1, 2, 3…;
+      ese número es el # de esta lista. Déjalo en Descargas y avísame: yo las pongo en la app.</li>
+</ol></div>
+<div class="avance no-print"><span id="cuenta">0 de 15 generadas</span><div class="barra"><div id="barra"></div></div>
+  <button id="siguiente">Ir a la siguiente</button></div>
+<article id="face-down" data-id="face down"><div class="cab"><span class="n">1</span><span class="en">face down</span>
+          <span class="es">boca abajo</span><span class="file">face-down.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#face-down">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer acostada boca abajo en una camilla de masaje con la cara en el reposacabeza, cubierta con una sábana blanca</pre><div class="acciones"><button data-copiar="mujer acostada boca abajo en una camilla de masaje con la cara en el reposacabeza, cubierta con una sábana blanca">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="face-up" data-id="face up"><div class="cab"><span class="n">2</span><span class="en">face up</span>
+          <span class="es">boca arriba</span><span class="file">face-up.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#face-up">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer acostada boca arriba en una camilla de masaje con la cabeza en una almohada, cubierta con una sábana blanca</pre><div class="acciones"><button data-copiar="mujer acostada boca arriba en una camilla de masaje con la cabeza en una almohada, cubierta con una sábana blanca">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="on-your-back" data-id="on your back"><div class="cab"><span class="n">3</span><span class="en">on your back</span>
+          <span class="es">sobre la espalda</span><span class="file">on-your-back.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#on-your-back">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>huésped acostada sobre la espalda en una camilla de spa, cubierta con una sábana blanca</pre><div class="acciones"><button data-copiar="huésped acostada sobre la espalda en una camilla de spa, cubierta con una sábana blanca">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="on-your-side" data-id="on your side"><div class="cab"><span class="n">4</span><span class="en">on your side</span>
+          <span class="es">de lado</span><span class="file">on-your-side.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#on-your-side">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer acostada de lado en una camilla de masaje con una almohada entre las rodillas, cubierta con una sábana</pre><div class="acciones"><button data-copiar="mujer acostada de lado en una camilla de masaje con una almohada entre las rodillas, cubierta con una sábana">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="prone-position" data-id="prone position"><div class="cab"><span class="n">5</span><span class="en">prone position</span>
+          <span class="es">posición boca abajo</span><span class="file">prone-position.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#prone-position">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>vista lateral de una persona boca abajo en una camilla de masaje, cubierta con una sábana blanca</pre><div class="acciones"><button data-copiar="vista lateral de una persona boca abajo en una camilla de masaje, cubierta con una sábana blanca">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="supine-position" data-id="supine position"><div class="cab"><span class="n">6</span><span class="en">supine position</span>
+          <span class="es">posición boca arriba</span><span class="file">supine-position.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#supine-position">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>vista lateral de una persona boca arriba en una camilla de masaje, cubierta con una sábana blanca</pre><div class="acciones"><button data-copiar="vista lateral de una persona boca arriba en una camilla de masaje, cubierta con una sábana blanca">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="seated-position" data-id="seated position"><div class="cab"><span class="n">7</span><span class="en">seated position</span>
+          <span class="es">posición sentada</span><span class="file">seated-position.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#seated-position">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer en bata sentada en una silla de masaje recibiendo masaje en el cuello</pre><div class="acciones"><button data-copiar="mujer en bata sentada en una silla de masaje recibiendo masaje en el cuello">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="to-lie-down" data-id="to lie down"><div class="cab"><span class="n">8</span><span class="en">to lie down</span>
+          <span class="es">recostarse</span><span class="file">to-lie-down.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#to-lie-down">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer en bata blanca recostándose en una camilla de masaje</pre><div class="acciones"><button data-copiar="mujer en bata blanca recostándose en una camilla de masaje">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="to-turn-over" data-id="to turn over"><div class="cab"><span class="n">9</span><span class="en">to turn over</span>
+          <span class="es">darse la vuelta</span><span class="file">to-turn-over.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#to-turn-over">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>terapeuta sosteniendo la sábana mientras la huésped se da la vuelta en la camilla</pre><div class="acciones"><button data-copiar="terapeuta sosteniendo la sábana mientras la huésped se da la vuelta en la camilla">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="to-undress" data-id="to undress"><div class="cab"><span class="n">10</span><span class="en">to undress</span>
+          <span class="es">desvestirse</span><span class="file">to-undress.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#to-undress">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>bata blanca y ropa doblada en un gancho dentro de una cabina de spa</pre><div class="acciones"><button data-copiar="bata blanca y ropa doblada en un gancho dentro de una cabina de spa">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="belongings" data-id="belongings"><div class="cab"><span class="n">11</span><span class="en">belongings</span>
+          <span class="es">pertenencias</span><span class="file">belongings.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#belongings">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>bolso, celular y reloj en una canasta tejida de spa</pre><div class="acciones"><button data-copiar="bolso, celular y reloj en una canasta tejida de spa">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="breathe-in" data-id="breathe in"><div class="cab"><span class="n">12</span><span class="en">breathe in</span>
+          <span class="es">inhale</span><span class="file">breathe-in.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#breathe-in">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer relajada inhalando profundo con los ojos cerrados en un spa</pre><div class="acciones"><button data-copiar="mujer relajada inhalando profundo con los ojos cerrados en un spa">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="breathe-out" data-id="breathe out"><div class="cab"><span class="n">13</span><span class="en">breathe out</span>
+          <span class="es">exhale</span><span class="file">breathe-out.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#breathe-out">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer acostada en una camilla exhalando despacio con los ojos cerrados</pre><div class="acciones"><button data-copiar="mujer acostada en una camilla exhalando despacio con los ojos cerrados">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="to-relax" data-id="to relax"><div class="cab"><span class="n">14</span><span class="en">to relax</span>
+          <span class="es">relajarse</span><span class="file">to-relax.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#to-relax">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>mujer muy relajada recibiendo un masaje en la espalda</pre><div class="acciones"><button data-copiar="mujer muy relajada recibiendo un masaje en la espalda">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article><article id="take-your-time" data-id="take your time"><div class="cab"><span class="n">15</span><span class="en">take your time</span>
+          <span class="es">tómese su tiempo</span><span class="file">take-your-time.png</span></div><a class="solo-pdf" href="https://joaquinglr221-creator.github.io/spa-english/imagenes-posiciones.html#take-your-time">📋 Copiar prompt (abre esta imagen con su botón de copiar)</a>
+          <pre>huésped sonriendo tranquila mientras se levanta despacio de la camilla</pre><div class="acciones"><button data-copiar="huésped sonriendo tranquila mientras se levanta despacio de la camilla">📋 Copiar prompt</button>
+          <label class="hecho"><input type="checkbox"> Ya la generé</label></div></article>
+</main>
+<script>
+// Marcas de avance: al copiar un prompt su imagen queda marcada como generada (se puede desmarcar).
+// Se guardan en este navegador (localStorage).
+const CLAVE = "imagenes-posiciones-generadas";
+let hechas = new Set();
+try { hechas = new Set(JSON.parse(localStorage.getItem(CLAVE) || "[]")); } catch (err) {}
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify([...hechas])); } catch (err) {} };
+const articulos = [...document.querySelectorAll("article[data-id]")];
+function pintar() {
+  articulos.forEach((a) => { const ok = hechas.has(a.dataset.id); a.classList.toggle("listo", ok); a.querySelector(".hecho input").checked = ok; });
+  document.getElementById("cuenta").textContent = `${hechas.size} de ${articulos.length} generadas`;
+  document.getElementById("barra").style.width = `${(100 * hechas.size) / articulos.length}%`;
+}
+function marcar(a, ok) { ok ? hechas.add(a.dataset.id) : hechas.delete(a.dataset.id); guardar(); pintar(); }
+document.addEventListener("change", (ev) => {
+  const c = ev.target.closest(".hecho input"); if (c) marcar(c.closest("article"), c.checked);
+});
+document.getElementById("siguiente").onclick = () => {
+  const a = articulos.find((x) => !hechas.has(x.dataset.id)); if (a) a.scrollIntoView({ behavior: "smooth", block: "center" });
+};
+pintar();
+document.addEventListener("click", async (ev) => {
+  const b = ev.target.closest("[data-copiar]"); if (!b) return;
+  marcar(b.closest("article"), true);
+  try { await navigator.clipboard.writeText(b.dataset.copiar); } catch (err) {
+    const t = document.createElement("textarea"); t.value = b.dataset.copiar; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
+  }
+  const txt = b.textContent; b.textContent = "✓ Copiado"; b.classList.add("ok"); setTimeout(() => { b.textContent = txt; b.classList.remove("ok"); }, 1500);
+});
+</script></body></html>
