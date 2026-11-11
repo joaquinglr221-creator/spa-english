@@ -44,7 +44,7 @@ const HYDRO_SCRIPT = [
     ],
     lines: [
       { who: "valet", en: "Mr. Jackson, this is the locker room. Your locker is number twelve. Inside the locker, you will find a robe, sandals and a towel.", es: "Sr. Jackson, esta es el área de casilleros. Su casillero es el número doce. Dentro del casillero encontrará una bata, sandalias y una toalla." },
-      { who: "valet", en: "For the hydrotherapy circuit, we will use the sandals, the towel and your bathing suit.", es: "Para el circuito de hidroterapia usaremos las sandalias, la toalla y su traje de baño." },
+      { who: "valet", en: "For the hydrotherapy circuit, you will need your sandals, your towel and your bathing suit.", es: "Para el circuito de hidroterapia, necesitará sus sandalias, su toalla y su traje de baño." },
       { who: "guest", en: "I'm sorry, I didn't bring my bathing suit.", es: "Disculpe, no traje mi traje de baño." },
       { who: "valet", en: "No problem, Mr. Jackson. To enjoy the spa facilities, it is necessary to wear a bathing suit. We invite you to bring one, or you can ask at Spa Reception.", es: "No se preocupe, Sr. Jackson. Para disfrutar de las instalaciones del spa es necesario usar traje de baño. Le invitamos a traer uno, o puede preguntar en la recepción del spa." },
       { who: "valet", en: "Allow me to explain how to use the locker. First, choose four numbers for your security code. Then turn the knob to the right, and finally scramble the numbers.", es: "Permítame explicarle cómo usar el casillero. Primero, elija cuatro números para su código de seguridad. Luego gire la perilla a la derecha y, por último, revuelva los números." },
