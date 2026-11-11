@@ -2855,5 +2855,97 @@ const IMAGES = {
  "no more than fifteen minutes": {
   "src": "images/canva/no-more-than-fifteen-minutes.jpg",
   "source": "canva"
+ },
+ "wear a bathing suit": {
+  "src": "images/canva/wear-a-bathing-suit.jpg",
+  "source": "canva"
+ },
+ "would you like to use the restroom?": {
+  "src": "images/canva/would-you-like-to-use-the-restroom.jpg",
+  "source": "canva"
+ },
+ "take your sandals off": {
+  "src": "images/canva/take-your-sandals-off.jpg",
+  "source": "canva"
+ },
+ "may I help you with your towel?": {
+  "src": "images/canva/may-i-help-you-with-your-towel.jpg",
+  "source": "canva"
+ },
+ "sit down or lie down": {
+  "src": "images/canva/sit-down-or-lie-down.jpg",
+  "source": "canva"
+ },
+ "let's start with the sauna": {
+  "src": "images/canva/let-s-start-with-the-sauna.jpg",
+  "source": "canva"
+ },
+ "how long would you like to stay?": {
+  "src": "images/canva/how-long-would-you-like-to-stay.jpg",
+  "source": "canva"
+ },
+ "I will be back in five minutes": {
+  "src": "images/canva/i-will-be-back-in-five-minutes.jpg",
+  "source": "canva"
+ },
+ "take a quick shower": {
+  "src": "images/canva/take-a-quick-shower.jpg",
+  "source": "canva"
+ },
+ "pull down the chain": {
+  "src": "images/canva/pull-down-the-chain.jpg",
+  "source": "canva"
+ },
+ "a cool towel": {
+  "src": "images/canva/a-cool-towel.jpg",
+  "source": "canva"
+ },
+ "it helps to open the pores": {
+  "src": "images/canva/it-helps-to-open-the-pores.jpg",
+  "source": "canva"
+ },
+ "let's continue with the cold plunge": {
+  "src": "images/canva/let-s-continue-with-the-cold-plunge.jpg",
+  "source": "canva"
+ },
+ "get in and out": {
+  "src": "images/canva/get-in-and-out.jpg",
+  "source": "canva"
+ },
+ "lie down on the bubble bed": {
+  "src": "images/canva/lie-down-on-the-bubble-bed.jpg",
+  "source": "canva"
+ },
+ "stand under the pressure jets": {
+  "src": "images/canva/stand-under-the-pressure-jets.jpg",
+  "source": "canva"
+ },
+ "stand on the bubble horseshoe": {
+  "src": "images/canva/stand-on-the-bubble-horseshoe.jpg",
+  "source": "canva"
+ },
+ "the last part of your circuit": {
+  "src": "images/canva/the-last-part-of-your-circuit.jpg",
+  "source": "canva"
+ },
+ "sit down inside the jacuzzi": {
+  "src": "images/canva/sit-down-inside-the-jacuzzi.jpg",
+  "source": "canva"
+ },
+ "relax on the spa daybed": {
+  "src": "images/canva/relax-on-the-spa-daybed.jpg",
+  "source": "canva"
+ },
+ "I will escort you": {
+  "src": "images/canva/i-will-escort-you.jpg",
+  "source": "canva"
+ },
+ "no food in the hydrotherapy area": {
+  "src": "images/canva/no-food-in-the-hydrotherapy-area.jpg",
+  "source": "canva"
+ },
+ "electronic devices are not allowed": {
+  "src": "images/canva/electronic-devices-are-not-allowed.jpg",
+  "source": "canva"
  }
 };
