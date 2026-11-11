@@ -2711,25 +2711,5 @@ const IMAGES = {
  "to lie down": {
   "src": "images/canva/to-lie-down.jpg",
   "source": "canva"
- },
- "watch your step": {
-  "src": "images/canva/watch-your-step.jpg",
-  "source": "canva"
- },
- "at the bottom of the pool": {
-  "src": "images/canva/at-the-bottom-of-the-pool.jpg",
-  "source": "canva"
- },
- "suction grate": {
-  "src": "images/canva/suction-grate.jpg",
-  "source": "canva"
- },
- "suction drain": {
-  "src": "images/canva/suction-drain.jpg",
-  "source": "canva"
- },
- "keep clear of": {
-  "src": "images/canva/keep-clear-of.jpg",
-  "source": "canva"
  }
 };
