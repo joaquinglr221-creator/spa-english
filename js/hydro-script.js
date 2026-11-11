@@ -56,13 +56,13 @@ const HYDRO_SCRIPT = [
   {
     id: "before", icon: "🩺", title: "Before the Circuit", titleEs: "Antes de comenzar",
     standards: [
-      "Ofrecer el baño antes de comenzar el circuito.",
+      "Ofrecer el baño antes de comenzar el circuito, con discreción: dar la información sin preguntar directamente.",
       "Hacer siempre las preguntas de salud. Si el huésped reporta una condición relevante, no recomendar automáticamente sauna, vapor, tina fría o jacuzzi: consultar el protocolo médico y de seguridad del spa.",
       "Explicar las reglas: no se permiten aparatos electrónicos en el sauna ni en el vapor, ni alimentos dentro del área de hidroterapia.",
     ],
     lines: [
-      { who: "valet", en: "Mr. Jackson, would you like to use the restroom before starting the hydrotherapy circuit?", es: "Sr. Jackson, ¿le gustaría usar el baño antes de comenzar el circuito de hidroterapia?" },
-      { who: "guest", en: "No, I'm fine, thank you.", es: "No, estoy bien, gracias." },
+      { who: "valet", en: "Mr. Jackson, before we begin the circuit, the restroom is right here, should you need it.", es: "Sr. Jackson, antes de comenzar el circuito, el baño está aquí mismo, por si lo necesita." },
+      { who: "guest", en: "Thank you, I'm fine.", es: "Gracias, estoy bien." },
       { who: "valet", en: "Before we begin, may I ask you a few questions to make sure the circuit is safe and comfortable for you?", es: "Antes de comenzar, ¿me permite hacerle algunas preguntas para asegurarnos de que el circuito sea seguro y cómodo para usted?" },
       { who: "valet", en: "Do you have high blood pressure or any heart condition?", es: "¿Tiene presión arterial alta o alguna afección cardíaca?" },
       { who: "valet", en: "Have you had any recent surgeries or injuries?", es: "¿Ha tenido alguna cirugía o lesión reciente?" },
