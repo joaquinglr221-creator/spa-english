@@ -416,9 +416,7 @@ const MATERIAL = {
   "gym-workouts": { title: "Work Outs", subtitle: "Ejercicios, equipo, verbos y calentamiento", pages: 20, volver: "#/gym", volverTexto: "← Gym del spa" },
   "gym-equipment": { title: "Gym Equipment", subtitle: "Equipo del gimnasio", pages: 18, volver: "#/gym", volverTexto: "← Gym del spa" },
   "gym-verbs": { title: "Gym Verbs", subtitle: "Verbos del entrenamiento", pages: 8, volver: "#/gym", volverTexto: "← Gym del spa" },
-  "valet-spa": { title: "Valet Spa Script", subtitle: "Presentación de vocabulario para valets", pages: 14, volver: "#/valet", volverTexto: "← Valet de spa" },
   "avisos-hidroterapia": { title: "Avisos de seguridad · Hidroterapia", subtitle: "Avisos bilingües de la rejilla de succión", pages: 5, volver: "#/instrucciones", volverTexto: "← Instrucciones" },
-  "valet-spa-2024": { title: "Valet Spa Script 2024", subtitle: "Bienvenida, casilleros y circuito de hidroterapia (inglés y español)", pages: 18, volver: "#/instrucciones", volverTexto: "← Instrucciones" },
 };
 // Listas de precios y menús originales de la recepción: traen los logotipos del hotel, así que sus páginas
 // están en images/solo-hotel/ (scripts/publicar.py no las publica) y solo se ven en la app del hotel.
@@ -672,9 +670,6 @@ function viewValet() {
     ${VALET_VOC.length ? `<h2 class="section-title">Vocabulario esencial · ${VALET_VOC.length} palabras</h2>
     ${vocabFilas(VALET_VOC)}` : ""}
     ${bloqueCircuito()}
-    <h2 class="section-title">Material original</h2>
-    <div class="amp-docs">${["valet-spa", "valet-spa-2024"].filter((id) => MATERIAL[id]).map((id) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
-      <span><b>${esc(MATERIAL[id].title)}</b><small>${esc(MATERIAL[id].subtitle)} · ${MATERIAL[id].pages} páginas</small></span></a>`).join("")}</div>
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 

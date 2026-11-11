@@ -46,7 +46,7 @@ const INSTRUCCIONES_VOCAB = [
   { en: "let me know", es: "avíseme", pron: "let mi nou", ex: "Let me know if you need anything.", exEs: "Avíseme si necesita algo." },
   { en: "the exit is over there", es: "la salida está por allá", pron: "di ék-sit is óu-ver der", ex: "When you finish, the exit is over there.", exEs: "Cuando termine, la salida está por allá." },
 
-  // El circuito de hidroterapia paso a paso (del Valet Spa Script 2024, material "valet-spa-2024"; solo su inglés, corregido)
+  // El circuito de hidroterapia paso a paso (del inglés del Valet Spa Script 2024, corregido)
   { en: "wear a bathing suit", es: "use traje de baño", pron: "uér a béi-ding sut", ex: "To enjoy the spa facilities, it is necessary to wear a bathing suit.", exEs: "Para disfrutar de las instalaciones del spa, es necesario usar traje de baño." },
   { en: "would you like to use the restroom?", es: "¿le gustaría usar el baño?", pron: "uud iu láik tu iuus de rést-rum", ex: "Would you like to use the restroom before starting the hydrotherapy circuit?", exEs: "¿Le gustaría usar el baño antes de comenzar el circuito de hidroterapia?" },
   { en: "take your sandals off", es: "quítese las sandalias", pron: "téik yur sán-dols of", ex: "Please take your sandals off and leave them here.", exEs: "Por favor, quítese las sandalias y déjelas aquí." },
@@ -72,4 +72,4 @@ const INSTRUCCIONES_VOCAB = [
   { en: "no food in the hydrotherapy area", es: "no se permite comer en el área de hidroterapia", pron: "nou fud in de jái-dro-zé-ra-pi é-ri-a", ex: "There is no food in the hydrotherapy area. You can eat after your treatment.", exEs: "No se permite comer en el área de hidroterapia. Puede comer después de su tratamiento." },
 ];
 
-VOCAB.push({ id: "instrucciones", title: "Instrucciones", icon: "🪧", words: INSTRUCCIONES_VOCAB, material: ["avisos-hidroterapia", "valet-spa-2024"] });
+VOCAB.push({ id: "instrucciones", title: "Instrucciones", icon: "🪧", words: INSTRUCCIONES_VOCAB, material: ["avisos-hidroterapia"] });
