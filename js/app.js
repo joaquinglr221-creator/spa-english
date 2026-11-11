@@ -328,6 +328,7 @@ function viewScriptMenu(programa = "script") {
     <div class="grid menu">${S.map(
       (st, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/${programa}/${st.id}">${stageIcon(st, "", programa)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
     ).join("")}</div>
+    ${programa === "hidroterapia" ? bloqueCircuito() : ""}
     <a class="btn ghost full center" href="${P.volver || "#/"}">${P.volverTexto || "← Volver al inicio"}</a>`;
 }
 
@@ -642,9 +643,16 @@ const vocabFilas = (words) => `<section class="card valet-vocab">${words.map(
   }</div><div class="row">${speakButtons(w.en)}</div></div>`
 ).join("")}</section>`;
 
+// Instrucciones del circuito de hidroterapia (js/instrucciones.js, del Valet Spa Script 2024): también se ven,
+// con sus fotos, en Valet de spa y en el Script de hidroterapia.
+const INSTR = typeof INSTRUCCIONES_VOCAB !== "undefined" ? INSTRUCCIONES_VOCAB : [];
+const INSTR_CIRCUITO = INSTR.slice(Math.max(0, INSTR.findIndex((w) => w.en === "wear a bathing suit")));
+const bloqueCircuito = () => INSTR.length ? `<h2 class="section-title">Instrucciones del circuito de hidroterapia · ${INSTR_CIRCUITO.length}</h2>
+    ${vocabFilas(INSTR_CIRCUITO)}
+    <a class="btn ghost full center" href="#/instrucciones">🪧 Ver todas las instrucciones (${INSTR.length}) con sus pruebas</a>` : "";
+
 function viewValet() {
   const V = PROGRAMAS["valet-script"], H = PROGRAMAS.hidroterapia;
-  const m = MATERIAL["valet-spa"];
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
@@ -663,9 +671,10 @@ function viewValet() {
       <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
     ${VALET_VOC.length ? `<h2 class="section-title">Vocabulario esencial · ${VALET_VOC.length} palabras</h2>
     ${vocabFilas(VALET_VOC)}` : ""}
+    ${bloqueCircuito()}
     <h2 class="section-title">Material original</h2>
-    <div class="amp-docs"><a class="amp-doc" href="#/material/valet-spa"><img src="images/material/valet-spa/p01.jpg" alt="" loading="lazy">
-      <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a></div>
+    <div class="amp-docs">${["valet-spa", "valet-spa-2024"].filter((id) => MATERIAL[id]).map((id) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
+      <span><b>${esc(MATERIAL[id].title)}</b><small>${esc(MATERIAL[id].subtitle)} · ${MATERIAL[id].pages} páginas</small></span></a>`).join("")}</div>
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
