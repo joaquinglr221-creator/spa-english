@@ -207,7 +207,7 @@ const colorPorIndice = (i) => PALETA[i % PALETA.length];
 // Secciones del menú de inicio; una categoría nueva que no esté aquí aparece en "Otras".
 const MENU_GROUPS = [
   { title: "Spa y cabina", ids: ["cuerpo", "tratamientos", "masajes", "tecnicas", "verbos", "posiciones", "posturas", "productos", "aromas", "instalaciones", "amenidades", "cabina", "bienestar"] },
-  { title: "Salud y seguridad", ids: ["salud", "encuesta", "malestares", "piel"] },
+  { title: "Salud y seguridad", ids: ["instrucciones", "salud", "encuesta", "malestares", "piel"] },
   { title: "Salón y barbería", ids: ["barberia", "peinados", "coloracion"] },
   { title: "Recepción y hotel", ids: ["recepcion", "hotel"] },
 ];
@@ -416,6 +416,7 @@ const MATERIAL = {
   "gym-equipment": { title: "Gym Equipment", subtitle: "Equipo del gimnasio", pages: 18, volver: "#/gym", volverTexto: "← Gym del spa" },
   "gym-verbs": { title: "Gym Verbs", subtitle: "Verbos del entrenamiento", pages: 8, volver: "#/gym", volverTexto: "← Gym del spa" },
   "valet-spa": { title: "Valet Spa Script", subtitle: "Presentación de vocabulario para valets", pages: 14, volver: "#/valet", volverTexto: "← Valet de spa" },
+  "avisos-hidroterapia": { title: "Avisos de seguridad · Hidroterapia", subtitle: "Avisos bilingües de la rejilla de succión", pages: 5, volver: "#/instrucciones", volverTexto: "← Instrucciones" },
 };
 // Listas de precios y menús originales de la recepción: traen los logotipos del hotel, así que sus páginas
 // están en images/solo-hotel/ (scripts/publicar.py no las publica) y solo se ven en la app del hotel.
@@ -1520,6 +1521,8 @@ function view(catId) {
     <a class="back" href="#/vocabularios">← Vocabularios</a>
     ${search}
     <h2 class="section-title cat-head" style="color:${colorCategoria(cat.id)}">${catIcon(cat, "md", colorCategoria(cat.id))}<span>${esc(cat.title)} <span class="muted">· ${learned} de ${cat.words.length}</span></span></h2>
+    ${(cat.material || []).length ? `<div class="amp-docs">${cat.material.map((id) => [id, MATERIAL[id]]).map(([id, m]) => `<a class="amp-doc" href="#/material/${id}"><img src="images/material/${id}/p01.jpg" alt="" loading="lazy">
+      <span><b>${esc(m.title)}</b><small>${esc(m.subtitle)} · ${m.pages} páginas</small></span></a>`).join("")}</div>` : ""}
     ${botonesPrueba(cat)}
     <div id="word-list">${wordList(cat.words)}</div>
     <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>
