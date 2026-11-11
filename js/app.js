@@ -271,9 +271,9 @@ const PROGRAMAS = {
   },
   hidroterapia: {
     stages: typeof HYDRO_SCRIPT !== "undefined" ? HYDRO_SCRIPT : [], icono: "instalaciones", portada: "images/script/hidroterapia.jpg",
-    titulo: "Script de hidroterapia", kicker: "Circuito de hidroterapia · Seguridad y servicio", standardsLabel: "⭐ Pautas y seguridad",
-    desc: "Cómo recibir, orientar y cuidar al huésped en cada estación del circuito de hidroterapia.",
-    flow: "Warm shower → Sauna → Cold shower → Steam room → Cold plunge → Vitality pool → Whirlpool → Relaxation lounge",
+    titulo: "Script de hidroterapia", kicker: "Circuito de hidroterapia · Secuencia del spa del hotel", standardsLabel: "⭐ Pautas y seguridad",
+    desc: "El valet guía al huésped en el orden de servicio del spa: de la bienvenida y los casilleros al circuito completo y la entrega a la terapeuta.",
+    flow: "Welcome → Locker room → Sauna → Spa Bar → Steam room → Cold plunge → Dynamic pool → Jacuzzi → Relaxation → Massage",
     volver: "#/valet", volverTexto: "← Valet de spa",
   },
   "valet-script": {
