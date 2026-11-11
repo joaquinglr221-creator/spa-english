@@ -41,6 +41,7 @@ const HYDRO_SCRIPT = [
       "Explicar que para el circuito se usan sandalias, toalla y traje de baño.",
       "Si el huésped no trae traje de baño, explicar con amabilidad que es necesario para usar las instalaciones.",
       "Explicar cómo programar el código del casillero y ofrecer privacidad para cambiarse.",
+      "Recomendar dejar las alhajas y los artículos personales dentro del casillero durante el circuito.",
     ],
     lines: [
       { who: "valet", en: "Mr. Jackson, this is the locker room. Your locker is number twelve. Inside the locker, you will find a robe, sandals and a towel.", es: "Sr. Jackson, esta es el área de casilleros. Su casillero es el número doce. Dentro del casillero encontrará una bata, sandalias y una toalla." },
@@ -48,7 +49,8 @@ const HYDRO_SCRIPT = [
       { who: "guest", en: "I'm sorry, I didn't bring my bathing suit.", es: "Disculpe, no traje mi traje de baño." },
       { who: "valet", en: "Mr. Jackson, to enjoy the spa facilities, it is necessary to wear a bathing suit. We invite you to bring one.", es: "Sr. Jackson, para disfrutar de las instalaciones del spa es necesario usar traje de baño. Le invitamos a traer uno." },
       { who: "valet", en: "Allow me to explain how to use the locker. First, choose four numbers for your security code. Then turn the knob to the right, and finally scramble the numbers.", es: "Permítame explicarle cómo usar el casillero. Primero, elija cuatro números para su código de seguridad. Luego gire la perilla a la derecha y, por último, revuelva los números." },
-      { who: "guest", en: "Four numbers, then turn and scramble. Got it.", es: "Cuatro números, luego girar y revolver. Entendido." },
+      { who: "valet", en: "We recommend leaving your jewelry and any personal items inside the locker, for your comfort during the hydrotherapy circuit.", es: "Le recomendamos dejar sus alhajas y cualquier artículo personal dentro del casillero, para su mayor comodidad durante el circuito de hidroterapia." },
+      { who: "guest", en: "Four numbers, then turn and scramble. Got it. I'll leave my watch inside.", es: "Cuatro números, luego girar y revolver. Entendido. Dejaré mi reloj adentro." },
       { who: "valet", en: "You can use the dressing room, or if you prefer, you can change here.", es: "Puede usar el vestidor o, si lo prefiere, puede cambiarse aquí." },
       { who: "valet", en: "To give you some privacy, I will be waiting for you outside.", es: "Para darle privacidad, lo estaré esperando afuera." },
     ],
