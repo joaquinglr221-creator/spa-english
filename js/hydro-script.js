@@ -29,7 +29,7 @@ const HYDRO_SCRIPT = [
       "Caminar al lado o un paso adelante del huésped e indicar con la mano abierta.",
     ],
     lines: [
-      { who: "valet", en: "Mr. Jackson, welcome to the gentlemen's area. This is the amenities area, and here are the restrooms and the showers.", es: "Sr. Jackson, bienvenido al área de caballeros. Esta es el área de amenidades, y aquí están los baños y las regaderas." },
+      { who: "valet", en: "Mr. Jackson, welcome to the gentlemen's area. This is the amenities counter, and here are the restrooms and the showers.", es: "Sr. Jackson, bienvenido al área de caballeros. Este es el mostrador de amenidades, y aquí están los baños y las regaderas." },
       { who: "guest", en: "Great, thank you.", es: "Excelente, gracias." },
       { who: "valet", en: "You will find shampoo, conditioner, body lotion and a hairdryer here, for after your treatment.", es: "Aquí encontrará shampoo, acondicionador, crema corporal y secadora de cabello, para después de su tratamiento." },
     ],
