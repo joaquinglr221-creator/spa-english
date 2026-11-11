@@ -2711,5 +2711,145 @@ const IMAGES = {
  "to lie down": {
   "src": "images/canva/to-lie-down.jpg",
   "source": "canva"
+ },
+ "watch your step": {
+  "src": "images/canva/watch-your-step.jpg",
+  "source": "canva"
+ },
+ "suction drain": {
+  "src": "images/canva/suction-drain.jpg",
+  "source": "canva"
+ },
+ "suction grate": {
+  "src": "images/canva/suction-grate.jpg",
+  "source": "canva"
+ },
+ "keep your feet away": {
+  "src": "images/canva/keep-your-feet-away.jpg",
+  "source": "canva"
+ },
+ "keep clear of": {
+  "src": "images/canva/keep-clear-of.jpg",
+  "source": "canva"
+ },
+ "do not step on it": {
+  "src": "images/canva/do-not-step-on-it.jpg",
+  "source": "canva"
+ },
+ "at the bottom of the pool": {
+  "src": "images/canva/at-the-bottom-of-the-pool.jpg",
+  "source": "canva"
+ },
+ "safety precaution": {
+  "src": "images/canva/safety-precaution.jpg",
+  "source": "canva"
+ },
+ "for your safety": {
+  "src": "images/canva/for-your-safety.jpg",
+  "source": "canva"
+ },
+ "hold the handrail": {
+  "src": "images/canva/hold-the-handrail.jpg",
+  "source": "canva"
+ },
+ "the floor is slippery": {
+  "src": "images/canva/the-floor-is-slippery.jpg",
+  "source": "canva"
+ },
+ "please do not run": {
+  "src": "images/canva/please-do-not-run.jpg",
+  "source": "canva"
+ },
+ "thank you for your cooperation": {
+  "src": "images/canva/thank-you-for-your-cooperation.jpg",
+  "source": "canva"
+ },
+ "take a shower first": {
+  "src": "images/canva/take-a-shower-first.jpg",
+  "source": "canva"
+ },
+ "drink some water": {
+  "src": "images/canva/drink-some-water.jpg",
+  "source": "canva"
+ },
+ "if you feel dizzy": {
+  "src": "images/canva/if-you-feel-dizzy.jpg",
+  "source": "canva"
+ },
+ "step in slowly": {
+  "src": "images/canva/step-in-slowly.jpg",
+  "source": "canva"
+ },
+ "step out slowly": {
+  "src": "images/canva/step-out-slowly.jpg",
+  "source": "canva"
+ },
+ "press the button": {
+  "src": "images/canva/press-the-button.jpg",
+  "source": "canva"
+ },
+ "no glass in this area": {
+  "src": "images/canva/no-glass-in-this-area.jpg",
+  "source": "canva"
+ },
+ "this way, please": {
+  "src": "images/canva/this-way-please.jpg",
+  "source": "canva"
+ },
+ "follow me, please": {
+  "src": "images/canva/follow-me-please.jpg",
+  "source": "canva"
+ },
+ "on your left": {
+  "src": "images/canva/on-your-left.jpg",
+  "source": "canva"
+ },
+ "on your right": {
+  "src": "images/canva/on-your-right.jpg",
+  "source": "canva"
+ },
+ "at the end of the hallway": {
+  "src": "images/canva/at-the-end-of-the-hallway.jpg",
+  "source": "canva"
+ },
+ "next to": {
+  "src": "images/canva/next-to.jpg",
+  "source": "canva"
+ },
+ "please wait here": {
+  "src": "images/canva/please-wait-here.jpg",
+  "source": "canva"
+ },
+ "have a seat": {
+  "src": "images/canva/have-a-seat.jpg",
+  "source": "canva"
+ },
+ "put on your robe": {
+  "src": "images/canva/put-on-your-robe.jpg",
+  "source": "canva"
+ },
+ "store your belongings": {
+  "src": "images/canva/store-your-belongings.jpg",
+  "source": "canva"
+ },
+ "keep your phone on silent": {
+  "src": "images/canva/keep-your-phone-on-silent.jpg",
+  "source": "canva"
+ },
+ "speak softly": {
+  "src": "images/canva/speak-softly.jpg",
+  "source": "canva"
+ },
+ "arrive fifteen minutes early": {
+  "src": "images/canva/arrive-fifteen-minutes-early.jpg",
+  "source": "canva"
+ },
+ "let me know": {
+  "src": "images/canva/let-me-know.jpg",
+  "source": "canva"
+ },
+ "the exit is over there": {
+  "src": "images/canva/the-exit-is-over-there.jpg",
+  "source": "canva"
  }
 };
