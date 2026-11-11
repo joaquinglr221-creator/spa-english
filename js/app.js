@@ -417,6 +417,7 @@ const MATERIAL = {
   "gym-verbs": { title: "Gym Verbs", subtitle: "Verbos del entrenamiento", pages: 8, volver: "#/gym", volverTexto: "← Gym del spa" },
   "valet-spa": { title: "Valet Spa Script", subtitle: "Presentación de vocabulario para valets", pages: 14, volver: "#/valet", volverTexto: "← Valet de spa" },
   "avisos-hidroterapia": { title: "Avisos de seguridad · Hidroterapia", subtitle: "Avisos bilingües de la rejilla de succión", pages: 5, volver: "#/instrucciones", volverTexto: "← Instrucciones" },
+  "valet-spa-2024": { title: "Valet Spa Script 2024", subtitle: "Bienvenida, casilleros y circuito de hidroterapia (inglés y español)", pages: 18, volver: "#/instrucciones", volverTexto: "← Instrucciones" },
 };
 // Listas de precios y menús originales de la recepción: traen los logotipos del hotel, así que sus páginas
 // están en images/solo-hotel/ (scripts/publicar.py no las publica) y solo se ven en la app del hotel.
