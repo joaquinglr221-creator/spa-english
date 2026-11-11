@@ -456,6 +456,8 @@ const bilingue = (es, en) => `<span class="bi"><span>🇲🇽 ${esc(es)}</span><
 
 // Texto bilingüe con botones para escuchar el inglés (🔊 y 🐢).
 const bilingueAudio = (es, en, hablar = en) => `<div class="bi-audio">${bilingue(es, en)}<div class="row">${speakButtons(hablar)}</div></div>`;
+// Igual, pero con el inglés arriba y la traducción al español abajo (La piel).
+const inglesAudio = (es, en) => `<div class="bi-audio"><span class="bi"><span>🇺🇸 ${esc(en)}</span><span class="bi-es">🇲🇽 ${esc(es)}</span></span><div class="row">${speakButtons(en)}</div></div>`;
 
 function dialogueHtml(lines) {
   return lines
@@ -1083,7 +1085,7 @@ function afeccionesLista(lista) {
         <div class="piel-af-txt">
           <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(a.en)}</b><span>🇲🇽 ${esc(a.es)}</span></span><div class="row">${speakButtons(a.en)}</div></div>
           <span class="piel-nivel">${NIVELES[a.nivel].icono} ${NIVELES[a.nivel].texto} · <em>${NIVELES[a.nivel].en}</em></span>
-          ${bilingueAudio(a.nota.es, a.nota.en)}
+          ${inglesAudio(a.nota.es, a.nota.en)}
         </div>
       </div>`;
     })
@@ -1117,9 +1119,9 @@ function viewPiel() {
     <div class="piel-tipos">${P.tipos.map(
       (t, n) => `<section class="card piel-tipo" style="--c:${colorPorIndice(n)}">
         <div class="bi-audio"><span class="bi"><b>${t.icon} 🇺🇸 ${esc(t.en)}</b><span>🇲🇽 ${esc(t.es)}</span></span><div class="row">${speakButtons(t.en)}</div></div>
-        ${bilingueAudio(t.desc.es, t.desc.en)}
+        ${inglesAudio(t.desc.es, t.desc.en)}
         <p class="label">💡 En el spa · At the spa</p>
-        ${bilingueAudio(t.tip.es, t.tip.en)}
+        ${inglesAudio(t.tip.es, t.tip.en)}
       </section>`
     ).join("")}</div>
 
@@ -1129,7 +1131,7 @@ function viewPiel() {
       (f) => `<div class="piel-color"><span class="piel-foto"><img src="${f.img}" alt="${esc(f.es)}" loading="lazy"><span class="piel-muestra" style="background:${f.color}"></span></span>
         <div class="piel-af-txt">
           <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(f.en)}</b><span>🇲🇽 ${esc(f.es)}</span></span><div class="row">${speakButtons(f.en)}</div></div>
-          ${bilingueAudio(f.desc.es, f.desc.en)}
+          ${inglesAudio(f.desc.es, f.desc.en)}
         </div></div>`
     ).join("")}</div>
     <h3 class="piel-sub">Subtonos y otras palabras para describir el color</h3>
@@ -1137,7 +1139,7 @@ function viewPiel() {
       (f) => `<div class="piel-color"><span class="piel-foto"><img src="${f.img}" alt="${esc(f.es)}" loading="lazy"><span class="piel-muestra" style="background:${f.color}"></span></span>
         <div class="piel-af-txt">
           <div class="bi-audio"><span class="bi"><b>🇺🇸 ${esc(f.en)}</b><span>🇲🇽 ${esc(f.es)}</span></span><div class="row">${speakButtons(f.en)}</div></div>
-          ${bilingueAudio(f.desc.es, f.desc.en)}
+          ${inglesAudio(f.desc.es, f.desc.en)}
         </div></div>`
     ).join("")}</div>
 
@@ -1151,7 +1153,7 @@ function viewPiel() {
     <p class="anat-credito">Orientación general para el spa; ante cualquier duda, seguir el protocolo del spa y consultar a la supervisora o al médico.</p>
 
     <h2 class="section-title" id="piel-frases">💬 Frases para la consulta · Useful phrases</h2>
-    <section class="card">${P.frases.map((f) => bilingueAudio(f.es, f.en)).join("")}</section>
+    <section class="card">${P.frases.map((f) => inglesAudio(f.es, f.en)).join("")}</section>
     <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>`;
 }
 

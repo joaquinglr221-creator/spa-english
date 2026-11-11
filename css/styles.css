@@ -415,6 +415,7 @@ a.btn.center { text-align: center; }
 /* Venta de ampolletas (js/ampolletas.js) */
 .bi { display: flex; flex-direction: column; }
 .bi-en { color: var(--muted); font-size: 0.88em; font-style: italic; }
+.bi-es { color: var(--muted); font-size: 0.88em; font-style: italic; }
 .amp-list { margin: 6px 0 0; padding-left: 18px; }
 .amp-list li { margin: 6px 0; }
 .amp-no { max-width: none; margin-top: 12px; }
