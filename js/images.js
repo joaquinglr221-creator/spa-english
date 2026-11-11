@@ -2852,8 +2852,8 @@ const IMAGES = {
   "src": "images/canva/the-exit-is-over-there.jpg",
   "source": "canva"
  },
- "no more than fifteen minutes": {
-  "src": "images/canva/no-more-than-fifteen-minutes.jpg",
+ "no more than ten minutes": {
+  "src": "images/canva/no-more-than-ten-minutes.jpg",
   "source": "canva"
  },
  "wear a bathing suit": {

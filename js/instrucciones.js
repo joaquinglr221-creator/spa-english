@@ -21,7 +21,7 @@ const INSTRUCCIONES_VOCAB = [
 
   // Durante el circuito
   { en: "take a shower first", es: "dúchese primero", pron: "téik a sháu-er ferst", ex: "Please take a shower first before you enter the pool.", exEs: "Por favor, dúchese primero antes de entrar a la alberca." },
-  { en: "no more than fifteen minutes", es: "no más de quince minutos", pron: "nou mor dan fif-tín mí-nits", ex: "Please stay in the sauna no more than fifteen minutes.", exEs: "Por favor, no permanezca más de quince minutos en el sauna." },
+  { en: "no more than ten minutes", es: "no más de diez minutos", pron: "nou mor dan ten mí-nits", ex: "Please stay in the sauna no more than ten minutes.", exEs: "Por favor, no permanezca más de diez minutos en el sauna." },
   { en: "drink some water", es: "tome un poco de agua", pron: "drink sam uó-ter", ex: "Please drink some water between each station.", exEs: "Por favor, tome un poco de agua entre cada estación." },
   { en: "if you feel dizzy", es: "si se siente mareado", pron: "if iu fiil dí-si", ex: "If you feel dizzy, please step out and rest.", exEs: "Si se siente mareado, por favor salga y descanse." },
   { en: "step in slowly", es: "entre despacio", pron: "step in slóu-li", ex: "The water is very cold, so please step in slowly.", exEs: "El agua está muy fría, así que por favor entre despacio." },
