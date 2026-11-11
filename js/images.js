@@ -2851,5 +2851,9 @@ const IMAGES = {
  "the exit is over there": {
   "src": "images/canva/the-exit-is-over-there.jpg",
   "source": "canva"
+ },
+ "no more than fifteen minutes": {
+  "src": "images/canva/no-more-than-fifteen-minutes.jpg",
+  "source": "canva"
  }
 };
