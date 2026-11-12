@@ -237,7 +237,7 @@ const HYDRO_SCRIPT = [
     ],
     lines: [
       { who: "valet", en: "Thank you for visiting Relax Spa, Mr. Jackson. I hope you enjoyed your hydrotherapy experience and feel relaxed and refreshed.", es: "Gracias por visitar Relax Spa, Sr. Jackson. Espero que haya disfrutado su experiencia de hidroterapia y se sienta relajado y renovado." },
-      { who: "valet", en: "Please take your time getting ready. It was a pleasure assisting you. Have a wonderful day!", es: "Por favor, tómese su tiempo para arreglarse. Fue un placer atenderle. ¡Que tenga un excelente día!" },
+      { who: "valet", en: "Please take your time to change, Mr. Jackson. It has been a pleasure taking care of you today. We look forward to seeing you again soon. Have a wonderful day!", es: "Por favor, tómese su tiempo para cambiarse, Sr. Jackson. Ha sido un placer atenderle hoy. Esperamos verle de nuevo pronto. ¡Que tenga un excelente día!" },
       { who: "guest", en: "Thank you, Carlos. See you next time.", es: "Gracias, Carlos. Nos vemos la próxima vez." },
     ],
   },
