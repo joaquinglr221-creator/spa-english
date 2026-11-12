@@ -644,6 +644,12 @@ const bloqueCircuito = () => INSTR.length ? `<h2 class="section-title">Instrucci
     ${vocabFilas(INSTR_CIRCUITO)}
     <a class="btn ghost full center" href="#/instrucciones">🪧 Ver todas las instrucciones (${INSTR.length}) con sus pruebas</a>` : "";
 
+// Portada del recuadro del vocabulario esencial: la foto del vestidor (o la primera palabra con foto).
+const portadaValetVocab = () => {
+  const f = fotoDe("Locker room") || VALET_VOC.map((w) => fotoDe(w.en)).find(Boolean);
+  return f ? `background-image:url('${f.src}')` : "background:linear-gradient(135deg,#2f8a7a,#5b3f78)";
+};
+
 function viewValet() {
   const H = PROGRAMAS.hidroterapia;
   return `${BRANDS}
@@ -659,8 +665,9 @@ function viewValet() {
     ${H.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('${H.portada}')">
       <span class="script-banner-text"><small>${esc(H.kicker)}</small><b>${esc(H.titulo)}</b><span>${H.stages.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
-    ${VALET_VOC.length ? `<h2 class="section-title">Vocabulario esencial · ${VALET_VOC.length} palabras</h2>
-    ${vocabFilas(VALET_VOC)}` : ""}
+    ${VALET_VOC.length ? `<a class="script-banner" href="#/vocab-valet" style="${portadaValetVocab()}">
+      <span class="script-banner-text"><small>Spa Valet · Inglés / Español</small><b>Vocabulario esencial</b><span>${VALET_VOC.length} palabras con foto y audio: servicio y artículos del spa</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
     ${bloqueCircuito()}
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
@@ -1452,7 +1459,8 @@ function viewVocabSeccion(cual) {
     <a class="back" href="#/vocabularios">← Vocabularios</a>
     <h2 class="section-title">${valet ? "🧺 Vocabulario esencial · Valet de spa" : "🛎️ Vocabulario del Spa Concierge"}</h2>
     ${valet
-      ? `<p class="muted">${VALET_VOC.length} palabras. Toca la foto para verla en grande y escucharla.</p>${vocabFilas(VALET_VOC)}`
+      ? `<p class="muted">${VALET_VOC.length} palabras. Toca la foto para verla en grande y escucharla.</p>${vocabFilas(VALET_VOC)}
+        <a class="btn ghost full center" href="#/valet">← Volver a Valet de spa</a>`
       : CONC_VOC.map((g) => `<h3 class="piel-sub">${esc(g.titleEs)} · ${g.words.length}</h3><p class="muted">🇺🇸 ${esc(g.title)}</p>${vocabFilas(g.words)}`).join("")}
     <a class="btn ghost full center" href="#/vocabularios">← Volver a Vocabularios</a>`;
 }
