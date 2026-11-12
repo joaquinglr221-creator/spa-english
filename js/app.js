@@ -255,8 +255,8 @@ const vidFondo = (n) =>
   `<video class="banner-video" src="videos/portadas/${n}.mp4" poster="videos/portadas/${n}.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>`;
 
 // ---------- Scripts de servicio por etapas ----------
-// Script de servicio AAA (js/service-script.js), hidroterapia (js/hydro-script.js) y valet de spa
-// (js/valet-script.js): mismas vistas, cada uno con su ruta, portada y textos.
+// Script de servicio AAA (js/service-script.js), hidroterapia (js/hydro-script.js), Spa Concierge y gym:
+// mismas vistas, cada uno con su ruta, portada y textos.
 const STAGES = typeof SERVICE_SCRIPT !== "undefined" ? SERVICE_SCRIPT : [];
 const VIDEOS = typeof SCRIPT_VIDEOS !== "undefined" ? SCRIPT_VIDEOS : {}; // js/videos.js (solo el script de servicio)
 let practiceScript = false;
@@ -274,13 +274,6 @@ const PROGRAMAS = {
     titulo: "Script de hidroterapia", kicker: "Circuito de hidroterapia · Secuencia del spa del hotel", standardsLabel: "⭐ Pautas y seguridad",
     desc: "El valet guía al huésped en el orden de servicio del spa: de la bienvenida y los casilleros al circuito completo y la entrega a la terapeuta.",
     flow: "Welcome → Locker room → Sauna → Spa Bar → Steam room → Cold plunge → Dynamic pool → Jacuzzi → Relaxation → Massage",
-    volver: "#/valet", volverTexto: "← Valet de spa",
-  },
-  "valet-script": {
-    stages: typeof VALET_SCRIPT !== "undefined" ? VALET_SCRIPT : [], icono: "amenidades", portada: "images/script/valet.jpg",
-    titulo: "Script del valet de spa", kicker: "Spa Valet · Estándares AAA", standardsLabel: "⭐ Estándares AAA",
-    desc: "El servicio del valet de spa: bienvenida, lockers, amenidades, áreas del spa y despedida.",
-    flow: "Welcome → Recognize → Anticipate → Assist → Explain → Personalize → Follow up → Farewell",
     volver: "#/valet", volverTexto: "← Valet de spa",
   },
   "gym-script": {
@@ -652,7 +645,7 @@ const bloqueCircuito = () => INSTR.length ? `<h2 class="section-title">Instrucci
     <a class="btn ghost full center" href="#/instrucciones">🪧 Ver todas las instrucciones (${INSTR.length}) con sus pruebas</a>` : "";
 
 function viewValet() {
-  const V = PROGRAMAS["valet-script"], H = PROGRAMAS.hidroterapia;
+  const H = PROGRAMAS.hidroterapia;
   return `${BRANDS}
     ${USO.badge()}
     <a class="back" href="#/">← Inicio</a>
@@ -663,9 +656,6 @@ function viewValet() {
         <p>Atención al huésped en vestidores, lockers, amenidades y áreas húmedas. Principio clave: <em>“Everything has been taken care of.”</em></p>
       </div>
     </section>
-    ${V.stages.length ? `<a class="script-banner" href="#/valet-script" style="background-image:url('${V.portada}')">
-      <span class="script-banner-text"><small>${esc(V.kicker)}</small><b>${esc(V.titulo)}</b><span>${V.stages.length} pasos con audio</span></span>
-      <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
     ${H.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('${H.portada}')">
       <span class="script-banner-text"><small>${esc(H.kicker)}</small><b>${esc(H.titulo)}</b><span>${H.stages.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
@@ -1566,8 +1556,8 @@ function view(catId) {
       <span class="script-banner-text"><small>BABOR · Natura Bissé · Español / English</small><b>Productos de belleza · Venta</b><span>${AMPS.length} ampolletas con script de venta y ${NB.products.length} productos Natura Bissé</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
-    ${PROGRAMAS["valet-script"].stages.length ? `<a class="script-banner con-video" href="#/valet">${vidFondo("valet")}
-      <span class="script-banner-text"><small>Spa Valet · Estándares AAA</small><b>Valet de spa</b><span>Script de ${PROGRAMAS["valet-script"].stages.length} pasos, vocabulario y material</span></span>
+    ${PROGRAMAS.hidroterapia.stages.length ? `<a class="script-banner con-video" href="#/valet">${vidFondo("valet")}
+      <span class="script-banner-text"><small>Spa Valet · Estándares AAA</small><b>Valet de spa</b><span>Script de hidroterapia de ${PROGRAMAS.hidroterapia.stages.length} pasos, vocabulario e instrucciones</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span>
     </a>` : ""}
     ${PROGRAMAS["concierge-script"].stages.length ? `<a class="script-banner con-video" href="#/concierge">${vidFondo("concierge")}
