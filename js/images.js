@@ -2947,5 +2947,205 @@ const IMAGES = {
  "electronic devices are not allowed": {
   "src": "images/canva/electronic-devices-are-not-allowed.jpg",
   "source": "canva"
+ },
+ "jewelry": {
+  "src": "images/canva/jewelry.jpg",
+  "source": "canva"
+ },
+ "costume jewelry": {
+  "src": "images/canva/costume-jewelry.jpg",
+  "source": "canva"
+ },
+ "gold jewelry": {
+  "src": "images/canva/gold-jewelry.jpg",
+  "source": "canva"
+ },
+ "silver jewelry": {
+  "src": "images/canva/silver-jewelry.jpg",
+  "source": "canva"
+ },
+ "handmade jewelry": {
+  "src": "images/canva/handmade-jewelry.jpg",
+  "source": "canva"
+ },
+ "necklace": {
+  "src": "images/canva/necklace.jpg",
+  "source": "canva"
+ },
+ "chain": {
+  "src": "images/canva/chain.jpg",
+  "source": "canva"
+ },
+ "gold chain": {
+  "src": "images/canva/gold-chain.jpg",
+  "source": "canva"
+ },
+ "silver chain": {
+  "src": "images/canva/silver-chain.jpg",
+  "source": "canva"
+ },
+ "pendant": {
+  "src": "images/canva/pendant.jpg",
+  "source": "canva"
+ },
+ "locket": {
+  "src": "images/canva/locket.jpg",
+  "source": "canva"
+ },
+ "choker": {
+  "src": "images/canva/choker.jpg",
+  "source": "canva"
+ },
+ "pearl necklace": {
+  "src": "images/canva/pearl-necklace.jpg",
+  "source": "canva"
+ },
+ "beaded necklace": {
+  "src": "images/canva/beaded-necklace.jpg",
+  "source": "canva"
+ },
+ "statement necklace": {
+  "src": "images/canva/statement-necklace.jpg",
+  "source": "canva"
+ },
+ "layered necklace": {
+  "src": "images/canva/layered-necklace.jpg",
+  "source": "canva"
+ },
+ "long necklace": {
+  "src": "images/canva/long-necklace.jpg",
+  "source": "canva"
+ },
+ "short necklace": {
+  "src": "images/canva/short-necklace.jpg",
+  "source": "canva"
+ },
+ "cross necklace": {
+  "src": "images/canva/cross-necklace.jpg",
+  "source": "canva"
+ },
+ "heart necklace": {
+  "src": "images/canva/heart-necklace.jpg",
+  "source": "canva"
+ },
+ "earrings": {
+  "src": "images/canva/earrings.jpg",
+  "source": "canva"
+ },
+ "stud earrings": {
+  "src": "images/canva/stud-earrings.jpg",
+  "source": "canva"
+ },
+ "hoop earrings": {
+  "src": "images/canva/hoop-earrings.jpg",
+  "source": "canva"
+ },
+ "drop earrings": {
+  "src": "images/canva/drop-earrings.jpg",
+  "source": "canva"
+ },
+ "dangle earrings": {
+  "src": "images/canva/dangle-earrings.jpg",
+  "source": "canva"
+ },
+ "diamond earrings": {
+  "src": "images/canva/diamond-earrings.jpg",
+  "source": "canva"
+ },
+ "pearl earrings": {
+  "src": "images/canva/pearl-earrings.jpg",
+  "source": "canva"
+ },
+ "ear cuff": {
+  "src": "images/canva/ear-cuff.jpg",
+  "source": "canva"
+ },
+ "ear climbers": {
+  "src": "images/canva/ear-climbers.jpg",
+  "source": "canva"
+ },
+ "ear studs": {
+  "src": "images/canva/ear-studs.jpg",
+  "source": "canva"
+ },
+ "clip-on earrings": {
+  "src": "images/canva/clip-on-earrings.jpg",
+  "source": "canva"
+ },
+ "ear piercing": {
+  "src": "images/canva/ear-piercing.jpg",
+  "source": "canva"
+ },
+ "engagement ring": {
+  "src": "images/canva/engagement-ring.jpg",
+  "source": "canva"
+ },
+ "wedding band": {
+  "src": "images/canva/wedding-band.jpg",
+  "source": "canva"
+ },
+ "signet ring": {
+  "src": "images/canva/signet-ring.jpg",
+  "source": "canva"
+ },
+ "diamond ring": {
+  "src": "images/canva/diamond-ring.jpg",
+  "source": "canva"
+ },
+ "tennis bracelet": {
+  "src": "images/canva/tennis-bracelet.jpg",
+  "source": "canva"
+ },
+ "cuff bracelet": {
+  "src": "images/canva/cuff-bracelet.jpg",
+  "source": "canva"
+ },
+ "charm bracelet": {
+  "src": "images/canva/charm-bracelet.jpg",
+  "source": "canva"
+ },
+ "beaded bracelet": {
+  "src": "images/canva/beaded-bracelet.jpg",
+  "source": "canva"
+ },
+ "anklet": {
+  "src": "images/canva/anklet.jpg",
+  "source": "canva"
+ },
+ "watch": {
+  "src": "images/canva/watch.jpg",
+  "source": "canva"
+ },
+ "handbag": {
+  "src": "images/canva/handbag.jpg",
+  "source": "canva"
+ },
+ "coin purse": {
+  "src": "images/canva/coin-purse.jpg",
+  "source": "canva"
+ },
+ "cardholder": {
+  "src": "images/canva/cardholder.jpg",
+  "source": "canva"
+ },
+ "money clip": {
+  "src": "images/canva/money-clip.jpg",
+  "source": "canva"
+ },
+ "keychain": {
+  "src": "images/canva/keychain.jpg",
+  "source": "canva"
+ },
+ "lanyard": {
+  "src": "images/canva/lanyard.jpg",
+  "source": "canva"
+ },
+ "ID badge holder": {
+  "src": "images/canva/id-badge-holder.jpg",
+  "source": "canva"
+ },
+ "charm": {
+  "src": "images/canva/charm.jpg",
+  "source": "canva"
  }
 };
