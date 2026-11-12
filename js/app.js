@@ -321,7 +321,7 @@ function viewScriptMenu(programa = "script") {
     <div class="grid menu">${S.map(
       (st, n) => `<a class="tile colored" style="--c:${colorPorIndice(n)}" href="#/${programa}/${st.id}">${stageIcon(st, "", programa)}<small class="step-num">Paso ${n + 1}</small><span class="tile-title">${esc(st.titleEs)}</span><small class="muted">${esc(st.title)}</small></a>`
     ).join("")}</div>
-    ${programa === "hidroterapia" ? bloqueCircuito() : ""}
+    ${programa === "hidroterapia" ? recuadroCircuito() : ""}
     <a class="btn ghost full center" href="${P.volver || "#/"}">${P.volverTexto || "← Volver al inicio"}</a>`;
 }
 
@@ -636,13 +636,28 @@ const vocabFilas = (words) => `<section class="card valet-vocab">${words.map(
   }</div><div class="row">${speakButtons(w.en)}</div></div>`
 ).join("")}</section>`;
 
-// Instrucciones del circuito de hidroterapia (js/instrucciones.js, del Valet Spa Script 2024): también se ven,
-// con sus fotos, en Valet de spa y en el Script de hidroterapia.
+// Instrucciones del circuito de hidroterapia (js/instrucciones.js, del Valet Spa Script 2024): su propia página
+// (#/instrucciones-circuito), con un recuadro en Valet de spa y en el Script de hidroterapia.
 const INSTR = typeof INSTRUCCIONES_VOCAB !== "undefined" ? INSTRUCCIONES_VOCAB : [];
 const INSTR_CIRCUITO = INSTR.slice(Math.max(0, INSTR.findIndex((w) => w.en === "wear a bathing suit")));
-const bloqueCircuito = () => INSTR.length ? `<h2 class="section-title">Instrucciones del circuito de hidroterapia · ${INSTR_CIRCUITO.length}</h2>
+const portadaCircuito = () => {
+  const f = INSTR_CIRCUITO.map((w) => fotoDe(w.en)).find(Boolean);
+  return f ? `background-image:url('${f.src}')` : "background:linear-gradient(135deg,#2f6b8a,#2f8a7a)";
+};
+const recuadroCircuito = () => INSTR_CIRCUITO.length ? `<a class="script-banner" href="#/instrucciones-circuito" style="${portadaCircuito()}">
+      <span class="script-banner-text"><small>Circuito de hidroterapia · Inglés / Español</small><b>Instrucciones del circuito</b><span>${INSTR_CIRCUITO.length} instrucciones con foto y audio</span></span>
+      <span class="script-banner-go" aria-hidden="true">→</span></a>` : "";
+
+function viewInstrCircuito() {
+  return `${BRANDS}
+    ${USO.badge()}
+    <a class="back" href="#/valet">← Valet de spa</a>
+    <h2 class="section-title">🪧 Instrucciones del circuito de hidroterapia</h2>
+    <p class="muted">${INSTR_CIRCUITO.length} instrucciones en el orden del circuito. Toca la foto para verla en grande y escucharla.</p>
     ${vocabFilas(INSTR_CIRCUITO)}
-    <a class="btn ghost full center" href="#/instrucciones">🪧 Ver todas las instrucciones (${INSTR.length}) con sus pruebas</a>` : "";
+    <a class="btn full center" href="#/instrucciones">🪧 Ver todas las instrucciones (${INSTR.length}) con sus pruebas</a>
+    <a class="btn ghost full center" href="#/valet">← Volver a Valet de spa</a>`;
+}
 
 // Portada del recuadro del vocabulario esencial: la foto del vestidor (o la primera palabra con foto).
 const portadaValetVocab = () => {
@@ -662,13 +677,15 @@ function viewValet() {
         <p>Atención al huésped en vestidores, lockers, amenidades y áreas húmedas. Principio clave: <em>“Everything has been taken care of.”</em></p>
       </div>
     </section>
+    <div class="inicio-grid">
     ${H.stages.length ? `<a class="script-banner" href="#/hidroterapia" style="background-image:url('${H.portada}')">
       <span class="script-banner-text"><small>${esc(H.kicker)}</small><b>${esc(H.titulo)}</b><span>${H.stages.length} pasos con audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
     ${VALET_VOC.length ? `<a class="script-banner" href="#/vocab-valet" style="${portadaValetVocab()}">
-      <span class="script-banner-text"><small>Spa Valet · Inglés / Español</small><b>Vocabulario esencial</b><span>${VALET_VOC.length} palabras con foto y audio: servicio y artículos del spa</span></span>
+      <span class="script-banner-text"><small>Spa Valet · Inglés / Español</small><b>Vocabulario esencial</b><span>${VALET_VOC.length} palabras con foto y audio</span></span>
       <span class="script-banner-go" aria-hidden="true">→</span></a>` : ""}
-    ${bloqueCircuito()}
+    ${recuadroCircuito()}
+    </div>
     <a class="btn ghost full center" href="#/">← Volver al inicio</a>`;
 }
 
@@ -1501,6 +1518,7 @@ function view(catId) {
   if (ruta0 === "practica") return viewPrueba(clave0, catId.split("/")[2]);
   if (PROGRAMAS[ruta0] && PROGRAMAS[ruta0].stages.length) return viewScript(clave0, ruta0);
   if (catId === "valet") return viewValet();
+  if (catId === "instrucciones-circuito" && INSTR_CIRCUITO.length) return viewInstrCircuito();
   if (catId === "concierge") return viewConcierge();
   if (catId === "posturas-masaje" && POST.length) return viewPosturas();
   if (RECEP && ruta0 === "recepcion-spa") return catId.split("/")[2] ? viewRecepGuion(clave0, catId.split("/")[2]) : viewRecepcion(clave0);
