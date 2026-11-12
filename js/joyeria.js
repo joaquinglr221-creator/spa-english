@@ -1,6 +1,6 @@
 // Joyería y accesorios: vocabulario del PDF "English Vocabulary · Jewelry & Fashion Accessories" (en, pronunciación
 // aproximada y español) con una frase de ejemplo en el spa; solo los 50 términos que tienen imagen de Canva. Es una categoría
-// del vocabulario (con sus pruebas) y el PDF original es su material ("joyeria").
+// del vocabulario (con sus pruebas).
 
 const JOYERIA_VOCAB = [
   // 1. Jewelry – Joyería en general
@@ -65,4 +65,4 @@ const JOYERIA_VOCAB = [
   { en: "charm", es: "dije", pron: "chárm", ex: "Your bracelet has a little shell charm.", exEs: "Su pulsera tiene un pequeño dije de concha." },
 ];
 
-VOCAB.push({ id: "joyeria", title: "Joyería y accesorios", icon: "💍", words: JOYERIA_VOCAB, material: ["joyeria"] });
+VOCAB.push({ id: "joyeria", title: "Joyería y accesorios", icon: "💍", words: JOYERIA_VOCAB });

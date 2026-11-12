@@ -409,7 +409,6 @@ const MATERIAL = {
   "gym-workouts": { title: "Work Outs", subtitle: "Ejercicios, equipo, verbos y calentamiento", pages: 20, volver: "#/gym", volverTexto: "← Gym del spa" },
   "gym-equipment": { title: "Gym Equipment", subtitle: "Equipo del gimnasio", pages: 18, volver: "#/gym", volverTexto: "← Gym del spa" },
   "gym-verbs": { title: "Gym Verbs", subtitle: "Verbos del entrenamiento", pages: 8, volver: "#/gym", volverTexto: "← Gym del spa" },
-  "joyeria": { title: "Jewelry & Fashion Accessories", subtitle: "Vocabulario de joyería y accesorios (inglés, pronunciación y español)", pages: 12, volver: "#/joyeria", volverTexto: "← Joyería y accesorios" },
   "avisos-hidroterapia": { title: "Avisos de seguridad · Hidroterapia", subtitle: "Avisos bilingües de la rejilla de succión", pages: 5, volver: "#/instrucciones", volverTexto: "← Instrucciones" },
 };
 // Listas de precios y menús originales de la recepción: traen los logotipos del hotel, así que sus páginas
