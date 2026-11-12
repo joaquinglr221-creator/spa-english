@@ -2796,8 +2796,8 @@ const IMAGES = {
   "src": "images/canva/this-way-please.jpg",
   "source": "canva"
  },
- "follow me, please": {
-  "src": "images/canva/follow-me-please.jpg",
+ "please allow me to escort you": {
+  "src": "images/canva/please-allow-me-to-escort-you.jpg",
   "source": "canva"
  },
  "on your left": {

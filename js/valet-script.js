@@ -150,14 +150,14 @@ const VALET_SCRIPT = [
     id: "hotel", icon: "🏨", title: "Hotel Services and Directions", titleEs: "Servicios del hotel e indicaciones",
     standards: [
       "Conocer los servicios del hotel: restaurantes, bar, room service, concierge, alberca, gimnasio, club infantil y transporte.",
-      "Dar indicaciones claras o acompañar al huésped: \"Please follow me\".",
+      "Dar indicaciones claras o acompañar al huésped: \"Please allow me to escort you\".",
     ],
     lines: [
       { who: "guest", en: "Where can I have lunch after my treatment?", es: "¿Dónde puedo comer después de mi tratamiento?" },
       { who: "valet", en: "Our Concierge team can assist you with restaurant reservations.", es: "Nuestro equipo de concierge le puede ayudar con reservaciones en restaurantes." },
       { who: "valet", en: "The Fitness Center is located next to the Spa.", es: "El gimnasio está junto al spa." },
       { who: "valet", en: "The locker room is to your left, and the sauna is on your right.", es: "Los vestidores están a su izquierda y la sauna a su derecha." },
-      { who: "valet", en: "It is across from the relaxation lounge. Please follow me.", es: "Está frente a la sala de relajación. Por favor, sígame." },
+      { who: "valet", en: "It is across from the relaxation lounge. Please allow me to escort you.", es: "Está frente a la sala de relajación. Por favor, permítame acompañarle." },
     ],
   },
   {

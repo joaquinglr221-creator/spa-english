@@ -249,7 +249,7 @@ const HYDRO_SCRIPT = [
     ],
     lines: [
       { who: "valet", en: "This way, please.", es: "Por aquí, por favor." },
-      { who: "valet", en: "Please follow me.", es: "Por favor, sígame." },
+      { who: "valet", en: "Please allow me to escort you.", es: "Por favor, permítame acompañarle." },
       { who: "valet", en: "Please watch your step. The floor is slippery.", es: "Por favor, tenga cuidado al pisar. El piso está resbaloso." },
       { who: "valet", en: "Take your time.", es: "Tómese su tiempo." },
       { who: "valet", en: "How do you feel?", es: "¿Cómo se siente?" },

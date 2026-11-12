@@ -31,7 +31,7 @@ const INSTRUCCIONES_VOCAB = [
 
   // Para guiar al huésped en el spa
   { en: "this way, please", es: "por aquí, por favor", pron: "dis uéi pliis", ex: "This way, please. The relaxation lounge is ahead.", exEs: "Por aquí, por favor. La sala de relajación está adelante." },
-  { en: "follow me, please", es: "sígame, por favor", pron: "fá-lou mi pliis", ex: "Follow me, please. I will show you the locker room.", exEs: "Sígame, por favor. Le mostraré el vestidor." },
+  { en: "please allow me to escort you", es: "por favor, permítame acompañarle", pron: "pliis a-láu mi tu es-kórt iu", ex: "Please allow me to escort you to the locker room.", exEs: "Por favor, permítame acompañarle al vestidor." },
   { en: "on your left", es: "a su izquierda", pron: "on yur left", ex: "The steam room is on your left.", exEs: "El cuarto de vapor está a su izquierda." },
   { en: "on your right", es: "a su derecha", pron: "on yur ráit", ex: "The showers are on your right.", exEs: "Las regaderas están a su derecha." },
   { en: "at the end of the hallway", es: "al final del pasillo", pron: "at de end ov de jól-uei", ex: "The restrooms are at the end of the hallway.", exEs: "Los baños están al final del pasillo." },
