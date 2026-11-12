@@ -172,20 +172,20 @@ function wordList(words) {
       ${PHOTOS[w.en] ? `<img class="thumb" src="${esc(PHOTOS[w.en].src)}" alt="${esc(w.en)}" loading="lazy" data-zoom="${esc(w.en)}">` : ""}
       <div class="word-text">
         <p class="en">${esc(w.en)}</p>
-        <p class="pron">/${esc(w.pron)}/</p>
+        ${w.pron ? `<p class="pron">/${esc(w.pron)}/</p>` : ""}
         <p class="es">${esc(w.es)}</p>
       </div>
       <div class="word-actions">
         ${speakButtons(w.en)}
         <button class="icon-btn known-btn" data-known="${esc(w.en)}" aria-label="Marcar como aprendida">${known.has(w.en) ? "✅" : "⬜"}</button>
       </div>
-      <div class="example">
+      ${w.ex ? `<div class="example">
         <div>
           <p class="en">${highlight(w.ex, w.hl || w.en)}</p>
           <p class="es">${highlight(w.exEs, w.hlEs || w.es)}</p>
         </div>
         <div class="row">${speakButtons(w.ex)}</div>
-      </div>
+      </div>` : ""}
       ${w.sheet ? `<button class="btn small ghost sheet-btn" data-sheet="${esc(w.sheet)}" data-title="${esc(w.en)}">📄 Ver ficha técnica</button>` : ""}
     </article>`
     )
@@ -209,7 +209,7 @@ const MENU_GROUPS = [
   { title: "Spa y cabina", ids: ["cuerpo", "tratamientos", "masajes", "tecnicas", "verbos", "posiciones", "posturas", "productos", "aromas", "instalaciones", "amenidades", "cabina", "bienestar"] },
   { title: "Salud y seguridad", ids: ["instrucciones", "salud", "encuesta", "malestares", "piel"] },
   { title: "Salón y barbería", ids: ["barberia", "peinados", "coloracion"] },
-  { title: "Recepción y hotel", ids: ["recepcion", "hotel"] },
+  { title: "Recepción y hotel", ids: ["recepcion", "hotel", "joyeria"] },
 ];
 
 // Orden en que se ven las categorías en el menú (por secciones): de ahí sale su color.
@@ -409,6 +409,7 @@ const MATERIAL = {
   "gym-workouts": { title: "Work Outs", subtitle: "Ejercicios, equipo, verbos y calentamiento", pages: 20, volver: "#/gym", volverTexto: "← Gym del spa" },
   "gym-equipment": { title: "Gym Equipment", subtitle: "Equipo del gimnasio", pages: 18, volver: "#/gym", volverTexto: "← Gym del spa" },
   "gym-verbs": { title: "Gym Verbs", subtitle: "Verbos del entrenamiento", pages: 8, volver: "#/gym", volverTexto: "← Gym del spa" },
+  "joyeria": { title: "Jewelry & Fashion Accessories", subtitle: "Vocabulario de joyería y accesorios (inglés, pronunciación y español)", pages: 12, volver: "#/joyeria", volverTexto: "← Joyería y accesorios" },
   "avisos-hidroterapia": { title: "Avisos de seguridad · Hidroterapia", subtitle: "Avisos bilingües de la rejilla de succión", pages: 5, volver: "#/instrucciones", volverTexto: "← Instrucciones" },
 };
 // Listas de precios y menús originales de la recepción: traen los logotipos del hotel, así que sus páginas
