@@ -93,6 +93,36 @@ const SERVICE_SCRIPT = [
     ],
   },
   {
+    // Spa Script to Oils 2026: los upgrades del masaje (oil bars y ampolleta BABOR), con el inglés corregido.
+    id: "upgrades", icon: "💧", title: "Offering Upgrades", titleEs: "Ofrecer upgrades",
+    standards: [
+      "Ofrecer los upgrades después de la consulta y la personalización, recomendando con base en lo que el huésped contó.",
+      "Explicar cada opción con su ingrediente y su beneficio (\"It contains… / It helps to…\"); si el huésped ya eligió, no recitar todas.",
+      "Organic Oil Bar de Natura Bissé: $20 USD por persona. Bloomish Oil Bar: $23 USD por persona. Ampolleta BABOR: $20 USD por persona y agrega 5 minutos al servicio.",
+      "Decir siempre el precio por persona y cómo se paga: cargo a la habitación o con tarjeta al final del masaje.",
+      "Ofrecer sin presionar: \"Would you like to enhance your experience?\"",
+    ],
+    lines: [
+      { who: "therapist", en: "To enhance your spa experience, we offer some special upgrades for your massage.", es: "Para mejorar su experiencia en el spa, le ofrecemos algunos upgrades especiales para su masaje." },
+      { who: "therapist", en: "Our Organic Oil Bar by Natura Bissé has four oils. Detox contains seaweed and chia, and it helps to detoxify.", es: "Nuestro Organic Oil Bar de Natura Bissé tiene cuatro aceites. Detox contiene algas marinas y chía, y ayuda a desintoxicar." },
+      { who: "therapist", en: "Energizing contains a citrus blend, and it helps to revitalize.", es: "Energizing contiene una mezcla cítrica y ayuda a revitalizar." },
+      { who: "therapist", en: "De-Stress contains lavender and grape seed, and it helps you relax.", es: "De-Stress contiene lavanda y semilla de uva, y le ayuda a relajarse." },
+      { who: "therapist", en: "Fitness contains eucalyptus and mint, and it helps you breathe better.", es: "Fitness contiene eucalipto y menta, y le ayuda a respirar mejor." },
+      { who: "therapist", en: "This upgrade has an additional cost of twenty dollars per person.", es: "Este upgrade tiene un costo adicional de veinte dólares por persona." },
+      { who: "guest", en: "What other options do you have?", es: "¿Qué otras opciones tienen?" },
+      { who: "therapist", en: "We also have the Bloomish Oil Bar. Recovery Relief contains eucalyptus and vitamin E, and it helps with concentration.", es: "También tenemos el Bloomish Oil Bar. Recovery Relief contiene eucalipto y vitamina E, y ayuda a la concentración." },
+      { who: "therapist", en: "Energetic Breeze contains grapefruit extract and vitamin E, and it helps to energize.", es: "Energetic Breeze contiene extracto de toronja y vitamina E, y ayuda a dar energía." },
+      { who: "therapist", en: "Serenity Bliss contains lavender extract and vitamin E, and it helps to reduce stress. Mango is very hydrating.", es: "Serenity Bliss contiene extracto de lavanda y vitamina E, y ayuda a reducir el estrés. Mango es muy hidratante." },
+      { who: "therapist", en: "The Bloomish oils have an additional cost of twenty-three dollars per person.", es: "Los aceites Bloomish tienen un costo adicional de veintitrés dólares por persona." },
+      { who: "therapist", en: "You can also add a BABOR ampoule for your face. Collagen stimulates collagen and elastin, and Lift Express provides a lifting effect.", es: "También puede agregar una ampolleta BABOR para su rostro. Collagen estimula el colágeno y la elastina, y Lift Express da un efecto lifting." },
+      { who: "therapist", en: "Multivitamin nourishes the skin, Perfect Glow adds luminosity, and Algae Vitalizer detoxifies the skin.", es: "Multivitamin nutre la piel, Perfect Glow da luminosidad y Algae Vitalizer desintoxica la piel." },
+      { who: "therapist", en: "I will gently cleanse your face, apply the serum, and help it absorb with light facial movements. It adds five minutes to your service, for an additional twenty dollars per person.", es: "Limpiaré suavemente su rostro, aplicaré el sérum y le ayudaré a absorberlo con movimientos faciales suaves. Agrega cinco minutos a su servicio, por veinte dólares adicionales por persona." },
+      { who: "therapist", en: "Would you like to enhance your experience?", es: "¿Le gustaría mejorar su experiencia?" },
+      { who: "guest", en: "Yes, I'd like the De-Stress oil and the Perfect Glow ampoule, please.", es: "Sí, me gustaría el aceite De-Stress y la ampolleta Perfect Glow, por favor." },
+      { who: "therapist", en: "Excellent choice, Mrs. Smith. The charge can be applied to your room, or you may pay by card at the end of your massage.", es: "Excelente elección, señora Smith. El cargo se puede aplicar a su habitación, o puede pagar con tarjeta al final de su masaje." },
+    ],
+  },
+  {
     id: "prepare", icon: "🛏️", title: "Preparing the Guest", titleEs: "Preparación y privacidad",
     standards: [
       "Dar instrucciones claras y amables, siempre con \"please\".",
